@@ -228,3 +228,4 @@ limitations under the License.
 [Chef]: https://www.chef.io/
 [ElasticSearch]: https://www.elastic.co/products/elasticsearch
 [Contributors]: https://github.com/vkhatri/chef-elasticsearch-cluster/graphs/contributors
+[Chef Supermarket]: https://supermarket.chef.io/cookbooks/elasticsearch-cluster

@@ -3,6 +3,10 @@ elasticsearch-cluster CHANGELOG
 
 This file is used to list changes made in each version of the elasticsearch-cluster cookbook.
 
+0.1.1
+-----
+- Virender Khatri - README and minor updates
+
 0.1.0
 -----
 - Virender Khatri - Initial release of elasticsearch-cluster
