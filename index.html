@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Chef ElasticSearch Cluster by vkhatri</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Chef ElasticSearch Cluster</h1>
+        <p>Chef Cookbook to Manage ElasticSearch Cluster</p>
+
+        <p class="view"><a href="https://github.com/vkhatri/chef-elasticsearch-cluster">View the Project on GitHub <small>vkhatri/chef-elasticsearch-cluster</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/vkhatri/chef-elasticsearch-cluster/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/vkhatri/chef-elasticsearch-cluster/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/vkhatri/chef-elasticsearch-cluster">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="elasticsearch-cluster-cookbook" class="anchor" href="#elasticsearch-cluster-cookbook" aria-hidden="true"><span class="octicon octicon-link"></span></a>elasticsearch-cluster Cookbook</h1>
+
+<p><a href="https://travis-ci.org/vkhatri/chef-elasticsearch-cluster"><img src="https://travis-ci.org/vkhatri/chef-elasticsearch-cluster.svg?branch=master" alt="Build Status"></a></p>
+
+<p>This is a <a href="https://www.chef.io/">Chef</a> cookbook to manage <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> Cluster.</p>
+
+<p>More features and attributes will be added over time, <strong>feel free to contribute</strong>
+what you find missing!</p>
+
+<blockquote>
+<blockquote>
+<p>For Production environment, always refer to <a href="https://supermarket.chef.io/cookbooks/elasticsearch-cluster">Chef Supermarket</a>.</p>
+</blockquote>
+</blockquote>
+
+<h2>
+<a id="repository" class="anchor" href="#repository" aria-hidden="true"><span class="octicon octicon-link"></span></a>Repository</h2>
+
+<p><a href="https://github.com/vkhatri/chef-elasticsearch-cluster">https://github.com/vkhatri/chef-elasticsearch-cluster</a></p>
+
+<h2>
+<a id="supported-os" class="anchor" href="#supported-os" aria-hidden="true"><span class="octicon octicon-link"></span></a>Supported OS</h2>
+
+<p>This cookbook was tested on Amazon (2015-03) &amp; Ubuntu (14.04) Linux and expected to work on similar platform families OS.</p>
+
+<h2>
+<a id="supported-elasticsearch-version" class="anchor" href="#supported-elasticsearch-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>Supported ElasticSearch Version</h2>
+
+<p>This cookbook was tested for ElasticSearch v1.6.0.</p>
+
+<h2>
+<a id="supported-elasticsearch-deployment" class="anchor" href="#supported-elasticsearch-deployment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Supported ElasticSearch Deployment</h2>
+
+<p>This cookbook supports both Package and Tarball based installation.</p>
+
+<h1>
+<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span class="octicon octicon-link"></span></a>TODO</h1>
+
+<ul>
+<li>add LWRP to manage plugins</li>
+<li>add LWRP to manage indexes</li>
+</ul>
+
+<h2>
+<a id="recipes" class="anchor" href="#recipes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Recipes</h2>
+
+<ul>
+<li><p><code>elasticsearch-cluster::default</code> - default recipe (use it for run_list)</p></li>
+<li><p><code>elasticsearch-cluster::install</code> - install elasticsearch via package or tarball</p></li>
+<li><p><code>elasticsearch-cluster::java</code> - install java using <code>java</code> cookbook</p></li>
+<li><p><code>elasticsearch-cluster::package</code> - install elasticsearch using repository package</p></li>
+<li><p><code>elasticsearch-cluster::tarball</code> - install elasticsearch using tarball</p></li>
+<li><p><code>elasticsearch-cluster::user</code> - setup user/group for elasticsearch service</p></li>
+<li><p><code>elasticsearch-cluster::config</code> - configure elasticsearch</p></li>
+</ul>
+
+<h2>
+<a id="cookbook-advanced-attributes" class="anchor" href="#cookbook-advanced-attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cookbook Advanced Attributes</h2>
+
+<ul>
+<li><p><code>default['elasticsearch']['config']['cluster.name']</code> (default: <code>nil</code>): elasticsearch cluster name, required to setup elasticsearch cluster</p></li>
+<li><p><code>default['elasticsearch']['install_method']</code> (default: <code>package</code>): elasticsearch install method, options: package tarball</p></li>
+<li><p><code>default['elasticsearch']['install_java']</code> (default: <code>true</code>): whether to install java using cookbook <code>java</code></p></li>
+<li><p><code>default['elasticsearch']['service_action']</code> (default: <code>[:enable, :start]</code>): elasticsearch service resource action</p></li>
+<li><p><code>default['elasticsearch']['notify_restart']</code> (default: <code>false</code>): whether to notify elasticsearch service on any config change</p></li>
+<li><p><code>default['elasticsearch']['setup_user']</code> (default: <code>true</code>): whether to setup elasticsearch service user when installing via tarball</p></li>
+<li><p><code>default['elasticsearch']['auto_java_memory']</code> (default: <code>true</code>): whether to calcuate maximum possible heap size</p></li>
+<li><p><code>default['elasticsearch']['auto_system_memory']</code> (default: <code>768</code>): minimum memory to keep for OS while allocating maximum possible memory to elasticsearch, used with node['elasticsearch']['auto_java_memory']</p></li>
+<li><p><code>default['elasticsearch']['use_chef_search']</code> (default: <code>false</code>): whether to use Chef Search to find elasticsearch cluster nodes in an environment
+for a given chef elasticsearch role</p></li>
+<li><p><code>default['elasticsearch']['search_role_name']</code> (default: <code>elasticsearch_cluster</code>): chef role associated with elasticsearch nodes which add this cookbook
+to elasticsearch nodes run list</p></li>
+<li><p><code>default['elasticsearch']['search_cluster_name_attr']</code> (default: <code>nil</code>): node attribute to match elasticsearch cluster name, not necessary applicable to all</p></li>
+</ul>
+
+<h2>
+<a id="cookbook-core-attributes" class="anchor" href="#cookbook-core-attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cookbook Core Attributes</h2>
+
+<ul>
+<li><p><code>default['elasticsearch']['version']</code> (default: <code>1.6.0</code>): elasticsearch version to install</p></li>
+<li><p><code>default['elasticsearch']['version_suffix']</code> (default: <code>calculated</code>): elasticsearch package version suffix</p></li>
+<li><p><code>default['elasticsearch']['user']</code> (default: <code>elasticsearch</code>): elasticsearch service user</p></li>
+<li><p><code>default['elasticsearch']['group']</code> (default: <code>elasticsearch</code>): elasticsearch service group</p></li>
+<li><p><code>default['elasticsearch']['conf_dir']</code> (default: <code>/etc/elasticsearch</code>): elasticsearch configuration directory</p></li>
+<li><p><code>default['elasticsearch']['data_dir']</code> (default: <code>/var/lib/elasticsearch</code>): elasticsearch data directory</p></li>
+<li><p><code>default['elasticsearch']['log_dir']</code> (default: <code>/var/log/elasticsearch</code>): elasticsearch log directory</p></li>
+<li><p><code>default['elasticsearch']['work_dir']</code> (default: <code>/tmp/elasticsearch</code>): elasticsearch temporary files directory</p></li>
+<li><p><code>default['elasticsearch']['plugins_dir']</code> (default: <code>calcualted</code>): elasticsearch plugins directory</p></li>
+<li><p><code>default['elasticsearch']['conf_file']</code> (default: <code>/etc/elasticsearch/elasticsearch.yml</code>): elasticsearch configuration file</p></li>
+<li><p><code>default['elasticsearch']['tarball_url']</code> (default: <code>calculated</code>): elasticsearch tarball source url</p></li>
+<li><p><code>default['elasticsearch']['tarball_checksum']</code> (default: <code>versions</code>): elasticsearch tarball version source sha256sum</p></li>
+<li><p><code>default['elasticsearch']['parent_dir']</code> (default: <code>/usr/local/elasticsearch</code>): elasticsearch directory for tarball based installation</p></li>
+<li><p><code>default['elasticsearch']['install_dir']</code> (default: <code>/usr/local/elasticsearch/elasticsearch</code>): elasticsearch symlink to current version source directory (for tarball based installation)</p></li>
+<li><p><code>default['elasticsearch']['source_dir']</code> (default: <code>/usr/local/elasticsearch</code>): elasticsearch current version directory (for tarball based installation)</p></li>
+<li><p><code>default['elasticsearch']['home_dir']</code> (default: <code>calculated</code>): elasticsearch home directory</p></li>
+<li><p><code>default['elasticsearch']['sysconfig_file']</code> (default: <code>calculated</code>): elasticsearch service config file location</p></li>
+<li><p><code>default['elasticsearch']['umask']</code> (default: <code>0022</code>): file/directory umask for execute resource (for tarball based installation)</p></li>
+<li><p><code>default['elasticsearch']['mode']</code> (default: <code>0755</code>): file/directory resource mode</p></li>
+</ul>
+
+<h1>
+<a id="service-attributes" class="anchor" href="#service-attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Service Attributes</h1>
+
+<ul>
+<li><p><code>default['elasticsearch']['sysconfig']['ES_HEAP_NEWSIZE']</code> (default: <code>nil</code>): elasticsearch service config file parameter</p></li>
+<li><p><code>default['elasticsearch']['sysconfig']['ES_DIRECT_SIZE']</code> (default: <code>nil</code>): elasticsearch service config file parameter</p></li>
+<li><p><code>default['elasticsearch']['sysconfig']['ES_JAVA_OPTS']</code> (default: <code>nil</code>): elasticsearch service config file parameter</p></li>
+<li><p><code>default['elasticsearch']['sysconfig']['MAX_OPEN_FILES']</code> (default: <code>65_535</code>): elasticsearch service config file parameter</p></li>
+<li><p><code>default['elasticsearch']['sysconfig']['MAX_LOCKED_MEMORY']</code> (default: <code>unlimited</code>): elasticsearch service config file parameter</p></li>
+<li><p><code>default['elasticsearch']['sysconfig']['MAX_MAP_COUNT']</code> (default: <code>262_144</code>): elasticsearch service config file parameter</p></li>
+<li><p><code>default['elasticsearch']['sysconfig']['ES_RESTART_ON_UPGRADE']</code> (default: <code>true</code>): elasticsearch service config file parameter</p></li>
+<li><p><code>default['elasticsearch']['sysconfig']['ES_HEAP_SIZE']</code> (default: <code>calculated</code>): elasticsearch service config file parameter</p></li>
+</ul>
+
+<h1>
+<a id="elasticsearch-configuration-file-attributes" class="anchor" href="#elasticsearch-configuration-file-attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>ElasticSearch Configuration File Attributes</h1>
+
+<ul>
+<li><p><code>default['elasticsearch']['config']['cluster.name']</code> (default: <code>nil</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['node.name']</code> (default: <code>node.name</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['node.master']</code> (default: <code>true</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['node.data']</code> (default: <code>true</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['node.max_local_storage_nodes']</code> (default: <code>1</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['index.number_of_shards']</code> (default: <code>5</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['index.number_of_replicas']</code> (default: <code>1</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['path.conf']</code> (default: <code>node['elasticsearch']['conf_dir']</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['path.data']</code> (default: <code>node['elasticsearch']['data_dir']</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['path.work']</code> (default: <code>node['elasticsearch']['work_dir']</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['path.logs']</code> (default: <code>node['elasticsearch']['log_dir']</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['path.plugins']</code> (default: <code>node['elasticsearch']['plugins_dir']</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['bootstrap.mlockall']</code> (default: <code>true</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['network.bind_host']</code> (default: <code>node['ipaddress']</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['network.publish_host']</code> (default: <code>node['ipaddress']</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['transport.tcp.port']</code> (default: <code>9300</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['transport.tcp.compress']</code> (default: <code>true</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['http.port']</code> (default: <code>9200</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['discovery.zen.minimum_master_nodes']</code> (default: <code>1</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['discovery.zen.ping.timeout']</code> (default: <code>3s</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['discovery.zen.ping.multicast.enabled']</code> (default: <code>false</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['discovery.zen.ping.unicast.hosts']</code> (default: <code>[]</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['action.auto_create_index']</code> (default: <code>true</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['action.disable_delete_all_indices']</code> (default: <code>true</code>): elasticsearch configuration parameter</p></li>
+<li><p><code>default['elasticsearch']['config']['script.disable_dynamic']</code> (default: <code>true</code>): elasticsearch configuration parameter</p></li>
+</ul>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<ol>
+<li>Fork the repository on Github</li>
+<li>Create a named feature branch (like <code>add_component_x</code>)</li>
+<li>Write your change</li>
+<li>Write tests for your change (if applicable)</li>
+<li>Run the tests (<code>rake &amp; rake knife</code>), ensuring they all pass</li>
+<li>Write new resource/attribute description to <code>README.md</code>
+</li>
+<li>Write description about changes to PR</li>
+<li>Submit a Pull Request using Github</li>
+</ol>
+
+<h2>
+<a id="copyright--license" class="anchor" href="#copyright--license" aria-hidden="true"><span class="octicon octicon-link"></span></a>Copyright &amp; License</h2>
+
+<p>Authors:: Virender Khatri and <a href="https://github.com/vkhatri/chef-elasticsearch-cluster/graphs/contributors">Contributors</a></p>
+
+<pre>
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</pre>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/vkhatri">vkhatri</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
