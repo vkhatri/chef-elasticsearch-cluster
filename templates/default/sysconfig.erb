@@ -38,7 +38,7 @@ ES_HEAP_NEWSIZE=<%= node['elasticsearch']['sysconfig']['ES_HEAP_NEWSIZE'] %>
 ES_DIRECT_SIZE=<%= node['elasticsearch']['sysconfig']['ES_DIRECT_SIZE'] %>
 
 # Additional Java OPTS
-ES_JAVA_OPTS=<%= node['elasticsearch']['sysconfig']['ES_JAVA_OPTS'] %>
+ES_JAVA_OPTS="<%= node['elasticsearch']['sysconfig']['ES_JAVA_OPTS'] %>"
 
 # Configure restart on package upgrade (true, every other setting will lead to not restarting)
 ES_RESTART_ON_UPGRADE=<%= node['elasticsearch']['sysconfig']['ES_RESTART_ON_UPGRADE'] %>
