@@ -17,6 +17,18 @@
 # limitations under the License.
 #
 
+[node['elasticsearch']['data_dir'],
+ node['elasticsearch']['log_dir'],
+ node['elasticsearch']['work_dir']
+].each do |dir|
+  directory dir do
+    owner node['elasticsearch']['user']
+    group node['elasticsearch']['group']
+    mode node['elasticsearch']['mode']
+    recursive true
+  end
+end
+
 case node['platform_family']
 when 'debian'
   # apt repository configuration
