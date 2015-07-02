@@ -18,7 +18,7 @@ https://github.com/vkhatri/chef-elasticsearch-cluster
 
 ## Supported OS
 
-This cookbook was tested on Amazon (2015-03) & Ubuntu (14.04) Linux and expected to work on similar platform families OS.
+This cookbook was tested on Amazon (2015-03) & Ubuntu (14.04) Linux and expected to work on similar platform family OS.
 
 
 ## Supported ElasticSearch Version
