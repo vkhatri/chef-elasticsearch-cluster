@@ -49,7 +49,7 @@ template node['elasticsearch']['conf_file'] do
   owner 'root'
   group 'root'
   mode 0644
-  variables(:config => node['elasticsearch']['config'])
+  variables(:config => node['elasticsearch'][node['elasticsearch']['config_attribute']])
   notifies :restart, 'service[elasticsearch]', :delayed if node['elasticsearch']['notify_restart']
 end
 
