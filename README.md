@@ -30,6 +30,14 @@ This cookbook was tested for ElasticSearch v1.6.0.
 
 This cookbook supports both Package and Tarball based installation.
 
+
+## Cookbook Dependencies
+
+* `java` cookbook
+* `yum` cookbook
+* `apt` cookbook
+
+
 # TODO
 
 - add LWRP to manage plugins
