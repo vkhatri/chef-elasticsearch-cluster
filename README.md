@@ -67,7 +67,9 @@ This cookbook supports both Package and Tarball based installation.
 
 * `default['elasticsearch']['setup_user']` (default: `true`): whether to setup elasticsearch service user when installing via tarball
 
-* `default['elasticsearch']['auto_java_memory']` (default: `true`): whether to calcuate maximum possible heap size
+* `default['elasticsearch']['cookbook']` (default: `elasticsearch-cluster`): cookbook to use for elasticsearch configuration file/template source
+
+* `default['elasticsearch']['auto_java_memory']` (default: `false`): whether to allocate maximum possible heap size
 
 * `default['elasticsearch']['auto_system_memory']` (default: `768`): minimum memory to keep for OS while allocating maximum possible memory to elasticsearch, used with node['elasticsearch']['auto_java_memory']
 
@@ -122,7 +124,7 @@ to elasticsearch nodes run list
 
 # Service Attributes
 
-* `default['elasticsearch']['sysconfig']['ES_HEAP_NEWSIZE']` (default: `nil`): elasticsearch service config file parameter
+* `default['elasticsearch']['sysconfig']['ES_HEAP_NEWSIZE']` (default: `calculated`): elasticsearch service config file parameter
 
 * `default['elasticsearch']['sysconfig']['ES_DIRECT_SIZE']` (default: `nil`): elasticsearch service config file parameter
 
