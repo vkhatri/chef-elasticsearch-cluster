@@ -1,6 +1,6 @@
 
 # enable auto memory calculation for ES_HEAP_SIZE
-default['elasticsearch']['auto_java_memory'] = true
+default['elasticsearch']['auto_java_memory'] = false
 
 # minimum memory to preserve for system
 default['elasticsearch']['auto_system_memory'] = 768
