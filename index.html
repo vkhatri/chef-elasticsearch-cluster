@@ -52,7 +52,7 @@ what you find missing!</p>
 <h2>
 <a id="supported-os" class="anchor" href="#supported-os" aria-hidden="true"><span class="octicon octicon-link"></span></a>Supported OS</h2>
 
-<p>This cookbook was tested on Amazon (2015-03) &amp; Ubuntu (14.04) Linux and expected to work on similar platform families OS.</p>
+<p>This cookbook was tested on Amazon (2015-03) &amp; Ubuntu (14.04) Linux and expected to work on similar platform family OS.</p>
 
 <h2>
 <a id="supported-elasticsearch-version" class="anchor" href="#supported-elasticsearch-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>Supported ElasticSearch Version</h2>
@@ -63,6 +63,18 @@ what you find missing!</p>
 <a id="supported-elasticsearch-deployment" class="anchor" href="#supported-elasticsearch-deployment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Supported ElasticSearch Deployment</h2>
 
 <p>This cookbook supports both Package and Tarball based installation.</p>
+
+<h2>
+<a id="cookbook-dependencies" class="anchor" href="#cookbook-dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cookbook Dependencies</h2>
+
+<ul>
+<li>
+<code>java</code> cookbook</li>
+<li>
+<code>yum</code> cookbook</li>
+<li>
+<code>apt</code> cookbook</li>
+</ul>
 
 <h1>
 <a id="todo" class="anchor" href="#todo" aria-hidden="true"><span class="octicon octicon-link"></span></a>TODO</h1>
@@ -95,7 +107,8 @@ what you find missing!</p>
 <li><p><code>default['elasticsearch']['service_action']</code> (default: <code>[:enable, :start]</code>): elasticsearch service resource action</p></li>
 <li><p><code>default['elasticsearch']['notify_restart']</code> (default: <code>false</code>): whether to notify elasticsearch service on any config change</p></li>
 <li><p><code>default['elasticsearch']['setup_user']</code> (default: <code>true</code>): whether to setup elasticsearch service user when installing via tarball</p></li>
-<li><p><code>default['elasticsearch']['auto_java_memory']</code> (default: <code>true</code>): whether to calcuate maximum possible heap size</p></li>
+<li><p><code>default['elasticsearch']['cookbook']</code> (default: <code>elasticsearch-cluster</code>): cookbook to use for elasticsearch configuration file/template source</p></li>
+<li><p><code>default['elasticsearch']['auto_java_memory']</code> (default: <code>false</code>): whether to allocate maximum possible heap size</p></li>
 <li><p><code>default['elasticsearch']['auto_system_memory']</code> (default: <code>768</code>): minimum memory to keep for OS while allocating maximum possible memory to elasticsearch, used with node['elasticsearch']['auto_java_memory']</p></li>
 <li><p><code>default['elasticsearch']['use_chef_search']</code> (default: <code>false</code>): whether to use Chef Search to find elasticsearch cluster nodes in an environment
 for a given chef elasticsearch role</p></li>
@@ -122,7 +135,7 @@ to elasticsearch nodes run list</p></li>
 <li><p><code>default['elasticsearch']['tarball_checksum']</code> (default: <code>versions</code>): elasticsearch tarball version source sha256sum</p></li>
 <li><p><code>default['elasticsearch']['parent_dir']</code> (default: <code>/usr/local/elasticsearch</code>): elasticsearch directory for tarball based installation</p></li>
 <li><p><code>default['elasticsearch']['install_dir']</code> (default: <code>/usr/local/elasticsearch/elasticsearch</code>): elasticsearch symlink to current version source directory (for tarball based installation)</p></li>
-<li><p><code>default['elasticsearch']['source_dir']</code> (default: <code>/usr/local/elasticsearch</code>): elasticsearch current version directory (for tarball based installation)</p></li>
+<li><p><code>default['elasticsearch']['source_dir']</code> (default: <code>calculated</code>): elasticsearch current version directory (for tarball based installation)</p></li>
 <li><p><code>default['elasticsearch']['home_dir']</code> (default: <code>calculated</code>): elasticsearch home directory</p></li>
 <li><p><code>default['elasticsearch']['sysconfig_file']</code> (default: <code>calculated</code>): elasticsearch service config file location</p></li>
 <li><p><code>default['elasticsearch']['umask']</code> (default: <code>0022</code>): file/directory umask for execute resource (for tarball based installation)</p></li>
@@ -133,7 +146,7 @@ to elasticsearch nodes run list</p></li>
 <a id="service-attributes" class="anchor" href="#service-attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Service Attributes</h1>
 
 <ul>
-<li><p><code>default['elasticsearch']['sysconfig']['ES_HEAP_NEWSIZE']</code> (default: <code>nil</code>): elasticsearch service config file parameter</p></li>
+<li><p><code>default['elasticsearch']['sysconfig']['ES_HEAP_NEWSIZE']</code> (default: <code>calculated</code>): elasticsearch service config file parameter</p></li>
 <li><p><code>default['elasticsearch']['sysconfig']['ES_DIRECT_SIZE']</code> (default: <code>nil</code>): elasticsearch service config file parameter</p></li>
 <li><p><code>default['elasticsearch']['sysconfig']['ES_JAVA_OPTS']</code> (default: <code>nil</code>): elasticsearch service config file parameter</p></li>
 <li><p><code>default['elasticsearch']['sysconfig']['MAX_OPEN_FILES']</code> (default: <code>65_535</code>): elasticsearch service config file parameter</p></li>
@@ -172,6 +185,25 @@ to elasticsearch nodes run list</p></li>
 <li><p><code>default['elasticsearch']['config']['action.auto_create_index']</code> (default: <code>true</code>): elasticsearch configuration parameter</p></li>
 <li><p><code>default['elasticsearch']['config']['action.disable_delete_all_indices']</code> (default: <code>true</code>): elasticsearch configuration parameter</p></li>
 <li><p><code>default['elasticsearch']['config']['script.disable_dynamic']</code> (default: <code>true</code>): elasticsearch configuration parameter</p></li>
+</ul>
+
+<h1>
+<a id="elasticsearch-yumapt-repository-attributes" class="anchor" href="#elasticsearch-yumapt-repository-attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>elasticsearch YUM/APT Repository Attributes</h1>
+
+<ul>
+<li><p><code>default['elasticsearch']['repo_version']</code> (default: <code>calculated</code>): elasticsearch repository version</p></li>
+<li><p><code>default['elasticsearch']['yum']['description']</code> (default: <code>calculated</code>): elasticsearch yum reporitory attribute</p></li>
+<li><p><code>default['elasticsearch']['yum']['gpgcheck']</code> (default: <code>true</code>): elasticsearch yum reporitory attribute</p></li>
+<li><p><code>default['elasticsearch']['yum']['enabled']</code> (default: <code>true</code>): elasticsearch yum reporitory attribute</p></li>
+<li><p><code>default['elasticsearch']['yum']['baseurl']</code> (default: <code>calculated</code>): elasticsearch yum reporitory attribute</p></li>
+<li><p><code>default['elasticsearch']['yum']['gpgkey']</code> (default: <code>https://packages.elasticsearch.org/GPG-KEY-elasticsearch</code>): elasticsearch yum reporitory attribute</p></li>
+<li><p><code>default['elasticsearch']['yum']['mirrorlist']</code> (default: <code>nil</code>): elasticsearch yum reporitory attribute</p></li>
+<li><p><code>default['elasticsearch']['yum']['action']</code> (default: <code>:create</code>): elasticsearch yum reporitory attribute</p></li>
+<li><p><code>default['elasticsearch']['apt']['description']</code> (default: <code>calculated</code>): elasticsearch apt reporitory attribute</p></li>
+<li><p><code>default['elasticsearch']['apt']['components']</code> (default: <code>['stable', 'main']</code>): elasticsearch apt reporitory attribute</p></li>
+<li><p><code>default['elasticsearch']['apt']['uri']</code> (default: <code>calculated</code>): elasticsearch apt reporitory attribute</p></li>
+<li><p><code>default['elasticsearch']['apt']['key']</code> (default: <code>http://packages.elasticsearch.org/GPG-KEY-elasticsearch</code>): elasticsearch apt reporitory attribute</p></li>
+<li><p><code>default['elasticsearch']['apt']['action']</code> (default: <code>:add</code>): elasticsearch apt reporitory attribute</p></li>
 </ul>
 
 <h2>
