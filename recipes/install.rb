@@ -21,4 +21,16 @@ fail "invalid value for node attribute node['elasticsearch']['install_method'], 
 
 include_recipe 'elasticsearch-cluster::java'
 
+[node['elasticsearch']['data_dir'],
+ node['elasticsearch']['log_dir'],
+ node['elasticsearch']['work_dir']
+].each do |dir|
+  directory dir do
+    owner node['elasticsearch']['user']
+    group node['elasticsearch']['group']
+    mode node['elasticsearch']['mode']
+    recursive true
+  end
+end
+
 include_recipe "elasticsearch-cluster::#{node['elasticsearch']['install_method']}"
