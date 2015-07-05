@@ -119,7 +119,7 @@ to elasticsearch nodes run list
 
 * `default['elasticsearch']['install_dir']` (default: `/usr/local/elasticsearch/elasticsearch`): elasticsearch symlink to current version source directory (for tarball based installation)
 
-* `default['elasticsearch']['source_dir']` (default: `/usr/local/elasticsearch`): elasticsearch current version directory (for tarball based installation)
+* `default['elasticsearch']['source_dir']` (default: `calculated`): elasticsearch current version directory (for tarball based installation)
 
 * `default['elasticsearch']['home_dir']` (default: `calculated`): elasticsearch home directory
 
@@ -201,6 +201,36 @@ to elasticsearch nodes run list
 * `default['elasticsearch']['config']['action.disable_delete_all_indices']` (default: `true`): elasticsearch configuration parameter
 
 * `default['elasticsearch']['config']['script.disable_dynamic']` (default: `true`): elasticsearch configuration parameter
+
+
+# elasticsearch YUM/APT Repository Attributes
+
+* `default['elasticsearch']['repo_version']` (default: `calculated`): elasticsearch repository version
+
+* `default['elasticsearch']['yum']['description']` (default: `calculated`): elasticsearch yum reporitory attribute
+
+* `default['elasticsearch']['yum']['gpgcheck']` (default: `true`): elasticsearch yum reporitory attribute
+
+* `default['elasticsearch']['yum']['enabled']` (default: `true`): elasticsearch yum reporitory attribute
+
+* `default['elasticsearch']['yum']['baseurl']` (default: `calculated`): elasticsearch yum reporitory attribute
+
+* `default['elasticsearch']['yum']['gpgkey']` (default: `https://packages.elasticsearch.org/GPG-KEY-elasticsearch`): elasticsearch yum reporitory attribute
+
+* `default['elasticsearch']['yum']['mirrorlist']` (default: `nil`): elasticsearch yum reporitory attribute
+
+* `default['elasticsearch']['yum']['action']` (default: `:create`): elasticsearch yum reporitory attribute
+
+
+* `default['elasticsearch']['apt']['description']` (default: `calculated`): elasticsearch apt reporitory attribute
+
+* `default['elasticsearch']['apt']['components']` (default: `['stable', 'main']`): elasticsearch apt reporitory attribute
+
+* `default['elasticsearch']['apt']['uri']` (default: `calculated`): elasticsearch apt reporitory attribute
+
+* `default['elasticsearch']['apt']['key']` (default: `http://packages.elasticsearch.org/GPG-KEY-elasticsearch`): elasticsearch apt reporitory attribute
+
+* `default['elasticsearch']['apt']['action']` (default: `:add`): elasticsearch apt reporitory attribute
 
 
 
