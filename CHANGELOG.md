@@ -3,6 +3,17 @@ elasticsearch-cluster CHANGELOG
 
 This file is used to list changes made in each version of the elasticsearch-cluster cookbook.
 
+0.2.0
+-----
+
+- Virender Khatri - added lwrp `elasticsearch_plugin`
+
+- Virender Khatri - bumped elasticsearch version to 1.7.0
+
+- Virender Khatri - added attribute default[elasticsearch][bin_dir]
+
+- Virender Khatri - move common directory resources to recipe install
+
 0.1.8
 -----
 
