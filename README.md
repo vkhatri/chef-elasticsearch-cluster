@@ -40,8 +40,8 @@ This cookbook supports both Package and Tarball based installation.
 
 # TODO
 
-- add LWRP to manage plugins
-- add LWRP to manage indexes
+- add more locations to nginx vhost
+- add specs
 
 
 ## Recipes
@@ -60,6 +60,69 @@ This cookbook supports both Package and Tarball based installation.
 
 - `elasticsearch-cluster::config` - configure elasticsearch
 
+- `elasticsearch-cluster::plugins` - install / remove plugins from node attribute
+
+
+## LWRP elasticsearch_plugin
+
+LWRP `elasticsearch_plugin` manages elasticsearch plugins install / remove. It is a wrapper for `plugin` binary.
+
+For plugins validation (exists or not), it uses node API call to verify wheter required plugin or plugin version is installed.
+
+An `environment` host groups are evaluated at compile time, hence it conflicts with LWRP `hostgroup` resources. To avoid the conflict, LWRP `envhostgroup` resources are created in a separate object file for an environment.
+
+
+**Install Plugin**
+
+	elasticsearch_plugin 'kopf' do
+	  install_name 'lmenezes/elasticsearch-kopf'
+	end
+
+Above LWRP resource will install plugin `kopf`.
+
+**Remove Plugin**
+
+	elasticsearch_plugin 'kopf' do
+	  action :remove
+	end
+
+Above LWRP resource will remove plugin `kopf`.
+
+
+**LWRP Options**
+
+- *action* (optional)	- default :install, options: :install, :remove, :nothing
+- *install_name* (optional, String)	- plugin name to install, e.g. to install `kopf` plugin, `install_name` would be `lmenezes/elasticsearch-kopf`
+- *url* (optional, String)	- plugin url
+- *timeout* (optional, String)	- plugin install timeout
+- *version* (optional, String)	- plugin install version
+
+
+## Manage Plugins using Node attribute
+
+Using recipe `plugins`, plugins can be installed or removed by node attribute `node['elasticsearch']['plugins']`. Below is the role attributes to install and remove plugins.
+
+
+```
+  "default_attributes": {
+    "elasticsearch": {
+      "plugins": {
+        "bigdesk": {
+          "install_name": "lukas-vlcek/bigdesk"
+        },
+        "kopf": {
+          "install_name": "lukas-vlcek/bigdesk"
+        },
+        "head": {
+          "action": "remove"
+        }
+      }
+    }
+  }
+
+```
+
+Check out LWRP `elasticsearch_plugin` or recipe `plugins` for more info on attributes.
 
 ## Cookbook Advanced Attributes
 
@@ -76,6 +139,12 @@ This cookbook supports both Package and Tarball based installation.
 * `default['elasticsearch']['setup_user']` (default: `true`): whether to setup elasticsearch service user when installing via tarball
 
 * `default['elasticsearch']['cookbook']` (default: `elasticsearch-cluster`): cookbook to use for elasticsearch configuration file/template source
+
+* `default['elasticsearch']['plugins']` (default: `{}`): node `Hash` attribute to install/remove elasticsearch plugins.
+
+* `default['elasticsearch']['plugins']['kopf']['install_name']` (default: `lmenezes/elasticsearch-kopf`): installs kopf plugin
+
+* `default['elasticsearch']['plugins']['bigdesk']['install_name']` (default: `lukas-vlcek/bigdesk`): installs bigdesk plugin
 
 * `default['elasticsearch']['auto_java_memory']` (default: `false`): whether to allocate maximum possible heap size
 
