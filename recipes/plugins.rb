@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: elasticsearch-cluster
-# Recipe:: default
+# Recipe:: plugins
 #
 # Copyright 2015, Virender Khatri
 #
@@ -17,6 +17,12 @@
 # limitations under the License.
 #
 
-include_recipe 'elasticsearch-cluster::install'
-include_recipe 'elasticsearch-cluster::config'
-include_recipe 'elasticsearch-cluster::plugins'
+node['elasticsearch']['plugins'].each do |plugin, options|
+  elasticsearch_plugin plugin do
+    version options['version']
+    install_name options['install_name']
+    url options['url']
+    timeout options['timeout']
+    action options['action']
+  end
+end

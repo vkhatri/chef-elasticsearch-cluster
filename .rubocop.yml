@@ -31,3 +31,5 @@ MethodLength:
   Enabled: false
 AbcSize:
   Enabled: false
+Metrics/BlockNesting:
+  Max: 5
