@@ -73,14 +73,19 @@ class Chef
           plugin_command = "#{plugin_binary} --remove #{new_resource.name}"
         end
 
-        t = Chef::Resource::Execute.new("#{new_resource.action} plugin #{new_resource.name} #{new_resource.version}", run_context)
-        t.user node['elasticsearch']['user']
-        t.group node['elasticsearch']['group']
-        t.umask node['elasticsearch']['umask']
-        t.command plugin_command
-        t.only_if { run_it }
-        t.run_action :run
-        t.updated_by_last_action?
+        if run_it
+          t = Chef::Resource::Execute.new("#{new_resource.action} plugin #{new_resource.name} #{new_resource.version}", run_context)
+          t.user node['elasticsearch']['user']
+          t.group node['elasticsearch']['group']
+          t.umask node['elasticsearch']['umask']
+          t.command plugin_command
+          t.only_if { run_it }
+          t.run_action :run
+          update = t.updated_by_last_action?
+        else
+          update = false
+        end
+        update
       end
     end
   end

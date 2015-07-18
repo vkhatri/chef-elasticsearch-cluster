@@ -203,7 +203,7 @@ to elasticsearch nodes run list
 * `default['elasticsearch']['config']['script.disable_dynamic']` (default: `true`): elasticsearch configuration parameter
 
 
-# elasticsearch YUM/APT Repository Attributes
+# Elasticsearch YUM/APT Repository Attributes
 
 * `default['elasticsearch']['repo_version']` (default: `calculated`): elasticsearch repository version
 
