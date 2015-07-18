@@ -33,6 +33,8 @@ default['elasticsearch']['home_dir'] = node['elasticsearch']['install_method'] =
 # might need to revisit this plugins location
 default['elasticsearch']['plugins_dir'] = node['elasticsearch']['install_method'] == 'package' ? '/usr/share/elasticsearch/plugins' : ::File.join(node['elasticsearch']['parent_dir'], 'plugins')
 
+default['elasticsearch']['bin_dir'] = ::File.join(node['elasticsearch']['home_dir'], 'bin')
+
 default['elasticsearch']['sysconfig_file'] = value_for_platform_family(
   'debian' => '/etc/default/elasticsearch',
   'rhel' => '/etc/sysconfig/elasticsearch'
