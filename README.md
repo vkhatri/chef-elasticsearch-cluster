@@ -23,7 +23,7 @@ This cookbook was tested on Amazon (2015-03) & Ubuntu (14.04) Linux and expected
 
 ## Supported ElasticSearch Version
 
-This cookbook was tested for ElasticSearch v1.6.0.
+This cookbook was tested for ElasticSearch v1.6.0+.
 
 
 ## Supported ElasticSearch Deployment
@@ -160,7 +160,7 @@ to elasticsearch nodes run list
 
 ## Cookbook Core Attributes
 
-* `default['elasticsearch']['version']` (default: `1.6.0`): elasticsearch version to install
+* `default['elasticsearch']['version']` (default: `1.7.0`): elasticsearch version to install
 
 * `default['elasticsearch']['version_suffix']` (default: `calculated`): elasticsearch package version suffix
 
