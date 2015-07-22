@@ -1,7 +1,7 @@
 elasticsearch-cluster Cookbook
 ==============================
 
-[![Build Status](https://travis-ci.org/vkhatri/chef-elasticsearch-cluster.svg?branch=master)](https://travis-ci.org/vkhatri/chef-elasticsearch-cluster)
+[![Cookbook](http://img.shields.io/badge/cookbook-v0.2.0-green.svg)](https://github.com/vkhatri/chef-elasticsearch-cluster) [![Build Status](https://travis-ci.org/vkhatri/chef-elasticsearch-cluster.svg?branch=master)](https://travis-ci.org/vkhatri/chef-elasticsearch-cluster)
 
 This is a [Chef] cookbook to manage [ElasticSearch] Cluster.
 
@@ -73,7 +73,7 @@ This cookbook supports both Package and Tarball based installation.
 
 - `elasticsearch-cluster::config` - configure elasticsearch
 
-- `elasticsearch-cluster::plugins` - install / remove plugins from node attribute
+- `elasticsearch-cluster::plugins` - install / remove plugins using node attribute `node['elasticsearch']['plugins']`
 
 
 ## LWRP elasticsearch_plugin
