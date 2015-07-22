@@ -8,8 +8,21 @@ This is a [Chef] cookbook to manage [ElasticSearch] Cluster.
 More features and attributes will be added over time, **feel free to contribute**
 what you find missing!
 
->> For Production environment, always refer to [Chef Supermarket].
+>> For Production environment, always prefer the [most recent release](https://supermarket.chef.io/cookbooks/elasticsearch-cluster).
 
+## Dependency
+
+### Most Recent Release
+
+``` ruby
+cookbook 'elasticsearch-cluster', '~> 0.2.0'
+```
+
+### From Git
+
+``` ruby
+cookbook 'elasticsearch-cluster', github: 'vkhatri/chef-elasticsearch-cluster'
+```
 
 ## Repository
 
