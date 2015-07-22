@@ -3,6 +3,13 @@ elasticsearch-cluster CHANGELOG
 
 This file is used to list changes made in each version of the elasticsearch-cluster cookbook.
 
+0.2.2
+-----
+
+- Michael Klishin - Provide dependency info in the README
+
+- Virender Khatri - issue #13, added 1.7.0 checksum attribute default['elasticsearch']['tarball_checksum']['1.7.0']
+
 0.2.0
 -----
 
