@@ -16,7 +16,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+# Note: used when node['elasticsearch']['install_method']  == 'tarball',
+# node['elasticsearch']['install_method']  == 'package' auto install
+# elasticsearch service user/group
+#
 # WARNING:
 # User setup by this recipe may not provide a unique
 # user/group id across nodes and could create problem

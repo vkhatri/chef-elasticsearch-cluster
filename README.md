@@ -69,7 +69,7 @@ This cookbook supports both Package and Tarball based installation.
 
 - `elasticsearch-cluster::tarball` - install elasticsearch using tarball
 
-- `elasticsearch-cluster::user` - setup user/group for elasticsearch service
+- `elasticsearch-cluster::user` - create elasticsearch user/group when `node['elasticsearch']['install_method']` is set to `tarball`
 
 - `elasticsearch-cluster::config` - configure elasticsearch
 
