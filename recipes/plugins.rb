@@ -23,6 +23,8 @@ node['elasticsearch']['plugins'].each do |plugin, options|
     install_name options['install_name']
     url options['url']
     timeout options['timeout']
+    ignore_error options['ignore_error']
+    notify_restart options['notify_restart']
     action options['action']
   end
 end

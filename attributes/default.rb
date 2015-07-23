@@ -41,7 +41,7 @@ default['elasticsearch']['sysconfig_file'] = value_for_platform_family(
   'rhel' => '/etc/sysconfig/elasticsearch'
 )
 
-default['elasticsearch']['service_action'] = [:enable, :start]
+default['elasticsearch']['service_action'] = [:enable]
 
 default['elasticsearch']['notify_restart'] = false
 

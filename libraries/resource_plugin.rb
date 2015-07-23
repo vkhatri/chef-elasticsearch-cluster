@@ -55,6 +55,22 @@ class Chef
           :default => nil
         )
       end
+
+      def ignore_error(arg = nil)
+        set_or_return(
+          :ignore_error, arg,
+          :kind_of => [TrueClass, FalseClass],
+          :default => true
+        )
+      end
+
+      def notify_restart(arg = nil)
+        set_or_return(
+          :notify_restart, arg,
+          :kind_of => [TrueClass, FalseClass],
+          :default => nil
+        )
+      end
     end
   end
 end

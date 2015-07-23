@@ -29,15 +29,23 @@ class Chef
       private
 
       def installed_plugins
-        uri = URI("http://#{node['elasticsearch']['config']['network.bind_host']}:#{node['elasticsearch']['config']['http.port']}/_nodes/#{node['elasticsearch']['config']['node.name']}/plugins")
-        response = Net::HTTP.get_response(uri)
         plugins = {}
+        begin
+          uri = URI("http://#{node['elasticsearch']['config']['network.bind_host']}:#{node['elasticsearch']['config']['http.port']}/_nodes/#{node['elasticsearch']['config']['node.name']}/plugins")
+          response = Net::HTTP.get_response(uri)
 
-        if response.is_a?(Net::HTTPSuccess)
-          JSON.parse(response.body)['nodes'].each do |_k, v|
-            v['plugins'].each do |plugin|
-              plugins[plugin['name']] = plugin['version']
+          if response.is_a?(Net::HTTPSuccess)
+            JSON.parse(response.body)['nodes'].each do |_k, v|
+              v['plugins'].each do |plugin|
+                plugins[plugin['name']] = plugin['version']
+              end
             end
+          end
+        rescue => error
+          if new_resource.ignore_error
+            Chef::Log.info("ignored installed plugins check for elasticsearch, caught exception(#{error.class} - #{error.message})")
+          else
+            raise "unable to fetch installed plugins for elasticsearch, caught exception '#{error.class} - #{error.message}'. set resource attribute `ignore_error true` to ignore this error"
           end
         end
         plugins
@@ -80,6 +88,7 @@ class Chef
           t.umask node['elasticsearch']['umask']
           t.command plugin_command
           t.only_if { run_it }
+          t.notifies :restart, 'service[elasticsearch]', :delayed if new_resource.notify_restart
           t.run_action :run
           update = t.updated_by_last_action?
         else

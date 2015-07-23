@@ -108,6 +108,8 @@ Above LWRP resource will remove plugin `kopf`.
 - *install_name* (optional, String)	- plugin name to install, e.g. to install `kopf` plugin, `install_name` would be `lmenezes/elasticsearch-kopf`
 - *url* (optional, String)	- plugin url
 - *timeout* (optional, String)	- plugin install timeout
+- *notify_restart* (optional, TrueClass,FlaseClass)	- whether to restart elasticsearch service post plugin install
+- *ignore_error* (optional, TrueClass,FlaseClass)	- whether to ignore error like unable to fetch installed plugins when service is down, could ignore other errors in the future
 - *version* (optional, String)	- plugin install version
 
 

@@ -53,6 +53,12 @@ template node['elasticsearch']['conf_file'] do
   notifies :restart, 'service[elasticsearch]', :delayed if node['elasticsearch']['notify_restart']
 end
 
+ruby_block 'delay elasticsearch service start' do
+  block do
+  end
+  notifies :start, 'service[elasticsearch]', :delayed
+end
+
 service 'elasticsearch' do
   supports :restart => true, :start => true, :stop => true, :status => true, :reload => false
   action node['elasticsearch']['service_action']
