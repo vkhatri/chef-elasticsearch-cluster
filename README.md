@@ -155,10 +155,6 @@ Check out LWRP `elasticsearch_plugin` or recipe `plugins` for more info on attri
 
 * `default['elasticsearch']['plugins']` (default: `{}`): node `Hash` attribute to install/remove elasticsearch plugins.
 
-* `default['elasticsearch']['plugins']['kopf']['install_name']` (default: `lmenezes/elasticsearch-kopf`): installs kopf plugin
-
-* `default['elasticsearch']['plugins']['bigdesk']['install_name']` (default: `lukas-vlcek/bigdesk`): installs bigdesk plugin
-
 * `default['elasticsearch']['auto_java_memory']` (default: `false`): whether to allocate maximum possible heap size
 
 * `default['elasticsearch']['auto_system_memory']` (default: `768`): minimum memory to keep for OS while allocating maximum possible memory to elasticsearch, used with node['elasticsearch']['auto_java_memory']
