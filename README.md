@@ -87,11 +87,16 @@ An `environment` host groups are evaluated at compile time, hence it conflicts w
 
 **Install Plugin**
 
+	elasticsearch_plugin 'cloud-aws' do
+	  install_name   'elasticsearch/elasticsearch-cloud-aws'
+	  version        '2.7.0'
+	end
+
 	elasticsearch_plugin 'kopf' do
 	  install_name 'lmenezes/elasticsearch-kopf'
 	end
 
-Above LWRP resource will install plugin `kopf`.
+Above LWRP resource will install two plugins: `cloud-aws` and `kopf`.
 
 **Remove Plugin**
 
@@ -99,7 +104,7 @@ Above LWRP resource will install plugin `kopf`.
 	  action :remove
 	end
 
-Above LWRP resource will remove plugin `kopf`.
+Above LWRP resource will remove the `kopf` plugin.
 
 
 **LWRP Options**
@@ -108,8 +113,8 @@ Above LWRP resource will remove plugin `kopf`.
 - *install_name* (optional, String)	- plugin name to install, e.g. to install `kopf` plugin, `install_name` would be `lmenezes/elasticsearch-kopf`
 - *url* (optional, String)	- plugin url
 - *timeout* (optional, String)	- plugin install timeout
-- *notify_restart* (optional, TrueClass,FlaseClass)	- whether to restart elasticsearch service post plugin install
-- *ignore_error* (optional, TrueClass,FlaseClass)	- whether to ignore error like unable to fetch installed plugins when service is down, could ignore other errors in the future
+- *notify_restart* (optional, TrueClass, FalseClass)	- whether to restart elasticsearch service post plugin install (default: `false`)
+- *ignore_error* (optional, TrueClass,FlaseClass)	- whether to ignore error like unable to fetch installed plugins when service is down, could ignore other errors in the future (default: `true`)
 - *version* (optional, String)	- plugin install version
 
 
