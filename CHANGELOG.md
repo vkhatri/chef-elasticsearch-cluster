@@ -3,6 +3,19 @@ elasticsearch-cluster CHANGELOG
 
 This file is used to list changes made in each version of the elasticsearch-cluster cookbook.
 
+0.2.5
+-----
+
+- Michael Klishin - Update README.md
+
+- Virender Khatri - issue #15, kopf and bigdesk are always installed, removed default plugins
+
+- Virender Khatri - issue #17, update elasticsearch service resource to delayed start
+
+- Virender Khatri - issue #18, add attribute ignore_error to plugin resource for issue #16
+
+- Virender Khatri - issue #19, add attribute notify_restart to plugin resource
+
 0.2.2
 -----
 
