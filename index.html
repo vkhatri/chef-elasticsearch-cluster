@@ -31,7 +31,7 @@
         <h1>
 <a id="elasticsearch-cluster-cookbook" class="anchor" href="#elasticsearch-cluster-cookbook" aria-hidden="true"><span class="octicon octicon-link"></span></a>elasticsearch-cluster Cookbook</h1>
 
-<p><a href="https://github.com/vkhatri/chef-elasticsearch-cluster"><img src="http://img.shields.io/badge/cookbook-v0.2.0-green.svg" alt="Cookbook"></a> <a href="https://travis-ci.org/vkhatri/chef-elasticsearch-cluster"><img src="https://travis-ci.org/vkhatri/chef-elasticsearch-cluster.svg?branch=master" alt="Build Status"></a></p>
+<p><a href="https://github.com/vkhatri/chef-elasticsearch-cluster"><img src="http://img.shields.io/badge/cookbook-v0.2.5-green.svg" alt="Cookbook"></a> <a href="https://travis-ci.org/vkhatri/chef-elasticsearch-cluster"><img src="https://travis-ci.org/vkhatri/chef-elasticsearch-cluster.svg?branch=master" alt="Build Status"></a></p>
 
 <p>This is a <a href="https://www.chef.io/">Chef</a> cookbook to manage <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> Cluster.</p>
 
@@ -50,7 +50,7 @@ what you find missing!</p>
 <h3>
 <a id="most-recent-release" class="anchor" href="#most-recent-release" aria-hidden="true"><span class="octicon octicon-link"></span></a>Most Recent Release</h3>
 
-<div class="highlight highlight-ruby"><pre>cookbook <span class="pl-s"><span class="pl-pds">'</span>elasticsearch-cluster<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>~&gt; 0.2.0<span class="pl-pds">'</span></span></pre></div>
+<div class="highlight highlight-ruby"><pre>cookbook <span class="pl-s"><span class="pl-pds">'</span>elasticsearch-cluster<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>~&gt; 0.2.5<span class="pl-pds">'</span></span></pre></div>
 
 <h3>
 <a id="from-git" class="anchor" href="#from-git" aria-hidden="true"><span class="octicon octicon-link"></span></a>From Git</h3>
@@ -106,7 +106,7 @@ what you find missing!</p>
 <li><p><code>elasticsearch-cluster::java</code> - install java using <code>java</code> cookbook</p></li>
 <li><p><code>elasticsearch-cluster::package</code> - install elasticsearch using repository package</p></li>
 <li><p><code>elasticsearch-cluster::tarball</code> - install elasticsearch using tarball</p></li>
-<li><p><code>elasticsearch-cluster::user</code> - setup user/group for elasticsearch service</p></li>
+<li><p><code>elasticsearch-cluster::user</code> - create elasticsearch user/group when <code>node['elasticsearch']['install_method']</code> is set to <code>tarball</code></p></li>
 <li><p><code>elasticsearch-cluster::config</code> - configure elasticsearch</p></li>
 <li><p><code>elasticsearch-cluster::plugins</code> - install / remove plugins using node attribute <code>node['elasticsearch']['plugins']</code></p></li>
 </ul>
@@ -122,12 +122,17 @@ what you find missing!</p>
 
 <p><strong>Install Plugin</strong></p>
 
-<pre><code>elasticsearch_plugin 'kopf' do
+<pre><code>elasticsearch_plugin 'cloud-aws' do
+  install_name   'elasticsearch/elasticsearch-cloud-aws'
+  version        '2.7.0'
+end
+
+elasticsearch_plugin 'kopf' do
   install_name 'lmenezes/elasticsearch-kopf'
 end
 </code></pre>
 
-<p>Above LWRP resource will install plugin <code>kopf</code>.</p>
+<p>Above LWRP resource will install two plugins: <code>cloud-aws</code> and <code>kopf</code>.</p>
 
 <p><strong>Remove Plugin</strong></p>
 
@@ -136,7 +141,7 @@ end
 end
 </code></pre>
 
-<p>Above LWRP resource will remove plugin <code>kopf</code>.</p>
+<p>Above LWRP resource will remove the <code>kopf</code> plugin.</p>
 
 <p><strong>LWRP Options</strong></p>
 
@@ -150,6 +155,10 @@ end
 <em>url</em> (optional, String)  - plugin url</li>
 <li>
 <em>timeout</em> (optional, String)  - plugin install timeout</li>
+<li>
+<em>notify_restart</em> (optional, TrueClass, FalseClass)    - whether to restart elasticsearch service post plugin install (default: <code>false</code>)</li>
+<li>
+<em>ignore_error</em> (optional, TrueClass,FlaseClass)   - whether to ignore error like unable to fetch installed plugins when service is down, could ignore other errors in the future (default: <code>true</code>)</li>
 <li>
 <em>version</em> (optional, String)  - plugin install version</li>
 </ul>
@@ -191,8 +200,6 @@ end
 <li><p><code>default['elasticsearch']['setup_user']</code> (default: <code>true</code>): whether to setup elasticsearch service user when installing via tarball</p></li>
 <li><p><code>default['elasticsearch']['cookbook']</code> (default: <code>elasticsearch-cluster</code>): cookbook to use for elasticsearch configuration file/template source</p></li>
 <li><p><code>default['elasticsearch']['plugins']</code> (default: <code>{}</code>): node <code>Hash</code> attribute to install/remove elasticsearch plugins.</p></li>
-<li><p><code>default['elasticsearch']['plugins']['kopf']['install_name']</code> (default: <code>lmenezes/elasticsearch-kopf</code>): installs kopf plugin</p></li>
-<li><p><code>default['elasticsearch']['plugins']['bigdesk']['install_name']</code> (default: <code>lukas-vlcek/bigdesk</code>): installs bigdesk plugin</p></li>
 <li><p><code>default['elasticsearch']['auto_java_memory']</code> (default: <code>false</code>): whether to allocate maximum possible heap size</p></li>
 <li><p><code>default['elasticsearch']['auto_system_memory']</code> (default: <code>768</code>): minimum memory to keep for OS while allocating maximum possible memory to elasticsearch, used with node['elasticsearch']['auto_java_memory']</p></li>
 <li><p><code>default['elasticsearch']['use_chef_search']</code> (default: <code>false</code>): whether to use Chef Search to find elasticsearch cluster nodes in an environment
