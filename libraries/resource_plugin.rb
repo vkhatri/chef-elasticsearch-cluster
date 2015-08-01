@@ -16,6 +16,22 @@ class Chef
         @name = name
       end
 
+      def host(arg = nil)
+        set_or_return(
+          :host, arg,
+          :kind_of => String,
+          :default => node['elasticsearch']['config']['network.bind_host']
+        )
+      end
+
+      def port(arg = nil)
+        set_or_return(
+          :port, arg,
+          :kind_of => Integer,
+          :default => node['elasticsearch']['config']['http.port']
+        )
+      end
+
       def install_name(arg = nil)
         set_or_return(
           :install_name, arg,

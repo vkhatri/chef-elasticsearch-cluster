@@ -31,7 +31,7 @@ class Chef
       def installed_plugins
         plugins = {}
         begin
-          uri = URI("http://#{node['elasticsearch']['config']['network.bind_host']}:#{node['elasticsearch']['config']['http.port']}/_nodes/#{node['elasticsearch']['config']['node.name']}/plugins")
+          uri = URI("http://#{new_resource.host}:#{new_resource.port}/_nodes/#{node['elasticsearch']['config']['node.name']}/plugins")
           response = Net::HTTP.get_response(uri)
 
           if response.is_a?(Net::HTTPSuccess)

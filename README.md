@@ -110,6 +110,8 @@ Above LWRP resource will remove the `kopf` plugin.
 **LWRP Options**
 
 - *action* (optional)	- default :install, options: :install, :remove, :nothing
+- *host* (optional, String)	- elasticsearch host (default: `node['elasticsearch']['config']['network.bind_host']`)
+- *port* (optional, Integer)	- elasticsearch port (default: `node['elasticsearch']['config']['http.port']`)
 - *install_name* (optional, String)	- plugin name to install, e.g. to install `kopf` plugin, `install_name` would be `lmenezes/elasticsearch-kopf`
 - *url* (optional, String)	- plugin url
 - *timeout* (optional, String)	- plugin install timeout
