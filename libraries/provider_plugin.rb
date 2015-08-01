@@ -51,34 +51,47 @@ class Chef
         plugins
       end
 
+      def install_command
+        plugin_command = "#{node['elasticsearch']['plugins_binary']} --install #{new_resource.install_name}"
+        plugin_command << "/#{new_resource.version}" if new_resource.version
+        plugin_command << " --url #{new_resource.url}" if new_resource.url
+        plugin_command << " --timeout #{new_resource.timeout}" if new_resource.timeout
+        plugin_command
+      end
+
+      def reinstall_command
+        plugin_command = "#{node['elasticsearch']['plugins_binary']} --remove #{new_resource.name} && "
+        plugin_command << install_command
+        plugin_command
+      end
+
+      def uninstall_command
+        "#{node['elasticsearch']['plugins_binary']} --remove #{new_resource.name}"
+      end
+
       def install_plugin
         run_it = false
-        plugin_binary = ::File.join(node['elasticsearch']['bin_dir'], 'plugin')
+        plugin_install_dir = ::File.join(node['elasticsearch']['plugins_dir'], new_resource.name)
         exist_plugins = installed_plugins
 
         case new_resource.action
-        when :install, 'install'
-          if exist_plugins.key?(new_resource.name)
-            if new_resource.version && new_resource.version != exist_plugins[new_resource.name]
-              plugin_command = "#{plugin_binary} --remove #{new_resource.name} && "
-              plugin_command << "#{plugin_binary} --install #{new_resource.install_name}"
-              plugin_command << "/#{new_resource.version}" if new_resource.version
-              plugin_command << " --url #{new_resource.url}" if new_resource.url
-              plugin_command << " --timeout #{new_resource.timeout}" if new_resource.timeout
+        when :install, [:install], 'install'
+          if ::File.exist?(plugin_install_dir)
+            # reinstall if not the correct version
+            if new_resource.version && exist_plugins.key?(new_resource.name) && new_resource.version != exist_plugins[new_resource.name]
+              plugin_command = reinstall_command
               run_it = true
             end
           else
-            plugin_command = "#{plugin_binary} --install #{new_resource.install_name}"
-            plugin_command << "/#{new_resource.version}" if new_resource.version
-            plugin_command << " --url #{new_resource.url}" if new_resource.url
-            plugin_command << " --timeout #{new_resource.timeout}" if new_resource.timeout
+            # installing plugin
+            plugin_command = install_command
             run_it = true
           end
-        when :nothing
+        when :nothing, [:nothing], 'nothing'
           Chef::Log.info("not managing plugin #{new_resource.install_name}")
         when [:remove], :remove, 'remove'
-          run_it = true if exist_plugins.key?(new_resource.name)
-          plugin_command = "#{plugin_binary} --remove #{new_resource.name}"
+          run_it = true if ::File.exist?(plugin_install_dir)
+          plugin_command = uninstall_command
         end
 
         if run_it

@@ -31,10 +31,10 @@ default['elasticsearch']['source_dir']    = ::File.join(node['elasticsearch']['p
 
 default['elasticsearch']['home_dir'] = node['elasticsearch']['install_method'] == 'package' ? '/usr/share/elasticsearch' : node['elasticsearch']['install_dir']
 
-# might need to revisit this plugins location
-default['elasticsearch']['plugins_dir'] = node['elasticsearch']['install_method'] == 'package' ? '/usr/share/elasticsearch/plugins' : ::File.join(node['elasticsearch']['parent_dir'], 'plugins')
-
 default['elasticsearch']['bin_dir'] = ::File.join(node['elasticsearch']['home_dir'], 'bin')
+
+default['elasticsearch']['plugins_dir'] = node['elasticsearch']['install_method'] == 'package' ? '/usr/share/elasticsearch/plugins' : ::File.join(node['elasticsearch']['parent_dir'], 'plugins')
+default['elasticsearch']['plugins_binary'] = ::File.join(node['elasticsearch']['bin_dir'], 'plugin')
 
 default['elasticsearch']['sysconfig_file'] = value_for_platform_family(
   'debian' => '/etc/default/elasticsearch',
