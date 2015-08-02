@@ -76,14 +76,13 @@ This cookbook supports both Package and Tarball based installation.
 - `elasticsearch-cluster::plugins` - install / remove plugins using node attribute `node['elasticsearch']['plugins']`
 
 
-## LWRP elasticsearch_plugin
+## HWRP elasticsearch_plugin
 
-LWRP `elasticsearch_plugin` manages elasticsearch plugins install / remove. It is a wrapper for `plugin` binary.
+HWRP `elasticsearch_plugin` manages elasticsearch plugins install / remove. It is a wrapper for `plugin` binary.
 
 For plugins validation (exists or not), it uses node API call to verify wheter required plugin or plugin version is installed.
 
-An `environment` host groups are evaluated at compile time, hence it conflicts with LWRP `hostgroup` resources. To avoid the conflict, LWRP `envhostgroup` resources are created in a separate object file for an environment.
-
+>> `version` is evaluated to verify the correct installed `version`. Github plugins version `vX.Y.Z` is not the same as plugin installed version `X.Y.Z` discovered by provider. Check provider for more details.
 
 **Install Plugin**
 
@@ -96,7 +95,7 @@ An `environment` host groups are evaluated at compile time, hence it conflicts w
 	  install_name 'lmenezes/elasticsearch-kopf'
 	end
 
-Above LWRP resource will install two plugins: `cloud-aws` and `kopf`.
+Above HWRP resource will install two plugins: `cloud-aws` and `kopf`.
 
 **Remove Plugin**
 
@@ -104,10 +103,10 @@ Above LWRP resource will install two plugins: `cloud-aws` and `kopf`.
 	  action :remove
 	end
 
-Above LWRP resource will remove the `kopf` plugin.
+Above HWRP resource will remove the `kopf` plugin.
 
 
-**LWRP Options**
+**HWRP Options**
 
 - *action* (optional)	- default :install, options: :install, :remove, :nothing
 - *host* (optional, String)	- elasticsearch host (default: `node['elasticsearch']['config']['network.bind_host']`)
@@ -144,7 +143,7 @@ Using recipe `plugins`, plugins can be installed or removed by node attribute `n
 
 ```
 
-Check out LWRP `elasticsearch_plugin` or recipe `plugins` for more info on attributes.
+Check out HWRP `elasticsearch_plugin` or recipe `plugins` for more info on attributes.
 
 ## Cookbook Advanced Attributes
 
