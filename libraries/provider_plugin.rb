@@ -69,6 +69,20 @@ class Chef
         "#{node['elasticsearch']['plugins_binary']} --remove #{new_resource.name}"
       end
 
+      def eval_version
+        version = new_resource.version
+        return version unless version.is_a? String
+        if version.to_s.match(/^v/)
+          # left chop char `v` from the `version`
+          # to match installed version
+          #
+          # Report in case of any issue
+          version.to_s[1..-1].to_s
+        else
+          version
+        end
+      end
+
       def install_plugin
         run_it = false
         plugin_install_dir = ::File.join(node['elasticsearch']['plugins_dir'], new_resource.name)
@@ -78,7 +92,7 @@ class Chef
         when :install, [:install], 'install'
           if ::File.exist?(plugin_install_dir)
             # reinstall if not the correct version
-            if new_resource.version && exist_plugins.key?(new_resource.name) && new_resource.version != exist_plugins[new_resource.name]
+            if new_resource.version && exist_plugins.key?(new_resource.name) && eval_version != exist_plugins[new_resource.name]
               plugin_command = reinstall_command
               run_it = true
             end
