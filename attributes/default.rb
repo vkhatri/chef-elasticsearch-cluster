@@ -1,4 +1,4 @@
-default['elasticsearch']['version'] = '1.7.0'
+default['elasticsearch']['version'] = '1.7.1'
 default['elasticsearch']['version_suffix'] = value_for_platform_family(
   'debian' => '',
   'rhel' => '-1'
@@ -23,6 +23,7 @@ default['elasticsearch']['conf_file']      = ::File.join(node['elasticsearch']['
 default['elasticsearch']['tarball_url'] = "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-#{node['elasticsearch']['version']}.tar.gz"
 default['elasticsearch']['tarball_checksum']['1.6.0'] = 'dc336c83394b2f2f72f362e0f959a4cfdec2109aa3de15668401afeab0b02d2e'
 default['elasticsearch']['tarball_checksum']['1.7.0'] = '6fabed2db09e1b88587df15269df328ecef33e155b3c675a2a6d2299bda09c95'
+default['elasticsearch']['tarball_checksum']['1.7.1'] = '86a0c20eea6ef55b14345bff5adf896e6332437b19180c4582a346394abde019'
 
 # source install directory locations
 default['elasticsearch']['parent_dir']   = '/usr/local/elasticsearch'
