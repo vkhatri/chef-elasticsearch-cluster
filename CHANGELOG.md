@@ -3,6 +3,17 @@ elasticsearch-cluster CHANGELOG
 
 This file is used to list changes made in each version of the elasticsearch-cluster cookbook.
 
+0.2.7
+-----
+
+- Virender Khatri - issue #23, Consider using directory-based plugin detection
+
+- Virender Khatri - issue #24, add attribute host & port to plugin resource
+
+- Virender Khatri - issue #25, plugin version is not the same as installed version
+
+- Virender Khatri - issue #26, bump elasticsearch version to 1.7.1
+
 0.2.5
 -----
 
