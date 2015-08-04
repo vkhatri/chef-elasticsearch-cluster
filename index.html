@@ -31,7 +31,7 @@
         <h1>
 <a id="elasticsearch-cluster-cookbook" class="anchor" href="#elasticsearch-cluster-cookbook" aria-hidden="true"><span class="octicon octicon-link"></span></a>elasticsearch-cluster Cookbook</h1>
 
-<p><a href="https://github.com/vkhatri/chef-elasticsearch-cluster"><img src="http://img.shields.io/badge/cookbook-v0.2.5-green.svg" alt="Cookbook"></a> <a href="https://travis-ci.org/vkhatri/chef-elasticsearch-cluster"><img src="https://travis-ci.org/vkhatri/chef-elasticsearch-cluster.svg?branch=master" alt="Build Status"></a></p>
+<p><a href="https://github.com/vkhatri/chef-elasticsearch-cluster"><img src="http://img.shields.io/badge/cookbook-v0.2.7-green.svg" alt="Cookbook"></a> <a href="https://travis-ci.org/vkhatri/chef-elasticsearch-cluster"><img src="https://travis-ci.org/vkhatri/chef-elasticsearch-cluster.svg?branch=master" alt="Build Status"></a></p>
 
 <p>This is a <a href="https://www.chef.io/">Chef</a> cookbook to manage <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> Cluster.</p>
 
@@ -50,7 +50,7 @@ what you find missing!</p>
 <h3>
 <a id="most-recent-release" class="anchor" href="#most-recent-release" aria-hidden="true"><span class="octicon octicon-link"></span></a>Most Recent Release</h3>
 
-<div class="highlight highlight-ruby"><pre>cookbook <span class="pl-s"><span class="pl-pds">'</span>elasticsearch-cluster<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>~&gt; 0.2.5<span class="pl-pds">'</span></span></pre></div>
+<div class="highlight highlight-ruby"><pre>cookbook <span class="pl-s"><span class="pl-pds">'</span>elasticsearch-cluster<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>~&gt; 0.2.7<span class="pl-pds">'</span></span></pre></div>
 
 <h3>
 <a id="from-git" class="anchor" href="#from-git" aria-hidden="true"><span class="octicon octicon-link"></span></a>From Git</h3>
@@ -112,13 +112,17 @@ what you find missing!</p>
 </ul>
 
 <h2>
-<a id="lwrp-elasticsearch_plugin" class="anchor" href="#lwrp-elasticsearch_plugin" aria-hidden="true"><span class="octicon octicon-link"></span></a>LWRP elasticsearch_plugin</h2>
+<a id="hwrp-elasticsearch_plugin" class="anchor" href="#hwrp-elasticsearch_plugin" aria-hidden="true"><span class="octicon octicon-link"></span></a>HWRP elasticsearch_plugin</h2>
 
-<p>LWRP <code>elasticsearch_plugin</code> manages elasticsearch plugins install / remove. It is a wrapper for <code>plugin</code> binary.</p>
+<p>HWRP <code>elasticsearch_plugin</code> manages elasticsearch plugins install / remove. It is a wrapper for <code>plugin</code> binary.</p>
 
 <p>For plugins validation (exists or not), it uses node API call to verify wheter required plugin or plugin version is installed.</p>
 
-<p>An <code>environment</code> host groups are evaluated at compile time, hence it conflicts with LWRP <code>hostgroup</code> resources. To avoid the conflict, LWRP <code>envhostgroup</code> resources are created in a separate object file for an environment.</p>
+<blockquote>
+<blockquote>
+<p><code>version</code> is evaluated to verify the correct installed <code>version</code>. Github plugins version <code>vX.Y.Z</code> is not the same as plugin installed version <code>X.Y.Z</code> discovered by provider. Check provider for more details.</p>
+</blockquote>
+</blockquote>
 
 <p><strong>Install Plugin</strong></p>
 
@@ -132,7 +136,7 @@ elasticsearch_plugin 'kopf' do
 end
 </code></pre>
 
-<p>Above LWRP resource will install two plugins: <code>cloud-aws</code> and <code>kopf</code>.</p>
+<p>Above HWRP resource will install two plugins: <code>cloud-aws</code> and <code>kopf</code>.</p>
 
 <p><strong>Remove Plugin</strong></p>
 
@@ -141,13 +145,17 @@ end
 end
 </code></pre>
 
-<p>Above LWRP resource will remove the <code>kopf</code> plugin.</p>
+<p>Above HWRP resource will remove the <code>kopf</code> plugin.</p>
 
-<p><strong>LWRP Options</strong></p>
+<p><strong>HWRP Options</strong></p>
 
 <ul>
 <li>
 <em>action</em> (optional)   - default :install, options: :install, :remove, :nothing</li>
+<li>
+<em>host</em> (optional, String) - elasticsearch host (default: <code>node['elasticsearch']['config']['network.bind_host']</code>)</li>
+<li>
+<em>port</em> (optional, Integer)    - elasticsearch port (default: <code>node['elasticsearch']['config']['http.port']</code>)</li>
 <li>
 <em>install_name</em> (optional, String) - plugin name to install, e.g. to install <code>kopf</code> plugin, <code>install_name</code> would be <code>lmenezes/elasticsearch-kopf</code>
 </li>
@@ -186,7 +194,7 @@ end
 
 </code></pre>
 
-<p>Check out LWRP <code>elasticsearch_plugin</code> or recipe <code>plugins</code> for more info on attributes.</p>
+<p>Check out HWRP <code>elasticsearch_plugin</code> or recipe <code>plugins</code> for more info on attributes.</p>
 
 <h2>
 <a id="cookbook-advanced-attributes" class="anchor" href="#cookbook-advanced-attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cookbook Advanced Attributes</h2>
@@ -213,7 +221,7 @@ to elasticsearch nodes run list</p></li>
 <a id="cookbook-core-attributes" class="anchor" href="#cookbook-core-attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cookbook Core Attributes</h2>
 
 <ul>
-<li><p><code>default['elasticsearch']['version']</code> (default: <code>1.7.0</code>): elasticsearch version to install</p></li>
+<li><p><code>default['elasticsearch']['version']</code> (default: <code>1.7.1</code>): elasticsearch version to install</p></li>
 <li><p><code>default['elasticsearch']['version_suffix']</code> (default: <code>calculated</code>): elasticsearch package version suffix</p></li>
 <li><p><code>default['elasticsearch']['user']</code> (default: <code>elasticsearch</code>): elasticsearch service user</p></li>
 <li><p><code>default['elasticsearch']['group']</code> (default: <code>elasticsearch</code>): elasticsearch service group</p></li>
