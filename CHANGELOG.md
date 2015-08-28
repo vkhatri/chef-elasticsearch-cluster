@@ -3,6 +3,17 @@ elasticsearch-cluster CHANGELOG
 
 This file is used to list changes made in each version of the elasticsearch-cluster cookbook.
 
+0.3.0
+-----
+
+- WEI WU - Fixed config file location issue on CentOS7
+
+- Grant Ridder - Updated .rubocop.yml
+
+- Grant Ridder - Fixed ruby syntax
+
+- Grant Ridder -  Updated test kitchen platforms
+
 0.2.7
 -----
 
