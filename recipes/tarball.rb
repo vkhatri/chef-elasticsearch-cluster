@@ -29,7 +29,7 @@ include_recipe 'elasticsearch-cluster::user'
   end
 end
 
-tarball_file  = ::File.join(node['elasticsearch']['parent_dir'], ::File.basename(node['elasticsearch']['tarball_url']))
+tarball_file = ::File.join(node['elasticsearch']['parent_dir'], ::File.basename(node['elasticsearch']['tarball_url']))
 
 # stop elasticsearch service if running for upgrade
 service 'elasticsearch' do

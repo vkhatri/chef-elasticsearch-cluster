@@ -10,14 +10,11 @@ task :lint => %w(foodcritic rubocop)
 task :default => :lint
 
 desc 'Run Rubocop Lint Task'
-task :rubocop do
-  puts "Running Rubocop Lint.."
-  RuboCop::RakeTask.new
-end
+RuboCop::RakeTask.new
 
-desc 'Run Food Critic Lint Task'
+desc 'Run Foodcritic Lint Task'
 task :foodcritic do
-  puts "Running Food Critic Lint.."
+  puts "Running Foodcritic Lint.."
   FoodCritic::Rake::LintTask.new do |fc|
     fc.options = {:fail_tags => ['any']}
   end
