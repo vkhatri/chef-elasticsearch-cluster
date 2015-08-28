@@ -13,7 +13,7 @@ ES_HOME=<%= node['elasticsearch']['home_dir'] %>
 CONF_DIR=<%= node['elasticsearch']['conf_dir'] %>
 
 # Elasticsearch configuration file
-CONF_FILE=$CONF_DIR/elasticsearch.yml
+CONF_FILE=<%= node['elasticsearch']['conf_file'] %>
 
 # Elasticsearch data directory
 DATA_DIR=<%= node['elasticsearch']['data_dir'] %>
