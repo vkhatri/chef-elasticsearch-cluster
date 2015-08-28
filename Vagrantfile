@@ -18,7 +18,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   #   $ vagrant plugin install vagrant-omnibus
   #
-  if Vagrant.has_plugin?("vagrant-omnibus")
+  if Vagrant.has_plugin?('vagrant-omnibus')
     config.omnibus.chef_version = 'latest'
   end
 
@@ -26,7 +26,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # If this value is a shorthand to a box in Vagrant Cloud then
   # config.vm.box_url doesn't need to be specified.
   config.vm.box = 'chef/ubuntu-14.04'
-
 
   # Assign this VM to a host-only network IP, allowing you to access it
   # via the IP. Host-only networks can talk to the host machine as well as

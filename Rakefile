@@ -6,26 +6,23 @@ require 'rspec/core/rake_task'
 
 desc 'Run all lints'
 task :lint => %w(foodcritic rubocop)
-#task :lint => %w(foodcritic rubocop knife spec)
+# task :lint => %w(foodcritic rubocop knife spec)
 task :default => :lint
 
 desc 'Run Rubocop Lint Task'
-task :rubocop do
-  puts "Running Rubocop Lint.."
-  RuboCop::RakeTask.new
-end
+RuboCop::RakeTask.new
 
-desc 'Run Food Critic Lint Task'
+desc 'Run Foodcritic Lint Task'
 task :foodcritic do
-  puts "Running Food Critic Lint.."
+  puts 'Running Foodcritic Lint..'
   FoodCritic::Rake::LintTask.new do |fc|
-    fc.options = {:fail_tags => ['any']}
+    fc.options = { :fail_tags => ['any'] }
   end
 end
 
 desc 'Run Knife Cookbook Test Task'
 task :knife do
-  puts "Running Knife Check.."
+  puts 'Running Knife Check..'
   current_dir = File.expand_path(File.dirname(__FILE__))
   cookbook_dir = File.dirname(current_dir)
   cookbook_name = File.basename(current_dir)

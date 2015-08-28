@@ -14,7 +14,7 @@ def evaluate_config(value)
 end
 
 def search_cluster_nodes(env, search_role, cluster_name_attr = nil, cluster_name_value = nil)
-  unless  Chef::Config[:solo]
+  unless Chef::Config[:solo]
     search_query = "chef_environment:#{env} AND role:#{search_role}"
     # e.g. each node is mapped to a cluster with a unique cluster_name - node['cluster_name'], hence
     # set node['elasticsearch']['search_cluster_name_attr'] = 'cluster_name' to search within same
