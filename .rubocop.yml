@@ -1,12 +1,6 @@
 AllCops:
   Exclude:
-    - Rakefile
-    - Berksfile
-    - Vagrantfile
-    - Thorfile
-    - Gemfile
     - '.kitchen/*'
-    - 'spec/*'
 AlignParameters:
   Enabled: true
 Encoding:
