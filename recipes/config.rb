@@ -43,13 +43,22 @@ if node['elasticsearch']['use_chef_search']
   node.default['elasticsearch']['config']['discovery.zen.ping.unicast.hosts'] = search_cluster_nodes(node.chef_environment, node['elasticsearch']['search_role_name'], node['elasticsearch']['search_cluster_name_attr'], node[node['elasticsearch']['search_cluster_name_attr']])
 end
 
+config = node['elasticsearch'][node['elasticsearch']['config_attribute']].to_h
+node['elasticsearch']['databag_configs'].each do |databag|
+  data_bag_item = Chef::EncryptedDataBagItem.load(databag['name'], databag['item'])
+  databag['config_items'].each do |k, v|
+    config[k] = data_bag_item[v]
+  end
+end if node['elasticsearch']['databag_configs']
+
 template node['elasticsearch']['conf_file'] do
   cookbook node['elasticsearch']['cookbook']
   source 'elasticsearch.yml.erb'
-  owner 'root'
-  group 'root'
-  mode 0644
-  variables(:config => node['elasticsearch'][node['elasticsearch']['config_attribute']])
+  owner node['elasticsearch']['user']
+  group node['elasticsearch']['group']
+  mode 0600
+  sensitive true if respond_to?(:sensitive)
+  variables(:config => config)
   notifies :restart, 'service[elasticsearch]', :delayed if node['elasticsearch']['notify_restart']
 end
 

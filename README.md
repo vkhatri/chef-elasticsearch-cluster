@@ -289,6 +289,30 @@ to elasticsearch nodes run list
 * `default['elasticsearch']['config']['script.disable_dynamic']` (default: `true`): elasticsearch configuration parameter
 
 
+# ElasticSearch Configuration From Data Bag Item
+
+
+* `default['elasticsearch']['databag_configs']` (default: `nil`): elasticsearch configuration parameters from data bag
+  * For example, following configuration will get data bag named 'aws_keys' and data bag item 'elasticsearch'.
+  * The key of 'config_items' will be used as configuration name.
+  * The value of 'config_items' will be used for fetching value from data bag.
+
+```
+'elasticsearch' => {
+    'databag_configs' => [
+      {
+        'name' => 'aws_keys',
+        'item' => 'elasticsearch',
+        'config_items' => {
+          'cloud.aws.access_key' => 'data_bag_key_for_access_key',
+          'cloud.aws.secret_key' => 'data_bag_key_for_secret_key'
+        }
+      }
+    ]
+}
+```
+
+
 # Elasticsearch YUM/APT Repository Attributes
 
 * `default['elasticsearch']['repo_version']` (default: `calculated`): elasticsearch repository version
