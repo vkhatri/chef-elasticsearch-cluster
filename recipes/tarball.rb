@@ -19,7 +19,10 @@
 
 include_recipe 'elasticsearch-cluster::user'
 
-[node['elasticsearch']['parent_dir']
+[node['elasticsearch']['parent_dir'],
+ node['elasticsearch']['data_dir'],
+ node['elasticsearch']['log_dir'],
+ node['elasticsearch']['work_dir']
 ].each do |dir|
   directory dir do
     owner node['elasticsearch']['user']

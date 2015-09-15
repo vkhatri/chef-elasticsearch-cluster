@@ -43,3 +43,15 @@ end
 package 'elasticsearch' do
   version node['elasticsearch']['version'] + node['elasticsearch']['version_suffix']
 end
+
+[node['elasticsearch']['data_dir'],
+ node['elasticsearch']['log_dir'],
+ node['elasticsearch']['work_dir']
+].each do |dir|
+  directory dir do
+    owner node['elasticsearch']['user']
+    group node['elasticsearch']['group']
+    mode node['elasticsearch']['mode']
+    recursive true
+  end
+end
