@@ -83,3 +83,20 @@ template '/etc/init.d/elasticsearch' do
   mode 0755
   notifies :restart, 'service[elasticsearch]', :delayed if node['elasticsearch']['notify_restart']
 end
+
+# purge older versions
+ruby_block 'purge-old-tarball' do
+  block do
+    require 'fileutils'
+    installed_versions = Dir.entries(node['elasticsearch']['parent_dir']).reject { |a| a !~ /^elasticsearch-/ }.sort
+    old_versions = installed_versions - ["elasticsearch-#{node['elasticsearch']['version']}"]
+
+    old_versions.each do |v|
+      v = ::File.join(node['elasticsearch']['parent_dir'], v)
+      FileUtils.rm_rf Dir.glob(v)
+      puts "deleted older C* tarball archive #{v}"
+      Chef::Log.warn("deleted older C* tarball archive #{v}")
+    end
+  end
+  only_if { node['elasticsearch']['tarball_purge'] }
+end

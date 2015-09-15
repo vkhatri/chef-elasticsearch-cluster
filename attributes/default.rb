@@ -6,6 +6,7 @@ default['elasticsearch']['version_suffix'] = value_for_platform_family(
 
 default['elasticsearch']['install_method']  = 'package' # options: package tarball
 default['elasticsearch']['install_java']    = true
+default['elasticsearch']['tarball_purge'] = false
 
 # cookbook for configuration files template resources
 default['elasticsearch']['cookbook'] = 'elasticsearch-cluster'
