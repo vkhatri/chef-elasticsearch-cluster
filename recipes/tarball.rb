@@ -41,10 +41,12 @@ service 'elasticsearch' do
   only_if { ::File.exist?('/etc/init.d/elasticsearch') && !File.exist?(node['elasticsearch']['source_dir']) }
 end
 
+tarball_checksum = tarball_sha256sum(node['elasticsearch']['version'])
+
 # download tarball
 remote_file tarball_file do
   source node['elasticsearch']['tarball_url']
-  checksum node['elasticsearch']['tarball_checksum'][node['elasticsearch']['version']]
+  checksum tarball_checksum
   owner node['elasticsearch']['user']
   group node['elasticsearch']['group']
   not_if { ::File.exist?(::File.join(node['elasticsearch']['source_dir'], 'bin', 'elasticsearch')) }
