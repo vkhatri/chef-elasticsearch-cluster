@@ -3,6 +3,25 @@ elasticsearch-cluster CHANGELOG
 
 This file is used to list changes made in each version of the elasticsearch-cluster cookbook.
 
+0.3.8
+-----
+
+WEI WU - set databag config related attributes before generating template file. Instead of storing in chef node.
+
+WEI WU - add sensitive flag only if chef respond to this flag
+
+Virender Khatri - #32, move tarball checksum to helper method
+
+Virender Khatri - #33, move install recipe directory resources to install method recipe
+
+Virender Khatri - #34, bump elasticsearch version to 1.7.2
+
+Virender Khatri - #35, manage es config dir in favor of tarball install method
+
+Virender Khatri - #36, update sysv init templates
+
+Virender Khatri - #37, add feature to purge old tarball es revisions
+
 0.3.0
 -----
 

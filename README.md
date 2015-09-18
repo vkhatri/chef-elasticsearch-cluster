@@ -175,9 +175,12 @@ to elasticsearch nodes run list
 
 * `default['elasticsearch']['search_cluster_name_attr']` (default: `nil`): node attribute to match elasticsearch cluster name, not necessary applicable to all
 
+* `default['elasticsearch']['tarball_purge']` (default: `false`): purge older installed versions for tarball install method
+
+
 ## Cookbook Core Attributes
 
-* `default['elasticsearch']['version']` (default: `1.7.1`): elasticsearch version to install
+* `default['elasticsearch']['version']` (default: `1.7.2`): elasticsearch version to install
 
 * `default['elasticsearch']['version_suffix']` (default: `calculated`): elasticsearch package version suffix
 
