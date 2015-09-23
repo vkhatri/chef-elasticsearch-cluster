@@ -23,10 +23,14 @@ directory node['elasticsearch']['conf_dir'] do
   mode node['elasticsearch']['dir_mode']
 end
 
-directory node['elasticsearch']['plugins_dir'] do
-  owner node['elasticsearch']['user']
-  group node['elasticsearch']['group']
-  mode node['elasticsearch']['mode']
+[node['elasticsearch']['scripts_dir'],
+ node['elasticsearch']['plugins_dir']
+].each do |d|
+  directory d do
+    owner node['elasticsearch']['user']
+    group node['elasticsearch']['group']
+    mode node['elasticsearch']['mode']
+  end
 end
 
 template node['elasticsearch']['sysconfig_file'] do

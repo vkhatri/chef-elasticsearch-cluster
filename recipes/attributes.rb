@@ -32,6 +32,7 @@ node.default['elasticsearch']['config']['path.data'] = node['elasticsearch']['da
 node.default['elasticsearch']['config']['path.work'] = node['elasticsearch']['work_dir']
 node.default['elasticsearch']['config']['path.logs'] = node['elasticsearch']['log_dir']
 node.default['elasticsearch']['config']['path.plugins'] = node['elasticsearch']['plugins_dir']
+node.default['elasticsearch']['config']['path.scripts'] = node['elasticsearch']['scripts_dir']
 
 # version specific configuration options
 if node['elasticsearch']['version'] >= '2.0'

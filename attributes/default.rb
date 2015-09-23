@@ -17,6 +17,7 @@ default['elasticsearch']['setup_user']    = true # for tarball install
 
 default['elasticsearch']['enable_sensitive'] = true
 default['elasticsearch']['conf_dir']      = '/etc/elasticsearch'
+default['elasticsearch']['scripts_dir']   = '/etc/elasticsearch/scripts'
 default['elasticsearch']['data_dir']      = '/var/lib/elasticsearch'
 default['elasticsearch']['log_dir']       = '/var/log/elasticsearch'
 default['elasticsearch']['work_dir']      = '/tmp/elasticsearch'
