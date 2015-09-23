@@ -17,6 +17,12 @@
 # limitations under the License.
 #
 
+node.default['elasticsearch']['repo_version'] = node['elasticsearch']['version'].split('.').take(2).join('.')
+node.default['elasticsearch']['yum']['description'] = "ElasticSearch #{node['elasticsearch']['repo_version']} repository"
+node.default['elasticsearch']['yum']['baseurl'] = "http://packages.elasticsearch.org/elasticsearch/#{node['elasticsearch']['repo_version']}/centos"
+node.default['elasticsearch']['apt']['description'] = "ElasticSearch #{node['elasticsearch']['repo_version']} repository"
+node.default['elasticsearch']['apt']['uri'] = "http://packages.elasticsearch.org/elasticsearch/#{node['elasticsearch']['repo_version']}/debian"
+
 node.default['elasticsearch']['conf_file'] = ::File.join(node['elasticsearch']['conf_dir'], 'elasticsearch.yml')
 node.default['elasticsearch']['logging_conf_file'] = ::File.join(node['elasticsearch']['conf_dir'], 'logging.yml')
 node.default['elasticsearch']['install_dir'] = ::File.join(node['elasticsearch']['parent_dir'], 'elasticsearch')
