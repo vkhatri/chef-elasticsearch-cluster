@@ -75,9 +75,9 @@ link node['elasticsearch']['install_dir'] do
 end
 
 # sysv init file
-template '/etc/init.d/elasticsearch' do
+cookbook_file '/etc/init.d/elasticsearch' do
   cookbook node['elasticsearch']['cookbook']
-  source "initd.#{node['platform_family']}.erb"
+  source "initd.#{node['platform_family']}"
   owner 'root'
   group 'root'
   mode 0755
