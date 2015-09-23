@@ -19,19 +19,9 @@ default['elasticsearch']['conf_dir']      = '/etc/elasticsearch'
 default['elasticsearch']['data_dir']      = '/var/lib/elasticsearch'
 default['elasticsearch']['log_dir']       = '/var/log/elasticsearch'
 default['elasticsearch']['work_dir']      = '/tmp/elasticsearch'
-default['elasticsearch']['conf_file']     = ::File.join(node['elasticsearch']['conf_dir'], 'elasticsearch.yml')
 
 # source install directory locations
-default['elasticsearch']['parent_dir']   = '/usr/local/elasticsearch'
-default['elasticsearch']['install_dir']  = ::File.join(node['elasticsearch']['parent_dir'], 'elasticsearch')
-default['elasticsearch']['source_dir']   = ::File.join(node['elasticsearch']['parent_dir'], "elasticsearch-#{node['elasticsearch']['version']}")
-
-default['elasticsearch']['home_dir'] = node['elasticsearch']['install_method'] == 'package' ? '/usr/share/elasticsearch' : node['elasticsearch']['install_dir']
-
-default['elasticsearch']['bin_dir'] = ::File.join(node['elasticsearch']['home_dir'], 'bin')
-
-default['elasticsearch']['plugins_dir'] = node['elasticsearch']['install_method'] == 'package' ? '/usr/share/elasticsearch/plugins' : ::File.join(node['elasticsearch']['parent_dir'], 'plugins')
-default['elasticsearch']['plugins_binary'] = ::File.join(node['elasticsearch']['bin_dir'], 'plugin')
+default['elasticsearch']['parent_dir'] = '/usr/local/elasticsearch'
 
 default['elasticsearch']['sysconfig_file'] = value_for_platform_family(
   'debian' => '/etc/default/elasticsearch',

@@ -14,12 +14,6 @@ default['elasticsearch']['config']['node.max_local_storage_nodes'] = 1
 #################################### Index ####################################
 default['elasticsearch']['config']['index.number_of_shards'] = 5
 default['elasticsearch']['config']['index.number_of_replicas'] = 1
-#################################### Paths ####################################
-default['elasticsearch']['config']['path.conf'] = node['elasticsearch']['conf_dir']
-default['elasticsearch']['config']['path.data'] = node['elasticsearch']['data_dir']
-default['elasticsearch']['config']['path.work'] = node['elasticsearch']['work_dir']
-default['elasticsearch']['config']['path.logs'] = node['elasticsearch']['log_dir']
-default['elasticsearch']['config']['path.plugins'] = node['elasticsearch']['plugins_dir']
 #################################### Plugin ###################################
 # default['elasticsearch']['config']['plugin.mandatory'] = 'mapper-attachments,lang-groovy'
 ################################### Memory ####################################
@@ -73,11 +67,3 @@ default['elasticsearch']['config']['discovery.zen.ping.unicast.hosts'] = []
 
 default['elasticsearch']['config']['action.auto_create_index'] = true
 default['elasticsearch']['config']['action.disable_delete_all_indices'] = true
-
-if node['elasticsearch']['version'] >= '2.0'
-  default['elasticsearch']['config']['script.inline'] = 'sandbox'
-  default['elasticsearch']['config']['script.indexed'] = 'sandbox'
-  default['elasticsearch']['config']['script.file'] = 'on'
-else
-  default['elasticsearch']['config']['script.disable_dynamic'] = true
-end

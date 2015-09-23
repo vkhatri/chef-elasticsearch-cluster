@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+include_recipe 'elasticsearch-cluster::attributes'
 include_recipe 'elasticsearch-cluster::install'
 include_recipe 'elasticsearch-cluster::config'
 include_recipe 'elasticsearch-cluster::plugins'
