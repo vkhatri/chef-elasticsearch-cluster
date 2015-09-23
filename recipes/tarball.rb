@@ -69,8 +69,6 @@ end
 
 link node['elasticsearch']['install_dir'] do
   to node['elasticsearch']['source_dir']
-  owner node['elasticsearch']['user']
-  group node['elasticsearch']['group']
   notifies :restart, 'service[elasticsearch]'
   action :create
 end
