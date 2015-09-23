@@ -177,6 +177,8 @@ to elasticsearch nodes run list
 
 * `default['elasticsearch']['tarball_purge']` (default: `false`): purge older installed versions for tarball install method
 
+* `default['elasticsearch']['enable_sensitive']` (default: `true`): enable sensitive resource attribute for configuration resources
+
 
 ## Cookbook Core Attributes
 
