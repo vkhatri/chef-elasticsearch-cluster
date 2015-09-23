@@ -17,7 +17,8 @@
 # limitations under the License.
 #
 
-tarball_url = "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-#{node['elasticsearch']['version']}.tar.gz"
+tarball_url = node['elasticsearch']['tarball_url'] == 'auto' ? "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-#{node['elasticsearch']['version']}.tar.gz" : node['elasticsearch']['tarball_url']
+
 tarball_file = ::File.join(node['elasticsearch']['parent_dir'], ::File.basename(tarball_url))
 tarball_checksum = tarball_sha256sum(node['elasticsearch']['version'])
 

@@ -29,6 +29,8 @@ default['elasticsearch']['sysconfig_file'] = value_for_platform_family(
   'rhel' => '/etc/sysconfig/elasticsearch'
 )
 
+default['elasticsearch']['tarball_url'] = 'auto'
+
 default['elasticsearch']['service_action'] = [:enable]
 
 default['elasticsearch']['notify_restart'] = false
