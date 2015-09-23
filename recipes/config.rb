@@ -61,6 +61,15 @@ template node['elasticsearch']['conf_file'] do
   notifies :restart, 'service[elasticsearch]', :delayed if node['elasticsearch']['notify_restart']
 end
 
+template node['elasticsearch']['logging_conf_file'] do
+  cookbook node['elasticsearch']['cookbook']
+  source 'logging.yml.erb'
+  owner node['elasticsearch']['user']
+  group node['elasticsearch']['group']
+  mode 0600
+  notifies :restart, 'service[elasticsearch]', :delayed if node['elasticsearch']['notify_restart']
+end
+
 ruby_block 'delay elasticsearch service start' do
   block do
   end
