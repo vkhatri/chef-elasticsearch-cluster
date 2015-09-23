@@ -21,8 +21,6 @@ default['elasticsearch']['log_dir']       = '/var/log/elasticsearch'
 default['elasticsearch']['work_dir']      = '/tmp/elasticsearch'
 default['elasticsearch']['conf_file']     = ::File.join(node['elasticsearch']['conf_dir'], 'elasticsearch.yml')
 
-default['elasticsearch']['tarball_url'] = "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-#{node['elasticsearch']['version']}.tar.gz"
-
 # source install directory locations
 default['elasticsearch']['parent_dir']   = '/usr/local/elasticsearch'
 default['elasticsearch']['install_dir']  = ::File.join(node['elasticsearch']['parent_dir'], 'elasticsearch')

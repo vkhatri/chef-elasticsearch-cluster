@@ -17,6 +17,10 @@
 # limitations under the License.
 #
 
+tarball_url = "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-#{node['elasticsearch']['version']}.tar.gz"
+tarball_file = ::File.join(node['elasticsearch']['parent_dir'], ::File.basename(tarball_url))
+tarball_checksum = tarball_sha256sum(node['elasticsearch']['version'])
+
 include_recipe 'elasticsearch-cluster::user'
 
 [node['elasticsearch']['parent_dir'],
@@ -32,8 +36,6 @@ include_recipe 'elasticsearch-cluster::user'
   end
 end
 
-tarball_file = ::File.join(node['elasticsearch']['parent_dir'], ::File.basename(node['elasticsearch']['tarball_url']))
-
 # stop elasticsearch service if running for upgrade
 service 'elasticsearch' do
   service_name 'elasticsearch'
@@ -41,11 +43,9 @@ service 'elasticsearch' do
   only_if { ::File.exist?('/etc/init.d/elasticsearch') && !File.exist?(node['elasticsearch']['source_dir']) }
 end
 
-tarball_checksum = tarball_sha256sum(node['elasticsearch']['version'])
-
 # download tarball
 remote_file tarball_file do
-  source node['elasticsearch']['tarball_url']
+  source tarball_url
   checksum tarball_checksum
   owner node['elasticsearch']['user']
   group node['elasticsearch']['group']

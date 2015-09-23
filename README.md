@@ -200,8 +200,6 @@ to elasticsearch nodes run list
 
 * `default['elasticsearch']['conf_file']` (default: `/etc/elasticsearch/elasticsearch.yml`): elasticsearch configuration file
 
-* `default['elasticsearch']['tarball_url']` (default: `calculated`): elasticsearch tarball source url
-
 * `default['elasticsearch']['tarball_checksum']` (default: `versions`): elasticsearch tarball version source sha256sum
 
 * `default['elasticsearch']['parent_dir']` (default: `/usr/local/elasticsearch`): elasticsearch directory for tarball based installation
