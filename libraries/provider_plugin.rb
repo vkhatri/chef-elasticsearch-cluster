@@ -4,8 +4,10 @@ require 'net/http'
 
 class Chef
   class Provider
-    # Logstash Plugin Install Provider
+    # provides elasticsearch_plugin
     class ElasticsearchPlugin < Chef::Provider
+      provides :elasticsearch_plugin if respond_to?(:provides)
+
       def initialize(*args)
         super
       end
