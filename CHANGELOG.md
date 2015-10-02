@@ -3,24 +3,46 @@ elasticsearch-cluster CHANGELOG
 
 This file is used to list changes made in each version of the elasticsearch-cluster cookbook.
 
+0.4.7
+-----
+
+- Virender Khatri - #39, script.disable_dynamic is not supported in v2.x
+
+- Virender Khatri - #40, update init.d scripts resource type from template to cookbook_file
+
+- Virender Khatri - #41, update cookbook for wrapper cookbook support
+
+- Virender Khatri - #42, move default attribute tarball_url to recipe tarball
+
+- Virender Khatri - #43, manage logging.yml configuration file
+
+- Virender Khatri - #44, add attribute to enable sensitive
+
+- Virender Khatri - #46, link node['elasticsearch']['install_dir'] should always notify service restart and does
+not require `service` restart
+
+- Virender Khatri - #47, added path.scripts directory resource config
+
+- Virender Khatri - #48, add resource script
+
 0.3.8
 -----
 
-WEI WU - set databag config related attributes before generating template file. Instead of storing in chef node.
+- WEI WU - set databag config related attributes before generating template file. Instead of storing in chef node.
 
-WEI WU - add sensitive flag only if chef respond to this flag
+- WEI WU - add sensitive flag only if chef respond to this flag
 
-Virender Khatri - #32, move tarball checksum to helper method
+- Virender Khatri - #32, move tarball checksum to helper method
 
-Virender Khatri - #33, move install recipe directory resources to install method recipe
+- Virender Khatri - #33, move install recipe directory resources to install method recipe
 
-Virender Khatri - #34, bump elasticsearch version to 1.7.2
+- Virender Khatri - #34, bump elasticsearch version to 1.7.2
 
-Virender Khatri - #35, manage es config dir in favor of tarball install method
+- Virender Khatri - #35, manage es config dir in favor of tarball install method
 
-Virender Khatri - #36, update sysv init templates
+- Virender Khatri - #36, update sysv init templates
 
-Virender Khatri - #37, add feature to purge old tarball es revisions
+- Virender Khatri - #37, add feature to purge old tarball es revisions
 
 0.3.0
 -----
