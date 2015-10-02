@@ -75,6 +75,8 @@ This cookbook supports both Package and Tarball based installation.
 
 - `elasticsearch-cluster::plugins` - install / remove plugins using node attribute `node['elasticsearch']['plugins']`
 
+- `elasticsearch-cluster::scripts` - install / remove scripts using node attribute `node['elasticsearch']['scripts']`
+
 
 ## HWRP elasticsearch_plugin
 
@@ -119,6 +121,36 @@ Above HWRP resource will remove the `kopf` plugin.
 - *version* (optional, String)	- plugin install version
 
 
+
+## HWRP elasticsearch_script
+
+HWRP `elasticsearch_script` manages elasticsearch scripts under directory `node['elasticsearch']['scripts_dir']`. It is a wrapper for `cookbook_file` resource to manage scripts.
+
+**Install Script**
+
+	elasticsearch_script 'foo' do
+	  cookbook 'cookbook'
+	  source 'source'
+	end
+
+Above HWRP resource will add script `foo`.
+
+**Remove Script**
+
+	elasticsearch_script 'foo' do
+	  action :delete
+	end
+
+Above HWRP resource will remove script `foo`.
+
+
+**HWRP Options**
+
+- *action* (optional)	- default :add, options: :add, :delete, :nothing
+- *cookbook* (optional, String)	- script cookbook name for `cookbook_file` resource, required for action `:add`
+- *source* (optional, String)	- default :name, script cookbook file source for `cookbook_file` resource
+
+
 ## Manage Plugins using Node attribute
 
 Using recipe `plugins`, plugins can be installed or removed by node attribute `node['elasticsearch']['plugins']`. Below is the role attributes to install and remove plugins.
@@ -145,6 +177,30 @@ Using recipe `plugins`, plugins can be installed or removed by node attribute `n
 
 Check out HWRP `elasticsearch_plugin` or recipe `plugins` for more info on attributes.
 
+
+## Manage Scripts using Node attribute
+
+Using recipe `scripts`, scripts can be added or deleted by node attribute `node['elasticsearch']['scripts']`. Below is the role attributes to add and delete scripts.
+
+
+```
+  "default_attributes": {
+    "elasticsearch": {
+      "plugins": {
+        "script-name": {
+          "cookbook": "foo",
+          "source": "foo"
+        }
+      }
+    }
+  }
+
+```
+
+Check out HWRP `elasticsearch_script` or recipe `scripts` for more info on attributes.
+
+
+
 ## Cookbook Advanced Attributes
 
 * `default['elasticsearch']['config']['cluster.name']` (default: `nil`): elasticsearch cluster name, required to setup elasticsearch cluster
@@ -162,6 +218,8 @@ Check out HWRP `elasticsearch_plugin` or recipe `plugins` for more info on attri
 * `default['elasticsearch']['cookbook']` (default: `elasticsearch-cluster`): cookbook to use for elasticsearch configuration file/template source
 
 * `default['elasticsearch']['plugins']` (default: `{}`): node `Hash` attribute to install/remove elasticsearch plugins.
+
+* `default['elasticsearch']['scripts']` (default: `{}`): node `Hash` attribute to install/remove elasticsearch scripts.
 
 * `default['elasticsearch']['auto_java_memory']` (default: `false`): whether to allocate maximum possible heap size
 

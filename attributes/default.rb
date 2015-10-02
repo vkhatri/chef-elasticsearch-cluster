@@ -52,3 +52,4 @@ default['elasticsearch']['sysconfig']['MAX_MAP_COUNT']          = 262_144
 default['elasticsearch']['sysconfig']['ES_RESTART_ON_UPGRADE']  = true
 
 default['elasticsearch']['databag_configs'] = nil
+default['elasticsearch']['scripts'] = {}
