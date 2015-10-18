@@ -30,7 +30,8 @@ def tarball_sha256sum(version)
   sha256sums = {
     '1.6.0' => 'dc336c83394b2f2f72f362e0f959a4cfdec2109aa3de15668401afeab0b02d2e', '1.7.0' => '6fabed2db09e1b88587df15269df328ecef33e155b3c675a2a6d2299bda09c95', '1.7.1' => '86a0c20eea6ef55b14345bff5adf896e6332437b19180c4582a346394abde019',
     '1.7.2' => '6f81935e270c403681e120ec4395c28b2ddc87e659ff7784608b86beb5223dd2', '1.7.3' => 'af517611493374cfb2daa8897ae17e63e2efea4d0377d316baa351c1776a2bca',
-    '2.0.0-beta1' => '6fd37b0289720304ea77ae1f8b97881804976fba8d02a5617177ab1c53d271c2', '2.0.0-beta2' => 'd0d50778ab8dad552a19afdf4119f53a3950bfa4414c6f7c58a2d31fdf130f3d'
+    '2.0.0-beta1' => '6fd37b0289720304ea77ae1f8b97881804976fba8d02a5617177ab1c53d271c2', '2.0.0-beta2' => 'd0d50778ab8dad552a19afdf4119f53a3950bfa4414c6f7c58a2d31fdf130f3d',
+    '2.0.0-rc1' => 'cfd97bba0c49000a2799fffd359ec351f0ca7ef5f0a8c160920137db6b057784'
   }
   sha256sum = sha256sums[version]
   fail "sha256sum is missing for elasticsearch tarball version #{version}" unless sha256sum
