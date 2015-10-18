@@ -93,8 +93,8 @@ ruby_block 'purge-old-tarball' do
     old_versions.each do |v|
       v = ::File.join(node['elasticsearch']['parent_dir'], v)
       FileUtils.rm_rf Dir.glob(v)
-      puts "deleted older C* tarball archive #{v}"
-      Chef::Log.warn("deleted older C* tarball archive #{v}")
+      puts "deleted older elasticsearch tarball archive #{v}"
+      Chef::Log.warn("deleted older elasticsearch tarball archive #{v}")
     end
   end
   only_if { node['elasticsearch']['tarball_purge'] }
