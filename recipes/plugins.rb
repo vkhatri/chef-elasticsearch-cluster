@@ -20,7 +20,7 @@
 node['elasticsearch']['plugins'].each do |plugin, options|
   elasticsearch_plugin plugin do
     version options['version']
-    install_name options['install_name']
+    install_source options['install_source']
     url options['url']
     timeout options['timeout']
     ignore_error options['ignore_error']

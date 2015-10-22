@@ -29,6 +29,13 @@ cookbook 'elasticsearch-cluster', github: 'vkhatri/chef-elasticsearch-cluster'
 https://github.com/vkhatri/chef-elasticsearch-cluster
 
 
+## Major Changes
+
+###v5.x.x
+
+* resource `elasticsearch_plugin` attribute `install_name` has been renamed to `install_source`
+
+
 ## Supported OS
 
 This cookbook was tested on Amazon (2015-03) & Ubuntu (14.04) Linux and expected to work on similar platform family OS.
@@ -89,12 +96,12 @@ For plugins validation (exists or not), it uses node API call to verify wheter r
 **Install Plugin**
 
 	elasticsearch_plugin 'cloud-aws' do
-	  install_name   'elasticsearch/elasticsearch-cloud-aws'
+	  install_source   'elasticsearch/elasticsearch-cloud-aws'
 	  version        '2.7.0'
 	end
 
 	elasticsearch_plugin 'kopf' do
-	  install_name 'lmenezes/elasticsearch-kopf'
+	  install_source 'lmenezes/elasticsearch-kopf'
 	end
 
 Above HWRP resource will install two plugins: `cloud-aws` and `kopf`.
@@ -113,7 +120,7 @@ Above HWRP resource will remove the `kopf` plugin.
 - *action* (optional)	- default :install, options: :install, :remove, :nothing
 - *host* (optional, String)	- elasticsearch host (default: `node['elasticsearch']['config']['network.bind_host']`)
 - *port* (optional, Integer)	- elasticsearch port (default: `node['elasticsearch']['config']['http.port']`)
-- *install_name* (optional, String)	- plugin name to install, e.g. to install `kopf` plugin, `install_name` would be `lmenezes/elasticsearch-kopf`
+- *install_source* (optional, String)	- plugin source to install, e.g. to install `kopf` plugin, `install_source` would be `lmenezes/elasticsearch-kopf`
 - *url* (optional, String)	- plugin url
 - *timeout* (optional, String)	- plugin install timeout
 - *notify_restart* (optional, TrueClass, FalseClass)	- whether to restart elasticsearch service post plugin install (default: `false`)
@@ -161,10 +168,10 @@ Using recipe `plugins`, plugins can be installed or removed by node attribute `n
     "elasticsearch": {
       "plugins": {
         "bigdesk": {
-          "install_name": "lukas-vlcek/bigdesk"
+          "install_source": "lukas-vlcek/bigdesk"
         },
         "kopf": {
-          "install_name": "lukas-vlcek/bigdesk"
+          "install_source": "lmenezes/elasticsearch-kopf"
         },
         "head": {
           "action": "remove"

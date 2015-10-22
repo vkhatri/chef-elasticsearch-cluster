@@ -54,7 +54,7 @@ class Chef
       end
 
       def install_command
-        plugin_command = "#{node['elasticsearch']['plugins_binary']} --install #{new_resource.install_name}"
+        plugin_command = "#{node['elasticsearch']['plugins_binary']} --install #{new_resource.install_source}"
         plugin_command << "/#{new_resource.version}" if new_resource.version
         plugin_command << " --url #{new_resource.url}" if new_resource.url
         plugin_command << " --timeout #{new_resource.timeout}" if new_resource.timeout
@@ -104,7 +104,7 @@ class Chef
             run_it = true
           end
         when :nothing, [:nothing], 'nothing'
-          Chef::Log.info("not managing plugin #{new_resource.install_name}")
+          Chef::Log.info("not managing plugin #{new_resource.install_source}")
         when [:remove], :remove, 'remove'
           run_it = true if ::File.exist?(plugin_install_dir)
           plugin_command = uninstall_command

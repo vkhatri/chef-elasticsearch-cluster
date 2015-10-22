@@ -32,9 +32,9 @@ class Chef
         )
       end
 
-      def install_name(arg = nil)
+      def install_source(arg = nil)
         set_or_return(
-          :install_name, arg,
+          :install_source, arg,
           :kind_of => String,
           :default => nil
         )
