@@ -3,6 +3,18 @@ elasticsearch-cluster CHANGELOG
 
 This file is used to list changes made in each version of the elasticsearch-cluster cookbook.
 
+0.5.0
+-----
+
+- Virender Khatri - #49, fix for plugin syntax changed in es 2.x
+
+- Virender Khatri - #50, bump es version to 1.7.3
+
+- Virender Khatri - #51, plugins dir should be created under install_dir for tarball installation
+
+- Virender Khatri - #52, rename resource plugin attribute install_name to install_source
+
+
 0.4.7
 -----
 

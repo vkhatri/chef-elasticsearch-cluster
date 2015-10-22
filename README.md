@@ -1,7 +1,7 @@
 elasticsearch-cluster Cookbook
 ==============================
 
-[![Cookbook](http://img.shields.io/badge/cookbook-v0.4.7-green.svg)](https://github.com/vkhatri/chef-elasticsearch-cluster) [![Build Status](https://travis-ci.org/vkhatri/chef-elasticsearch-cluster.svg?branch=master)](https://travis-ci.org/vkhatri/chef-elasticsearch-cluster)
+[![Cookbook](http://img.shields.io/badge/cookbook-v0.5.0-green.svg)](https://github.com/vkhatri/chef-elasticsearch-cluster) [![Build Status](https://travis-ci.org/vkhatri/chef-elasticsearch-cluster.svg?branch=master)](https://travis-ci.org/vkhatri/chef-elasticsearch-cluster)
 
 This is a [Chef] cookbook to manage [ElasticSearch] Cluster.
 
@@ -31,7 +31,7 @@ https://github.com/vkhatri/chef-elasticsearch-cluster
 
 ## Major Changes
 
-###v5.x.x
+###v0.5.0
 
 * resource `elasticsearch_plugin` attribute `install_name` has been renamed to `install_source`
 
