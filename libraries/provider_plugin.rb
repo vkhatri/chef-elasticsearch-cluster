@@ -30,6 +30,14 @@ class Chef
 
       private
 
+      def option_prefix
+        if node['elasticsearch']['version'] >= '2'
+          ''
+        else
+          '--'
+        end
+      end
+
       def installed_plugins
         plugins = {}
         begin
@@ -54,7 +62,7 @@ class Chef
       end
 
       def install_command
-        plugin_command = "#{node['elasticsearch']['plugins_binary']} --install #{new_resource.install_source}"
+        plugin_command = "#{node['elasticsearch']['plugins_binary']} #{option_prefix}install #{new_resource.install_source}"
         plugin_command << "/#{new_resource.version}" if new_resource.version
         plugin_command << " --url #{new_resource.url}" if new_resource.url
         plugin_command << " --timeout #{new_resource.timeout}" if new_resource.timeout
@@ -62,13 +70,13 @@ class Chef
       end
 
       def reinstall_command
-        plugin_command = "#{node['elasticsearch']['plugins_binary']} --remove #{new_resource.name} && "
+        plugin_command = "#{node['elasticsearch']['plugins_binary']} #{option_prefix}remove #{new_resource.name} && "
         plugin_command << install_command
         plugin_command
       end
 
       def uninstall_command
-        "#{node['elasticsearch']['plugins_binary']} --remove #{new_resource.name}"
+        "#{node['elasticsearch']['plugins_binary']} #{option_prefix}remove #{new_resource.name}"
       end
 
       def eval_version
