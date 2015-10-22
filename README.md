@@ -15,7 +15,7 @@ what you find missing!
 ### Most Recent Release
 
 ``` ruby
-cookbook 'elasticsearch-cluster', '~> 0.4.7'
+cookbook 'elasticsearch-cluster', '~> 0.5.0'
 ```
 
 ### From Git
