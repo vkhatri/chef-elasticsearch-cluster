@@ -12,8 +12,10 @@ ES_HOME=<%= node['elasticsearch']['home_dir'] %>
 # Elasticsearch configuration directory
 CONF_DIR=<%= node['elasticsearch']['conf_dir'] %>
 
+<% if node['elasticsearch']['version'] < '2' -%>
 # Elasticsearch configuration file
 CONF_FILE=<%= node['elasticsearch']['conf_file'] %>
+<% end -%>
 
 # Elasticsearch data directory
 DATA_DIR=<%= node['elasticsearch']['data_dir'] %>
