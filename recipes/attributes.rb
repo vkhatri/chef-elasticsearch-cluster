@@ -46,6 +46,6 @@ else
 end
 
 node.default['elasticsearch']['yum']['description'] = "ElasticSearch #{repo_version} repository"
-node.default['elasticsearch']['yum']['baseurl'] = "http://packages.elasticsearch.org/elasticsearch/#{repo_version}/centos"
+node.default['elasticsearch']['yum']['baseurl'] = "http://packages.elastic.co/elasticsearch/#{repo_version}/centos"
 node.default['elasticsearch']['apt']['description'] = "ElasticSearch #{repo_version} repository"
-node.default['elasticsearch']['apt']['uri'] = "http://packages.elasticsearch.org/elasticsearch/#{repo_version}/debian"
+node.default['elasticsearch']['apt']['uri'] = "http://packages.elastic.co/elasticsearch/#{repo_version}/debian"
