@@ -247,7 +247,7 @@ to elasticsearch nodes run list
 
 ## Cookbook Core Attributes
 
-* `default['elasticsearch']['version']` (default: `1.7.2`): elasticsearch version to install
+* `default['elasticsearch']['version']` (default: `2.0.0`): elasticsearch version to install
 
 * `default['elasticsearch']['version_suffix']` (default: `calculated`): elasticsearch package version suffix
 
@@ -386,8 +386,6 @@ to elasticsearch nodes run list
 
 
 # Elasticsearch YUM/APT Repository Attributes
-
-* `default['elasticsearch']['repo_version']` (default: `calculated`): elasticsearch repository version
 
 * `default['elasticsearch']['yum']['description']` (default: `calculated`): elasticsearch yum reporitory attribute
 
