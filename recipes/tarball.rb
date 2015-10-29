@@ -17,7 +17,11 @@
 # limitations under the License.
 #
 
-tarball_url = node['elasticsearch']['tarball_url'] == 'auto' ? "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-#{node['elasticsearch']['version']}.tar.gz" : node['elasticsearch']['tarball_url']
+if node['elasticsearch']['tarball_url'] == 'auto'
+  tarball_url = node['elasticsearch']['version'].split('.')[0] >= '2' ? "https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/2.0.0/elasticsearch-#{node['elasticsearch']['version']}.tar.gz" : "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-#{node['elasticsearch']['version']}.tar.gz"
+else
+  tarball_url = node['elasticsearch']['tarball_url']
+end
 
 tarball_file = ::File.join(node['elasticsearch']['parent_dir'], ::File.basename(tarball_url))
 tarball_checksum = tarball_sha256sum(node['elasticsearch']['version'])
@@ -76,7 +80,7 @@ end
 # sysv init file
 cookbook_file '/etc/init.d/elasticsearch' do
   cookbook node['elasticsearch']['cookbook']
-  source "initd.#{node['platform_family']}"
+  source "initd.#{node['platform_family']}.#{node['elasticsearch']['version'].split('.')[0]}.x"
   owner 'root'
   group 'root'
   mode 0755

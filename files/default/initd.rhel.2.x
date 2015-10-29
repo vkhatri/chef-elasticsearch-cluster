@@ -1,6 +1,5 @@
 #!/bin/sh
 #
-#
 # This file is managed by Chef.
 # Do NOT modify this file directly.
 #
@@ -43,15 +42,20 @@ MAX_OPEN_FILES=65535
 MAX_MAP_COUNT=262144
 LOG_DIR="/var/log/elasticsearch"
 DATA_DIR="/var/lib/elasticsearch"
-WORK_DIR="/tmp/elasticsearch"
 CONF_DIR="/etc/elasticsearch"
-CONF_FILE="/etc/elasticsearch/elasticsearch.yml"
+
 PID_DIR="/var/run/elasticsearch"
 
 # Source the default env file
 ES_ENV_FILE="/etc/sysconfig/elasticsearch"
 if [ -f "$ES_ENV_FILE" ]; then
     . "$ES_ENV_FILE"
+fi
+
+# CONF_FILE setting was removed
+if [ ! -z "$CONF_FILE" ]; then
+    echo "CONF_FILE setting is no longer supported. elasticsearch.yml must be placed in the config directory and cannot be renamed."
+    exit 1
 fi
 
 exec="$ES_HOME/bin/elasticsearch"
@@ -62,6 +66,7 @@ export ES_HEAP_SIZE
 export ES_HEAP_NEWSIZE
 export ES_DIRECT_SIZE
 export ES_JAVA_OPTS
+export ES_GC_LOG_FILE
 export JAVA_HOME
 
 lockfile=/var/lock/subsys/$prog
@@ -87,7 +92,6 @@ checkJava() {
 start() {
     checkJava
     [ -x $exec ] || exit 5
-    [ -f $CONF_FILE ] || exit 6
     if [ -n "$MAX_LOCKED_MEMORY" -a -z "$ES_HEAP_SIZE" ]; then
         echo "MAX_LOCKED_MEMORY is set - ES_HEAP_SIZE must also be set"
         return 7
@@ -101,10 +105,7 @@ start() {
     if [ -n "$MAX_MAP_COUNT" -a -f /proc/sys/vm/max_map_count ]; then
         sysctl -q -w vm.max_map_count=$MAX_MAP_COUNT
     fi
-    if [ -n "$WORK_DIR" ]; then
-        mkdir -p "$WORK_DIR"
-        chown "$ES_USER":"$ES_GROUP" "$WORK_DIR"
-    fi
+    export ES_GC_LOG_FILE
 
     # Ensure that the PID_DIR exists (it is cleaned at OS startup time)
     if [ -n "$PID_DIR" ] && [ ! -e "$PID_DIR" ]; then
@@ -114,9 +115,10 @@ start() {
         touch "$pidfile" && chown "$ES_USER":"$ES_GROUP" "$pidfile"
     fi
 
+    cd $ES_HOME
     echo -n $"Starting $prog: "
     # if not running, start it up here, usually something like "daemon $exec"
-    daemon --user $ES_USER --pidfile $pidfile $exec -p $pidfile -d -Des.default.path.home=$ES_HOME -Des.default.path.logs=$LOG_DIR -Des.default.path.data=$DATA_DIR -Des.default.path.work=$WORK_DIR -Des.default.path.conf=$CONF_DIR
+    daemon --user $ES_USER --pidfile $pidfile $exec -p $pidfile -d -Des.default.path.home=$ES_HOME -Des.default.path.logs=$LOG_DIR -Des.default.path.data=$DATA_DIR -Des.default.path.conf=$CONF_DIR
     retval=$?
     echo
     [ $retval -eq 0 ] && touch $lockfile
@@ -126,7 +128,7 @@ start() {
 stop() {
     echo -n $"Stopping $prog: "
     # stop it here, often "killproc $prog"
-    killproc -p $pidfile -d 20 $prog
+    killproc -p $pidfile -d 86400 $prog
     retval=$?
     echo
     [ $retval -eq 0 ] && rm -f $lockfile
