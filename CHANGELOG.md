@@ -3,6 +3,24 @@ elasticsearch-cluster CHANGELOG
 
 This file is used to list changes made in each version of the elasticsearch-cluster cookbook.
 
+0.5.1
+-----
+
+- Virender Khatri - #53, bump es version to 2.0.0
+
+- Virender Khatri - #54, es 2.x repo url change
+
+- Virender Khatri - #55, fix es 2.0 invalid parameter CONF_FILE
+
+- Virender Khatri - #56, add sha256sum for 2.0.0 tar
+
+- Virender Khatri - #57, update package repository to use http://packages.elastic.co
+
+- Virender Khatri - #58, updated es 2.x initd
+
+- Virender Khatri - #59, es 2.x new tarball url
+
+
 0.5.0
 -----
 
