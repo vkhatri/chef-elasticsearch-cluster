@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/github-light.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -31,7 +31,7 @@
         <h1>
 <a id="elasticsearch-cluster-cookbook" class="anchor" href="#elasticsearch-cluster-cookbook" aria-hidden="true"><span class="octicon octicon-link"></span></a>elasticsearch-cluster Cookbook</h1>
 
-<p><a href="https://github.com/vkhatri/chef-elasticsearch-cluster"><img src="http://img.shields.io/badge/cookbook-v0.2.7-green.svg" alt="Cookbook"></a> <a href="https://travis-ci.org/vkhatri/chef-elasticsearch-cluster"><img src="https://travis-ci.org/vkhatri/chef-elasticsearch-cluster.svg?branch=master" alt="Build Status"></a></p>
+<p><a href="https://github.com/vkhatri/chef-elasticsearch-cluster"><img src="http://img.shields.io/badge/cookbook-v0.5.1-green.svg" alt="Cookbook"></a> <a href="https://travis-ci.org/vkhatri/chef-elasticsearch-cluster"><img src="https://travis-ci.org/vkhatri/chef-elasticsearch-cluster.svg?branch=master" alt="Build Status"></a></p>
 
 <p>This is a <a href="https://www.chef.io/">Chef</a> cookbook to manage <a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> Cluster.</p>
 
@@ -50,17 +50,28 @@ what you find missing!</p>
 <h3>
 <a id="most-recent-release" class="anchor" href="#most-recent-release" aria-hidden="true"><span class="octicon octicon-link"></span></a>Most Recent Release</h3>
 
-<div class="highlight highlight-ruby"><pre>cookbook <span class="pl-s"><span class="pl-pds">'</span>elasticsearch-cluster<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>~&gt; 0.2.7<span class="pl-pds">'</span></span></pre></div>
+<div class="highlight highlight-source-ruby"><pre>cookbook <span class="pl-s"><span class="pl-pds">'</span>elasticsearch-cluster<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>~&gt; 0.5.1<span class="pl-pds">'</span></span></pre></div>
 
 <h3>
 <a id="from-git" class="anchor" href="#from-git" aria-hidden="true"><span class="octicon octicon-link"></span></a>From Git</h3>
 
-<div class="highlight highlight-ruby"><pre>cookbook <span class="pl-s"><span class="pl-pds">'</span>elasticsearch-cluster<span class="pl-pds">'</span></span>, <span class="pl-c1">github:</span> <span class="pl-s"><span class="pl-pds">'</span>vkhatri/chef-elasticsearch-cluster<span class="pl-pds">'</span></span></pre></div>
+<div class="highlight highlight-source-ruby"><pre>cookbook <span class="pl-s"><span class="pl-pds">'</span>elasticsearch-cluster<span class="pl-pds">'</span></span>, <span class="pl-c1">github:</span> <span class="pl-s"><span class="pl-pds">'</span>vkhatri/chef-elasticsearch-cluster<span class="pl-pds">'</span></span></pre></div>
 
 <h2>
 <a id="repository" class="anchor" href="#repository" aria-hidden="true"><span class="octicon octicon-link"></span></a>Repository</h2>
 
 <p><a href="https://github.com/vkhatri/chef-elasticsearch-cluster">https://github.com/vkhatri/chef-elasticsearch-cluster</a></p>
+
+<h2>
+<a id="major-changes" class="anchor" href="#major-changes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Major Changes</h2>
+
+<h3>
+<a id="v050" class="anchor" href="#v050" aria-hidden="true"><span class="octicon octicon-link"></span></a>v0.5.0</h3>
+
+<ul>
+<li>resource <code>elasticsearch_plugin</code> attribute <code>install_name</code> has been renamed to <code>install_source</code>
+</li>
+</ul>
 
 <h2>
 <a id="supported-os" class="anchor" href="#supported-os" aria-hidden="true"><span class="octicon octicon-link"></span></a>Supported OS</h2>
@@ -109,6 +120,7 @@ what you find missing!</p>
 <li><p><code>elasticsearch-cluster::user</code> - create elasticsearch user/group when <code>node['elasticsearch']['install_method']</code> is set to <code>tarball</code></p></li>
 <li><p><code>elasticsearch-cluster::config</code> - configure elasticsearch</p></li>
 <li><p><code>elasticsearch-cluster::plugins</code> - install / remove plugins using node attribute <code>node['elasticsearch']['plugins']</code></p></li>
+<li><p><code>elasticsearch-cluster::scripts</code> - install / remove scripts using node attribute <code>node['elasticsearch']['scripts']</code></p></li>
 </ul>
 
 <h2>
@@ -127,12 +139,12 @@ what you find missing!</p>
 <p><strong>Install Plugin</strong></p>
 
 <pre><code>elasticsearch_plugin 'cloud-aws' do
-  install_name   'elasticsearch/elasticsearch-cloud-aws'
+  install_source   'elasticsearch/elasticsearch-cloud-aws'
   version        '2.7.0'
 end
 
 elasticsearch_plugin 'kopf' do
-  install_name 'lmenezes/elasticsearch-kopf'
+  install_source 'lmenezes/elasticsearch-kopf'
 end
 </code></pre>
 
@@ -157,7 +169,7 @@ end
 <li>
 <em>port</em> (optional, Integer)    - elasticsearch port (default: <code>node['elasticsearch']['config']['http.port']</code>)</li>
 <li>
-<em>install_name</em> (optional, String) - plugin name to install, e.g. to install <code>kopf</code> plugin, <code>install_name</code> would be <code>lmenezes/elasticsearch-kopf</code>
+<em>install_source</em> (optional, String)   - plugin source to install, e.g. to install <code>kopf</code> plugin, <code>install_source</code> would be <code>lmenezes/elasticsearch-kopf</code>
 </li>
 <li>
 <em>url</em> (optional, String)  - plugin url</li>
@@ -172,6 +184,42 @@ end
 </ul>
 
 <h2>
+<a id="hwrp-elasticsearch_script" class="anchor" href="#hwrp-elasticsearch_script" aria-hidden="true"><span class="octicon octicon-link"></span></a>HWRP elasticsearch_script</h2>
+
+<p>HWRP <code>elasticsearch_script</code> manages elasticsearch scripts under directory <code>node['elasticsearch']['scripts_dir']</code>. It is a wrapper for <code>cookbook_file</code> resource to manage scripts.</p>
+
+<p><strong>Install Script</strong></p>
+
+<pre><code>elasticsearch_script 'foo' do
+  cookbook 'cookbook'
+  source 'source'
+end
+</code></pre>
+
+<p>Above HWRP resource will add script <code>foo</code>.</p>
+
+<p><strong>Remove Script</strong></p>
+
+<pre><code>elasticsearch_script 'foo' do
+  action :delete
+end
+</code></pre>
+
+<p>Above HWRP resource will remove script <code>foo</code>.</p>
+
+<p><strong>HWRP Options</strong></p>
+
+<ul>
+<li>
+<em>action</em> (optional)   - default :add, options: :add, :delete, :nothing</li>
+<li>
+<em>cookbook</em> (optional, String) - script cookbook name for <code>cookbook_file</code> resource, required for action <code>:add</code>
+</li>
+<li>
+<em>source</em> (optional, String)   - default :name, script cookbook file source for <code>cookbook_file</code> resource</li>
+</ul>
+
+<h2>
 <a id="manage-plugins-using-node-attribute" class="anchor" href="#manage-plugins-using-node-attribute" aria-hidden="true"><span class="octicon octicon-link"></span></a>Manage Plugins using Node attribute</h2>
 
 <p>Using recipe <code>plugins</code>, plugins can be installed or removed by node attribute <code>node['elasticsearch']['plugins']</code>. Below is the role attributes to install and remove plugins.</p>
@@ -180,10 +228,10 @@ end
     "elasticsearch": {
       "plugins": {
         "bigdesk": {
-          "install_name": "lukas-vlcek/bigdesk"
+          "install_source": "lukas-vlcek/bigdesk"
         },
         "kopf": {
-          "install_name": "lukas-vlcek/bigdesk"
+          "install_source": "lmenezes/elasticsearch-kopf"
         },
         "head": {
           "action": "remove"
@@ -197,6 +245,26 @@ end
 <p>Check out HWRP <code>elasticsearch_plugin</code> or recipe <code>plugins</code> for more info on attributes.</p>
 
 <h2>
+<a id="manage-scripts-using-node-attribute" class="anchor" href="#manage-scripts-using-node-attribute" aria-hidden="true"><span class="octicon octicon-link"></span></a>Manage Scripts using Node attribute</h2>
+
+<p>Using recipe <code>scripts</code>, scripts can be added or deleted by node attribute <code>node['elasticsearch']['scripts']</code>. Below is the role attributes to add and delete scripts.</p>
+
+<pre><code>  "default_attributes": {
+    "elasticsearch": {
+      "plugins": {
+        "script-name": {
+          "cookbook": "foo",
+          "source": "foo"
+        }
+      }
+    }
+  }
+
+</code></pre>
+
+<p>Check out HWRP <code>elasticsearch_script</code> or recipe <code>scripts</code> for more info on attributes.</p>
+
+<h2>
 <a id="cookbook-advanced-attributes" class="anchor" href="#cookbook-advanced-attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cookbook Advanced Attributes</h2>
 
 <ul>
@@ -208,6 +276,7 @@ end
 <li><p><code>default['elasticsearch']['setup_user']</code> (default: <code>true</code>): whether to setup elasticsearch service user when installing via tarball</p></li>
 <li><p><code>default['elasticsearch']['cookbook']</code> (default: <code>elasticsearch-cluster</code>): cookbook to use for elasticsearch configuration file/template source</p></li>
 <li><p><code>default['elasticsearch']['plugins']</code> (default: <code>{}</code>): node <code>Hash</code> attribute to install/remove elasticsearch plugins.</p></li>
+<li><p><code>default['elasticsearch']['scripts']</code> (default: <code>{}</code>): node <code>Hash</code> attribute to install/remove elasticsearch scripts.</p></li>
 <li><p><code>default['elasticsearch']['auto_java_memory']</code> (default: <code>false</code>): whether to allocate maximum possible heap size</p></li>
 <li><p><code>default['elasticsearch']['auto_system_memory']</code> (default: <code>768</code>): minimum memory to keep for OS while allocating maximum possible memory to elasticsearch, used with node['elasticsearch']['auto_java_memory']</p></li>
 <li><p><code>default['elasticsearch']['use_chef_search']</code> (default: <code>false</code>): whether to use Chef Search to find elasticsearch cluster nodes in an environment
@@ -215,13 +284,15 @@ for a given chef elasticsearch role</p></li>
 <li><p><code>default['elasticsearch']['search_role_name']</code> (default: <code>elasticsearch_cluster</code>): chef role associated with elasticsearch nodes which add this cookbook
 to elasticsearch nodes run list</p></li>
 <li><p><code>default['elasticsearch']['search_cluster_name_attr']</code> (default: <code>nil</code>): node attribute to match elasticsearch cluster name, not necessary applicable to all</p></li>
+<li><p><code>default['elasticsearch']['tarball_purge']</code> (default: <code>false</code>): purge older installed versions for tarball install method</p></li>
+<li><p><code>default['elasticsearch']['enable_sensitive']</code> (default: <code>true</code>): enable sensitive resource attribute for configuration resources</p></li>
 </ul>
 
 <h2>
 <a id="cookbook-core-attributes" class="anchor" href="#cookbook-core-attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cookbook Core Attributes</h2>
 
 <ul>
-<li><p><code>default['elasticsearch']['version']</code> (default: <code>1.7.1</code>): elasticsearch version to install</p></li>
+<li><p><code>default['elasticsearch']['version']</code> (default: <code>2.0.0</code>): elasticsearch version to install</p></li>
 <li><p><code>default['elasticsearch']['version_suffix']</code> (default: <code>calculated</code>): elasticsearch package version suffix</p></li>
 <li><p><code>default['elasticsearch']['user']</code> (default: <code>elasticsearch</code>): elasticsearch service user</p></li>
 <li><p><code>default['elasticsearch']['group']</code> (default: <code>elasticsearch</code>): elasticsearch service group</p></li>
@@ -231,7 +302,8 @@ to elasticsearch nodes run list</p></li>
 <li><p><code>default['elasticsearch']['work_dir']</code> (default: <code>/tmp/elasticsearch</code>): elasticsearch temporary files directory</p></li>
 <li><p><code>default['elasticsearch']['plugins_dir']</code> (default: <code>calcualted</code>): elasticsearch plugins directory</p></li>
 <li><p><code>default['elasticsearch']['conf_file']</code> (default: <code>/etc/elasticsearch/elasticsearch.yml</code>): elasticsearch configuration file</p></li>
-<li><p><code>default['elasticsearch']['tarball_url']</code> (default: <code>calculated</code>): elasticsearch tarball source url</p></li>
+<li><p><code>default['elasticsearch']['logging_conf_file']</code> (default: <code>/etc/elasticsearch/logging.yml</code>): elasticsearch logging configuration file</p></li>
+<li><p><code>default['elasticsearch']['tarball_url']</code> (default: <code>auto</code>): elasticsearch tarball download url</p></li>
 <li><p><code>default['elasticsearch']['tarball_checksum']</code> (default: <code>versions</code>): elasticsearch tarball version source sha256sum</p></li>
 <li><p><code>default['elasticsearch']['parent_dir']</code> (default: <code>/usr/local/elasticsearch</code>): elasticsearch directory for tarball based installation</p></li>
 <li><p><code>default['elasticsearch']['install_dir']</code> (default: <code>/usr/local/elasticsearch/elasticsearch</code>): elasticsearch symlink to current version source directory (for tarball based installation)</p></li>
@@ -288,10 +360,38 @@ to elasticsearch nodes run list</p></li>
 </ul>
 
 <h1>
+<a id="elasticsearch-configuration-from-data-bag-item" class="anchor" href="#elasticsearch-configuration-from-data-bag-item" aria-hidden="true"><span class="octicon octicon-link"></span></a>ElasticSearch Configuration From Data Bag Item</h1>
+
+<ul>
+<li>
+<code>default['elasticsearch']['databag_configs']</code> (default: <code>nil</code>): elasticsearch configuration parameters from data bag
+
+<ul>
+<li>For example, following configuration will get data bag named 'aws_keys' and data bag item 'elasticsearch'.</li>
+<li>The key of 'config_items' will be used as configuration name.</li>
+<li>The value of 'config_items' will be used for fetching value from data bag.</li>
+</ul>
+</li>
+</ul>
+
+<pre><code>'elasticsearch' =&gt; {
+    'databag_configs' =&gt; [
+      {
+        'name' =&gt; 'aws_keys',
+        'item' =&gt; 'elasticsearch',
+        'config_items' =&gt; {
+          'cloud.aws.access_key' =&gt; 'data_bag_key_for_access_key',
+          'cloud.aws.secret_key' =&gt; 'data_bag_key_for_secret_key'
+        }
+      }
+    ]
+}
+</code></pre>
+
+<h1>
 <a id="elasticsearch-yumapt-repository-attributes" class="anchor" href="#elasticsearch-yumapt-repository-attributes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Elasticsearch YUM/APT Repository Attributes</h1>
 
 <ul>
-<li><p><code>default['elasticsearch']['repo_version']</code> (default: <code>calculated</code>): elasticsearch repository version</p></li>
 <li><p><code>default['elasticsearch']['yum']['description']</code> (default: <code>calculated</code>): elasticsearch yum reporitory attribute</p></li>
 <li><p><code>default['elasticsearch']['yum']['gpgcheck']</code> (default: <code>true</code>): elasticsearch yum reporitory attribute</p></li>
 <li><p><code>default['elasticsearch']['yum']['enabled']</code> (default: <code>true</code>): elasticsearch yum reporitory attribute</p></li>
