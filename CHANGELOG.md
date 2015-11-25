@@ -3,6 +3,19 @@ elasticsearch-cluster CHANGELOG
 
 This file is used to list changes made in each version of the elasticsearch-cluster cookbook.
 
+
+0.5.2
+-----
+
+- Virender Khatri - #65, update metadata for issues source url
+
+- Virender Khatri - #64, bump elasticsearch version to 2.1.0
+
+- Virender Khatri - #63, :delayed is default timer for notify service
+
+- Virender Khatri - #62, fix for ruby_block always notify service start
+
+
 0.5.1
 -----
 
