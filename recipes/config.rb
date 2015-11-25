@@ -40,7 +40,7 @@ template 'elasticsearch_env_file' do
   owner 'root'
   group 'root'
   mode 0644
-  notifies :restart, 'service[elasticsearch]', :delayed if node['elasticsearch']['notify_restart']
+  notifies :restart, 'service[elasticsearch]' if node['elasticsearch']['notify_restart']
 end
 
 if node['elasticsearch']['use_chef_search']
@@ -63,7 +63,7 @@ template node['elasticsearch']['conf_file'] do
   mode 0600
   sensitive true if node['elasticsearch']['enable_sensitive'] && respond_to?(:sensitive)
   variables(:config => config)
-  notifies :restart, 'service[elasticsearch]', :delayed if node['elasticsearch']['notify_restart']
+  notifies :restart, 'service[elasticsearch]' if node['elasticsearch']['notify_restart']
 end
 
 template node['elasticsearch']['logging_conf_file'] do
@@ -72,7 +72,7 @@ template node['elasticsearch']['logging_conf_file'] do
   owner node['elasticsearch']['user']
   group node['elasticsearch']['group']
   mode 0600
-  notifies :restart, 'service[elasticsearch]', :delayed if node['elasticsearch']['notify_restart']
+  notifies :restart, 'service[elasticsearch]' if node['elasticsearch']['notify_restart']
 end
 
 if (node['elasticsearch']['service_action'].is_a?(Array) && [:stop, 'stop'].any? { |x| node['elasticsearch']['service_action'].include?(x) }) || node['elasticsearch']['service_action'].to_s == 'stop'

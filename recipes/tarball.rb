@@ -84,7 +84,7 @@ cookbook_file '/etc/init.d/elasticsearch' do
   owner 'root'
   group 'root'
   mode 0755
-  notifies :restart, 'service[elasticsearch]', :delayed if node['elasticsearch']['notify_restart']
+  notifies :restart, 'service[elasticsearch]' if node['elasticsearch']['notify_restart']
 end
 
 # purge older versions
