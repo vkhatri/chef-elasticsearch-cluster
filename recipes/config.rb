@@ -74,10 +74,17 @@ template node['elasticsearch']['logging_conf_file'] do
   notifies :restart, 'service[elasticsearch]', :delayed if node['elasticsearch']['notify_restart']
 end
 
+if (node['elasticsearch']['service_action'].is_a?(Array) && [:stop, 'stop'].any? { |x| node['elasticsearch']['service_action'].include?(x) }) || node['elasticsearch']['service_action'].to_s == 'stop'
+  notify_service_start = false
+else
+  notify_service_start = true
+end
+
 ruby_block 'delay elasticsearch service start' do
   block do
   end
-  notifies :start, 'service[elasticsearch]', :delayed
+  notifies :start, 'service[elasticsearch]'
+  only_if { notify_service_start }
 end
 
 service 'elasticsearch' do
