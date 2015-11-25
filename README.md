@@ -247,7 +247,7 @@ to elasticsearch nodes run list
 
 ## Cookbook Core Attributes
 
-* `default['elasticsearch']['version']` (default: `2.0.0`): elasticsearch version to install
+* `default['elasticsearch']['version']` (default: `2.1.0`): elasticsearch version to install
 
 * `default['elasticsearch']['version_suffix']` (default: `calculated`): elasticsearch package version suffix
 
