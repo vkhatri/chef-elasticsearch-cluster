@@ -33,7 +33,8 @@ end
   end
 end
 
-template node['elasticsearch']['sysconfig_file'] do
+template 'elasticsearch_env_file' do
+  path node['elasticsearch']['sysconfig_file']
   cookbook node['elasticsearch']['cookbook']
   source 'sysconfig.erb'
   owner 'root'

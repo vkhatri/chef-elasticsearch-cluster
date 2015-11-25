@@ -31,7 +31,7 @@ when 'rhel'
   yum_repository 'elasticsearch' do
     description node['elasticsearch']['yum']['description']
     baseurl node['elasticsearch']['yum']['baseurl']
-    mirrorlist node['elasticsearch']['yum']['mirrorlist']
+    mirrorlist node['elasticsearch']['yum']['mirrorlist'] if node['elasticsearch']['yum']['mirrorlist']
     gpgcheck node['elasticsearch']['yum']['gpgcheck']
     gpgkey node['elasticsearch']['yum']['gpgkey']
     enabled node['elasticsearch']['yum']['enabled']
