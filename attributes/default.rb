@@ -1,4 +1,4 @@
-default['elasticsearch']['version'] = '2.0.1'
+default['elasticsearch']['version'] = '2.1.0'
 default['elasticsearch']['version_suffix'] = value_for_platform_family(
   'debian' => '',
   'rhel' => '-1'
