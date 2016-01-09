@@ -67,7 +67,7 @@ execute 'extract_elasticsearch_tarball' do
   creates ::File.join(node['elasticsearch']['source_dir'], 'bin', 'elasticsearch')
 end
 
-remote_file tarball_file do
+file tarball_file do
   action :delete
 end
 
