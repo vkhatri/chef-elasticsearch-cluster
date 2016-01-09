@@ -247,7 +247,9 @@ to elasticsearch nodes run list
 
 ## Cookbook Core Attributes
 
-* `default['elasticsearch']['version']` (default: `2.1.0`): elasticsearch version to install
+* `default['elasticsearch']['version']` (default: `2.1.1`): elasticsearch version to install
+
+* `default['elasticsearch']['sha256sum']` (default: `nil`): allow users to provide sha256sum for unsupported elasticsearch version tarball file
 
 * `default['elasticsearch']['version_suffix']` (default: `calculated`): elasticsearch package version suffix
 
@@ -396,8 +398,6 @@ to elasticsearch nodes run list
 * `default['elasticsearch']['yum']['baseurl']` (default: `calculated`): elasticsearch yum reporitory attribute
 
 * `default['elasticsearch']['yum']['gpgkey']` (default: `https://packages.elasticsearch.org/GPG-KEY-elasticsearch`): elasticsearch yum reporitory attribute
-
-* `default['elasticsearch']['yum']['mirrorlist']` (default: `nil`): elasticsearch yum reporitory attribute
 
 * `default['elasticsearch']['yum']['action']` (default: `:create`): elasticsearch yum reporitory attribute
 
