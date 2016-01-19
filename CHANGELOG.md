@@ -3,6 +3,13 @@ elasticsearch-cluster CHANGELOG
 
 This file is used to list changes made in each version of the elasticsearch-cluster cookbook.
 
+0.5.3
+-----
+
+- Virender Khatri - tarball_file delete should be a file resource #71
+
+- Virender Khatri - add ES v2.1.1 support #70
+
 
 0.5.2
 -----
