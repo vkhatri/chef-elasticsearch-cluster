@@ -18,7 +18,7 @@
 #
 
 if node['elasticsearch']['tarball_url'] == 'auto'
-  tarball_url = node['elasticsearch']['version'].split('.')[0] >= '2' ? "https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/2.0.0/elasticsearch-#{node['elasticsearch']['version']}.tar.gz" : "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-#{node['elasticsearch']['version']}.tar.gz"
+  tarball_url = node['elasticsearch']['version'].split('.')[0] >= '2' ? "https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/#{node['elasticsearch']['version']}/elasticsearch-#{node['elasticsearch']['version']}.tar.gz" : "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-#{node['elasticsearch']['version']}.tar.gz"
 else
   tarball_url = node['elasticsearch']['tarball_url']
 end
