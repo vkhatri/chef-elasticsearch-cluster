@@ -16,3 +16,6 @@ suites:
     run_list:
       - recipe[elasticsearch-cluster::default]
     attributes:
+      elasticsearch:
+        config:
+          cluster.name: "foo"
