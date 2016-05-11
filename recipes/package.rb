@@ -46,8 +46,7 @@ end
 
 [node['elasticsearch']['data_dir'],
  node['elasticsearch']['log_dir'],
- node['elasticsearch']['work_dir']
-].each do |dir|
+ node['elasticsearch']['work_dir']].each do |dir|
   directory dir do
     owner node['elasticsearch']['user']
     group node['elasticsearch']['group']

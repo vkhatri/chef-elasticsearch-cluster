@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-fail "invalid value for node attribute node['elasticsearch']['install_method'], valid are 'package tarball'" unless %w(package tarball).include?(node['elasticsearch']['install_method'])
+raise "invalid value for node attribute node['elasticsearch']['install_method'], valid are 'package tarball'" unless %w(package tarball).include?(node['elasticsearch']['install_method'])
 
 include_recipe 'elasticsearch-cluster::java'
 

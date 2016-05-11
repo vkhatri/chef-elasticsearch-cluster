@@ -1,7 +1,7 @@
 def evaluate_config(value)
   if value.is_a?(String)
     value = value.strip
-    if value.match(/[[:blank:]]/)
+    if value =~ /[[:blank:]]/
       value.inspect
     else
       value
@@ -20,7 +20,7 @@ def search_cluster_nodes(env, search_role, cluster_name_attr = nil, cluster_name
     # set node['elasticsearch']['search_cluster_name_attr'] = 'cluster_name' to search within same
     # cluster environment. this provides multiple cluster support in an environment. but not
     # necessarily applicable to all scenarios
-    search_query << " AND #{cluster_name_attr}:#{cluster_name_value}" if cluster_name_attr && cluster_name_value.to_s.length != 0
+    search_query << " AND #{cluster_name_attr}:#{cluster_name_value}" if cluster_name_attr && !cluster_name_value.to_s.empty?
 
     search(:node, search_query).map(&:name).sort.uniq
   end
@@ -38,6 +38,6 @@ def tarball_sha256sum(version)
     '2.3.0' => 'd68482c7633f2986263bc5f11f93b8a58c54c6cf5e337b615446d0a7c6fdcd8b', '2.3.1' => 'f0092e73038e0472fcdd923e5f2792e13692ea0f09ca034a54dd49b217110ebb'
   }
   sha256sum = sha256sums[version] || node['elasticsearch']['sha256sum']
-  fail "sha256sum is missing for elasticsearch tarball version #{version}" unless sha256sum
+  raise "sha256sum is missing for elasticsearch tarball version #{version}" unless sha256sum
   sha256sum
 end

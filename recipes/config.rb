@@ -17,15 +17,14 @@
 # limitations under the License.
 #
 
-fail "require value for node['elasticsearch']['config']['cluster.name']" unless node['elasticsearch']['config']['cluster.name']
+raise "require value for node['elasticsearch']['config']['cluster.name']" unless node['elasticsearch']['config']['cluster.name']
 
 directory node['elasticsearch']['conf_dir'] do
   mode node['elasticsearch']['dir_mode']
 end
 
 [node['elasticsearch']['scripts_dir'],
- node['elasticsearch']['plugins_dir']
-].each do |d|
+ node['elasticsearch']['plugins_dir']].each do |d|
   directory d do
     owner node['elasticsearch']['user']
     group node['elasticsearch']['group']
@@ -75,11 +74,11 @@ template node['elasticsearch']['logging_conf_file'] do
   notifies :restart, 'service[elasticsearch]' if node['elasticsearch']['notify_restart']
 end
 
-if (node['elasticsearch']['service_action'].is_a?(Array) && [:stop, 'stop'].any? { |x| node['elasticsearch']['service_action'].include?(x) }) || node['elasticsearch']['service_action'].to_s == 'stop'
-  notify_service_start = false
-else
-  notify_service_start = true
-end
+notify_service_start = if (node['elasticsearch']['service_action'].is_a?(Array) && [:stop, 'stop'].any? { |x| node['elasticsearch']['service_action'].include?(x) }) || node['elasticsearch']['service_action'].to_s == 'stop'
+                         false
+                       else
+                         true
+                       end
 
 ruby_block 'delay elasticsearch service start' do
   block do

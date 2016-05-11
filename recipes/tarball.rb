@@ -17,11 +17,11 @@
 # limitations under the License.
 #
 
-if node['elasticsearch']['tarball_url'] == 'auto'
-  tarball_url = node['elasticsearch']['version'].split('.')[0] >= '2' ? "https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/#{node['elasticsearch']['version']}/elasticsearch-#{node['elasticsearch']['version']}.tar.gz" : "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-#{node['elasticsearch']['version']}.tar.gz"
-else
-  tarball_url = node['elasticsearch']['tarball_url']
-end
+tarball_url = if node['elasticsearch']['tarball_url'] == 'auto'
+                node['elasticsearch']['version'].split('.')[0] >= '2' ? "https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/#{node['elasticsearch']['version']}/elasticsearch-#{node['elasticsearch']['version']}.tar.gz" : "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-#{node['elasticsearch']['version']}.tar.gz"
+              else
+                node['elasticsearch']['tarball_url']
+              end
 
 tarball_file = ::File.join(node['elasticsearch']['parent_dir'], ::File.basename(tarball_url))
 tarball_checksum = tarball_sha256sum(node['elasticsearch']['version'])
@@ -31,8 +31,7 @@ include_recipe 'elasticsearch-cluster::user'
 [node['elasticsearch']['parent_dir'],
  node['elasticsearch']['data_dir'],
  node['elasticsearch']['log_dir'],
- node['elasticsearch']['work_dir']
-].each do |dir|
+ node['elasticsearch']['work_dir']].each do |dir|
   directory dir do
     owner node['elasticsearch']['user']
     group node['elasticsearch']['group']

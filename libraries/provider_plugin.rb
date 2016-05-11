@@ -82,7 +82,7 @@ class Chef
       def eval_version
         version = new_resource.version
         return version unless version.is_a? String
-        if version.to_s.match(/^v/)
+        if version.to_s =~ /^v/
           # left chop char `v` from the `version`
           # to match installed version
           #
