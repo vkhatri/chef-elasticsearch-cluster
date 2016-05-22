@@ -1,7 +1,7 @@
 elasticsearch-cluster Cookbook
 ==============================
 
-[![Cookbook](http://img.shields.io/badge/cookbook-v0.5.3-green.svg)](https://github.com/vkhatri/chef-elasticsearch-cluster) [![Build Status](https://travis-ci.org/vkhatri/chef-elasticsearch-cluster.svg?branch=master)](https://travis-ci.org/vkhatri/chef-elasticsearch-cluster)
+[![Cookbook](http://img.shields.io/badge/cookbook-v0.5.4-green.svg)](https://github.com/vkhatri/chef-elasticsearch-cluster) [![Build Status](https://travis-ci.org/vkhatri/chef-elasticsearch-cluster.svg?branch=master)](https://travis-ci.org/vkhatri/chef-elasticsearch-cluster)
 
 This is a [Chef] cookbook to manage [ElasticSearch] Cluster.
 
@@ -15,7 +15,7 @@ what you find missing!
 ### Most Recent Release
 
 ``` ruby
-cookbook 'elasticsearch-cluster', '~> 0.5.3'
+cookbook 'elasticsearch-cluster', '~> 0.5.4'
 ```
 
 ### From Git
@@ -247,7 +247,7 @@ to elasticsearch nodes run list
 
 ## Cookbook Core Attributes
 
-* `default['elasticsearch']['version']` (default: `2.1.1`): elasticsearch version to install
+* `default['elasticsearch']['version']` (default: `2.2.0`): elasticsearch version to install
 
 * `default['elasticsearch']['sha256sum']` (default: `nil`): allow users to provide sha256sum for unsupported elasticsearch version tarball file
 

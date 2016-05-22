@@ -3,6 +3,19 @@ elasticsearch-cluster CHANGELOG
 
 This file is used to list changes made in each version of the elasticsearch-cluster cookbook.
 
+0.5.4
+-----
+
+- Virender Khatri - bump es version v2.2.0
+
+- Martin Tomes - Use the correct path to the tar file for the Elasticsearch distribution.
+
+- Virender Khatri - added checksum for missing versions tar file
+
+- Virender Khatri - fix for issue #75
+
+- Virender Khatri - Fix lint and kitchen test default config
+
 0.5.3
 -----
 
