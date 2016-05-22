@@ -6,4 +6,6 @@ default['elasticsearch']['yum']['action'] = :create
 
 default['elasticsearch']['apt']['components'] = %w(stable main)
 default['elasticsearch']['apt']['action'] = :add
-default['elasticsearch']['apt']['key'] = 'http://packages.elasticsearch.org/GPG-KEY-elasticsearch' # 'D88E42B4'
+default['elasticsearch']['apt']['distribution'] = ''
+default['elasticsearch']['apt']['options'] = nil
+default['elasticsearch']['apt']['key'] = 'http://packages.elasticsearch.org/GPG-KEY-elasticsearch'
