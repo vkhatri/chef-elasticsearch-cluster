@@ -18,7 +18,10 @@
 
 # Xms represents the initial size of total heap space
 # Xmx represents the maximum size of total heap space
+# Setting Xms and Xmx to same value.
+# https://www.elastic.co/guide/en/elasticsearch/reference/5.0/_heap_size_check.html#_heap_size_check
 
+-Xms<%= node['elasticsearch']['sysconfig']['ES_HEAP_SIZE'] %>
 -Xmx<%= node['elasticsearch']['sysconfig']['ES_HEAP_SIZE'] %>
 
 <% if node['elasticsearch']['sysconfig']['ES_JAVA_OPTS'] %>
