@@ -80,6 +80,15 @@ notify_service_start = if (node['elasticsearch']['service_action'].is_a?(Array) 
                          true
                        end
 
+template node['elasticsearch']['jvm_options_file'] do
+  cookbook node['elasticsearch']['cookbook']
+  source 'jvm.options.erb'
+  owner node['elasticsearch']['user']
+  group node['elasticsearch']['group']
+  mode 0600
+  notifies :restart, 'service[elasticsearch]' if node['elasticsearch']['notify_restart']
+end
+
 ruby_block 'delay elasticsearch service start' do
   block do
   end
