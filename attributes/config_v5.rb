@@ -73,7 +73,7 @@ default['elasticsearch']['config_v5']['transport.tcp.compress'] = true
 default['elasticsearch']['config_v5']['http.port'] = 9_200
 #
 # For more information, see the documentation at:
-# <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-network.html>
+# <http://www.elastic.co/guide/en/elasticsearch/reference/5.0/modules-network.html>
 #
 # --------------------------------- Discovery ----------------------------------
 #
@@ -92,7 +92,7 @@ default['elasticsearch']['config_v5']['discovery.zen.fd.ping_timeout'] = '3s'
 #default['elasticsearch']['config_v5']['discovery.zen.ping.multicast.enabled'] = false
 #
 # For more information, see the documentation at:
-# <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-discovery.html>
+# <http://www.elastic.co/guide/en/elasticsearch/reference/5.0/modules-discovery.html>
 #
 # ---------------------------------- Gateway -----------------------------------
 #
@@ -101,7 +101,7 @@ default['elasticsearch']['config_v5']['discovery.zen.fd.ping_timeout'] = '3s'
 #gateway.recover_after_nodes: 3
 #
 # For more information, see the documentation at:
-# <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-gateway.html>
+# <http://www.elastic.co/guide/en/elasticsearch/reference/5.0/modules-gateway.html>
 #
 # ---------------------------------- Various -----------------------------------
 #

@@ -57,13 +57,13 @@ describe 'elasticsearch-cluster::config' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'centos', version: '6.4') do |node|
         node.automatic['platform_family'] = 'rhel'
-        node.normal['elasticsearch']['config']['cluster.name'] = 'spec'
-        node.normal['elasticsearch']['dir_mode'] = '0755'
-        node.normal['elasticsearch']['install_method'] = 'package'
-        node.normal['elasticsearch']['conf_file'] = '/etc/elasticsearch/elasticsearch.yml'
-        node.normal['elasticsearch']['logging_conf_file'] = '/etc/elasticsearch/logging.yml'
-        node.normal['elasticsearch']['plugins_dir'] = '/usr/share/elasticsearch/plugins'
-        node.normal['elasticsearch']['notify_restart'] = true
+        node.default['elasticsearch']['config']['cluster.name'] = 'spec'
+        node.default['elasticsearch']['dir_mode'] = '0755'
+        node.default['elasticsearch']['install_method'] = 'package'
+        node.default['elasticsearch']['conf_file'] = '/etc/elasticsearch/elasticsearch.yml'
+        node.default['elasticsearch']['logging_conf_file'] = '/etc/elasticsearch/logging.yml'
+        node.default['elasticsearch']['plugins_dir'] = '/usr/share/elasticsearch/plugins'
+        node.default['elasticsearch']['notify_restart'] = true
       end.converge(described_recipe)
     end
 
@@ -86,13 +86,13 @@ describe 'elasticsearch-cluster::config' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04') do |node|
         node.automatic['platform_family'] = 'debian'
-        node.normal['elasticsearch']['config']['cluster.name'] = 'spec'
-        node.normal['elasticsearch']['dir_mode'] = '0755'
-        node.normal['elasticsearch']['install_method'] = 'package'
-        node.normal['elasticsearch']['conf_file'] = '/etc/elasticsearch/elasticsearch.yml'
-        node.normal['elasticsearch']['logging_conf_file'] = '/etc/elasticsearch/logging.yml'
-        node.normal['elasticsearch']['plugins_dir'] = '/usr/share/elasticsearch/plugins'
-        node.normal['elasticsearch']['notify_restart'] = true
+        node.default['elasticsearch']['config']['cluster.name'] = 'spec'
+        node.default['elasticsearch']['dir_mode'] = '0755'
+        node.default['elasticsearch']['install_method'] = 'package'
+        node.default['elasticsearch']['conf_file'] = '/etc/elasticsearch/elasticsearch.yml'
+        node.default['elasticsearch']['logging_conf_file'] = '/etc/elasticsearch/logging.yml'
+        node.default['elasticsearch']['plugins_dir'] = '/usr/share/elasticsearch/plugins'
+        node.default['elasticsearch']['notify_restart'] = true
       end.converge(described_recipe)
     end
 

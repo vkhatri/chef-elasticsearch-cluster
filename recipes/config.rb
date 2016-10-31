@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-raise "require value for node['elasticsearch']['config']['cluster.name']" unless node['elasticsearch'][node['elasticsearch']['config_attribute']]['cluster.name']
+raise "require value for node['elasticsearch']['#{node['elasticsearch']['config_attribute']}']['cluster.name']" unless node['elasticsearch'][node['elasticsearch']['config_attribute']]['cluster.name']
 
 directory node['elasticsearch']['conf_dir'] do
   mode node['elasticsearch']['dir_mode']
