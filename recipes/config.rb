@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-raise "require value for node['elasticsearch']['config']['cluster.name']" unless node['elasticsearch']['config']['cluster.name']
+raise "require value for node['elasticsearch']['#{node['elasticsearch']['config_attribute']}']['cluster.name']" unless node['elasticsearch'][node['elasticsearch']['config_attribute']]['cluster.name']
 
 directory node['elasticsearch']['conf_dir'] do
   mode node['elasticsearch']['dir_mode']
@@ -79,6 +79,15 @@ notify_service_start = if (node['elasticsearch']['service_action'].is_a?(Array) 
                        else
                          true
                        end
+
+template node['elasticsearch']['jvm_options_file'] do
+  cookbook node['elasticsearch']['cookbook']
+  source 'jvm.options.erb'
+  owner node['elasticsearch']['user']
+  group node['elasticsearch']['group']
+  mode 0600
+  notifies :restart, 'service[elasticsearch]' if node['elasticsearch']['notify_restart']
+end
 
 ruby_block 'delay elasticsearch service start' do
   block do

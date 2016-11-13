@@ -29,6 +29,14 @@ WORK_DIR=<%= node['elasticsearch']['work_dir'] %>
 # Elasticsearch PID directory
 #PID_DIR=/var/run/elasticsearch
 
+# Configure restart on package upgrade (true, every other setting will lead to not restarting)
+ES_RESTART_ON_UPGRADE=<%= node['elasticsearch']['sysconfig']['ES_RESTART_ON_UPGRADE'] %>
+
+# https://www.elastic.co/guide/en/elasticsearch/reference/5.x/breaking_50_packaging.html
+# Due to ES 5.0 removed environment variables:
+# ES_MIN_MEM, ES_MAX_MEM, ES_HEAP_SIZE, ES_HEAP_NEWSIZE, ES_DIRECT_SIZE,
+# ES_USE_IPV4, ES_GC_OPTS, ES_GC_LOG_FILE, and JAVA_OPTS
+<% if Gem::Version.new(node['elasticsearch']['version']) < Gem::Version.new('5.0.0') %>
 # Heap size defaults to 256m min, 1g max
 # Set ES_HEAP_SIZE to 50% of available RAM, but no more than 31g
 ES_HEAP_SIZE=<%= node['elasticsearch']['sysconfig']['ES_HEAP_SIZE'] %>
@@ -42,11 +50,9 @@ ES_DIRECT_SIZE=<%= node['elasticsearch']['sysconfig']['ES_DIRECT_SIZE'] %>
 # Additional Java OPTS
 ES_JAVA_OPTS="<%= node['elasticsearch']['sysconfig']['ES_JAVA_OPTS'] %>"
 
-# Configure restart on package upgrade (true, every other setting will lead to not restarting)
-ES_RESTART_ON_UPGRADE=<%= node['elasticsearch']['sysconfig']['ES_RESTART_ON_UPGRADE'] %>
-
 # Path to the GC log file
 ES_GC_LOG_FILE=${LOG_DIR}/gc.log
+<% end %>
 
 ################################
 # Elasticsearch service
