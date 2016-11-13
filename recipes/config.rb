@@ -47,12 +47,14 @@ if node['elasticsearch']['use_chef_search']
 end
 
 config = node['elasticsearch'][node['elasticsearch']['config_attribute']].to_h
-node['elasticsearch']['databag_configs'].each do |databag|
-  data_bag_item = Chef::EncryptedDataBagItem.load(databag['name'], databag['item'])
-  databag['config_items'].each do |k, v|
-    config[k] = data_bag_item[v]
+if node['elasticsearch']['databag_configs']
+  node['elasticsearch']['databag_configs'].each do |databag|
+    data_bag_item = Chef::EncryptedDataBagItem.load(databag['name'], databag['item'])
+    databag['config_items'].each do |k, v|
+      config[k] = data_bag_item[v]
+    end
   end
-end if node['elasticsearch']['databag_configs']
+end
 
 template node['elasticsearch']['conf_file'] do
   cookbook node['elasticsearch']['cookbook']
