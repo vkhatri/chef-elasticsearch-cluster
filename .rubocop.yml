@@ -1,4 +1,5 @@
 AllCops:
+  DisplayCopNames: true
   Exclude:
     - '.kitchen/*'
 AlignParameters:
@@ -25,5 +26,11 @@ MethodLength:
   Enabled: false
 AbcSize:
   Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - Vagrantfile
+    - spec/unit/recipes/*
 Metrics/BlockNesting:
   Max: 5
+Style/NumericLiteralPrefix:
+  EnforcedOctalStyle: zero_only
