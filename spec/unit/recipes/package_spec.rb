@@ -6,7 +6,7 @@ describe 'elasticsearch-cluster::default' do
       ChefSpec::SoloRunner.new(platform: 'centos', version: '6.4') do |node|
         node.automatic['platform_family'] = 'rhel'
         node.default['elasticsearch']['install_method'] = 'package'
-        node.default['elasticsearch']['config']['cluster.name'] = 'spec'
+        node.override['elasticsearch']['config']['cluster.name'] = 'spec'
       end.converge(described_recipe)
     end
 
@@ -24,7 +24,7 @@ describe 'elasticsearch-cluster::default' do
       ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04') do |node|
         node.automatic['platform_family'] = 'debian'
         node.default['elasticsearch']['install_method'] = 'package'
-        node.default['elasticsearch']['config']['cluster.name'] = 'spec'
+        node.override['elasticsearch']['config']['cluster.name'] = 'spec'
       end.converge(described_recipe)
     end
 
