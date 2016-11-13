@@ -3,6 +3,25 @@ elasticsearch-cluster CHANGELOG
 
 This file is used to list changes made in each version of the elasticsearch-cluster cookbook.
 
+0.5.5
+-----
+
+- Wei Wu - Add jvm options file
+
+- Wei Wu - Skip index settings in elasticsearch.yml.erb
+
+- Wei Wu - Add v5 configuration attributes
+
+- Wei Wu - Fix cluster name validation
+
+- Wei Wu - Fix spec and change `set` to `normal` to remove warnings
+
+- Grant Ridder - Update Travis to Ruby 2.3.1
+
+- Grant Ridder - Update CI configuration
+
+- Grant Ridder - Fix lint
+
 0.5.4
 -----
 
