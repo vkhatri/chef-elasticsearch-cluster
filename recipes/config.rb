@@ -17,7 +17,13 @@
 # limitations under the License.
 #
 
-raise "require value for node['elasticsearch']['#{node['elasticsearch']['config_attribute']}']['cluster.name']" unless node['elasticsearch'][node['elasticsearch']['config_attribute']]['cluster.name']
+config_attribute = if node['elasticsearch']['config_attribute']
+                     node['elasticsearch']['config_attribute']
+                   else
+                     node['elasticsearch']['version'] >= '5.0' ? 'config_v5' : 'config'
+                   end
+
+raise "require value for node['elasticsearch']['#{config_attribute}']['cluster.name']" unless node['elasticsearch'][config_attribute]['cluster.name']
 
 directory node['elasticsearch']['conf_dir'] do
   mode node['elasticsearch']['dir_mode']
@@ -46,7 +52,7 @@ if node['elasticsearch']['use_chef_search']
   node.default['elasticsearch']['config']['discovery.zen.ping.unicast.hosts'] = search_cluster_nodes(node.chef_environment, node['elasticsearch']['search_role_name'], node['elasticsearch']['search_cluster_name_attr'], node[node['elasticsearch']['search_cluster_name_attr']])
 end
 
-config = node['elasticsearch'][node['elasticsearch']['config_attribute']].to_h
+config = node['elasticsearch'][config_attribute].to_h
 if node['elasticsearch']['databag_configs']
   node['elasticsearch']['databag_configs'].each do |databag|
     data_bag_item = Chef::EncryptedDataBagItem.load(databag['name'], databag['item'])
