@@ -40,9 +40,9 @@ describe 'elasticsearch-cluster::default' do
 
   context 'rhel' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'centos', version: '6.4') do |node|
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '6.8') do |node|
         node.automatic['platform_family'] = 'rhel'
-        node.override['elasticsearch']['config']['cluster.name'] = 'spec'
+        node.override['elasticsearch']['config_v5']['cluster.name'] = 'spec'
       end.converge(described_recipe)
     end
 
@@ -51,12 +51,16 @@ describe 'elasticsearch-cluster::default' do
 
   context 'ubuntu' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04') do |node|
+      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '14.04') do |node|
         node.automatic['platform_family'] = 'debian'
-        node.override['elasticsearch']['config']['cluster.name'] = 'spec'
+        node.override['elasticsearch']['config_v5']['cluster.name'] = 'spec'
       end.converge(described_recipe)
     end
 
     include_examples 'elasticsearch'
+
+    it 'execute update-ca-certificates' do
+      expect(chef_run).to run_execute('update-ca-certificates')
+    end
   end
 end

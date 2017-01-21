@@ -55,9 +55,9 @@ describe 'elasticsearch-cluster::config' do
 
   context 'rhel' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'centos', version: '6.4') do |node|
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '6.8') do |node|
         node.automatic['platform_family'] = 'rhel'
-        node.override['elasticsearch']['config']['cluster.name'] = 'spec'
+        node.override['elasticsearch']['config_v5']['cluster.name'] = 'spec'
         node.default['elasticsearch']['dir_mode'] = '0755'
         node.default['elasticsearch']['install_method'] = 'package'
         node.default['elasticsearch']['conf_file'] = '/etc/elasticsearch/elasticsearch.yml'
@@ -84,9 +84,9 @@ describe 'elasticsearch-cluster::config' do
 
   context 'ubuntu' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04') do |node|
+      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '14.04') do |node|
         node.automatic['platform_family'] = 'debian'
-        node.override['elasticsearch']['config']['cluster.name'] = 'spec'
+        node.override['elasticsearch']['config_v5']['cluster.name'] = 'spec'
         node.default['elasticsearch']['dir_mode'] = '0755'
         node.default['elasticsearch']['install_method'] = 'package'
         node.default['elasticsearch']['conf_file'] = '/etc/elasticsearch/elasticsearch.yml'
