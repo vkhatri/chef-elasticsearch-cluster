@@ -19,7 +19,7 @@
 
 if node['elasticsearch']['install_java']
   # Java attributes to meet minimum requirement.
-  node.default['java']['jdk_version'] = '7'
+  node.default['java']['jdk_version'] = node['elasticsearch']['version'].to_i >= 5 ? '8' : '7'
   node.default['java']['install_flavor'] = 'openjdk'
   node.default['java']['set_default'] = true
   node.default['java']['arch'] = node['kernel']['machine']
