@@ -1,4 +1,4 @@
-default['elasticsearch']['version'] = '2.2.0'
+default['elasticsearch']['version'] = '5.1.2'
 default['elasticsearch']['sha256sum'] = nil
 default['elasticsearch']['version_suffix'] = value_for_platform_family(
   'debian' => '',
@@ -47,7 +47,7 @@ default['elasticsearch']['search_cluster_name_attr'] = nil # 'cluster_name'
 default['elasticsearch']['sysconfig']['ES_HEAP_NEWSIZE']        = nil
 default['elasticsearch']['sysconfig']['ES_DIRECT_SIZE']         = nil
 default['elasticsearch']['sysconfig']['ES_JAVA_OPTS']           = nil
-default['elasticsearch']['sysconfig']['MAX_OPEN_FILES']         = 65_535
+default['elasticsearch']['sysconfig']['MAX_OPEN_FILES']         = 65_536
 default['elasticsearch']['sysconfig']['MAX_LOCKED_MEMORY']      = 'unlimited'
 default['elasticsearch']['sysconfig']['MAX_MAP_COUNT']          = 262_144
 default['elasticsearch']['sysconfig']['ES_RESTART_ON_UPGRADE']  = true
@@ -55,3 +55,8 @@ default['elasticsearch']['sysconfig']['ES_RESTART_ON_UPGRADE']  = true
 default['elasticsearch']['databag_configs'] = nil
 default['elasticsearch']['scripts'] = {}
 default['elasticsearch']['jvm_options_file'] = '/etc/elasticsearch/jvm.options'
+
+# set this attribute to an entirely different key attribute under
+# node['elasticsearch']['XYZ']. this allows users to ignore default
+# config attributes completely
+default['elasticsearch']['config_attribute'] = nil

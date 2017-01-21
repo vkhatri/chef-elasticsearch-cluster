@@ -3,14 +3,14 @@ require 'spec_helper'
 describe 'elasticsearch-cluster::default' do
   context 'rhel' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'centos', version: '6.4') do |node|
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '6.8') do |node|
         node.automatic['platform_family'] = 'rhel'
         node.default['elasticsearch']['install_method'] = 'package'
-        node.override['elasticsearch']['config']['cluster.name'] = 'spec'
+        node.override['elasticsearch']['config_v5']['cluster.name'] = 'spec'
       end.converge(described_recipe)
     end
 
-    it 'adds elasticsearch apt repository' do
+    it 'adds elasticsearch yum repository' do
       expect(chef_run).to create_yum_repository('elasticsearch')
     end
 
@@ -21,10 +21,10 @@ describe 'elasticsearch-cluster::default' do
 
   context 'ubuntu' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04') do |node|
+      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '14.04') do |node|
         node.automatic['platform_family'] = 'debian'
         node.default['elasticsearch']['install_method'] = 'package'
-        node.override['elasticsearch']['config']['cluster.name'] = 'spec'
+        node.override['elasticsearch']['config_v5']['cluster.name'] = 'spec'
       end.converge(described_recipe)
     end
 
