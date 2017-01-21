@@ -46,6 +46,13 @@ else
 end
 
 node.default['elasticsearch']['yum']['description'] = "ElasticSearch #{repo_version} repository"
-node.default['elasticsearch']['yum']['baseurl'] = "http://packages.elastic.co/elasticsearch/#{repo_version}/centos"
 node.default['elasticsearch']['apt']['description'] = "ElasticSearch #{repo_version} repository"
-node.default['elasticsearch']['apt']['uri'] = "http://packages.elastic.co/elasticsearch/#{repo_version}/debian"
+
+if node['elasticsearch']['version'] >= '5.0'
+  node.default['elasticsearch']['yum']['baseurl'] = "https://artifacts.elastic.co/packages/#{repo_version}/yum"
+  node.default['elasticsearch']['yum']['gpgkey'] = 'https://artifacts.elastic.co/GPG-KEY-elasticsearch'
+  node.default['elasticsearch']['apt']['uri'] = "https://artifacts.elastic.co/packages/#{repo_version}/apt"
+else
+  node.default['elasticsearch']['yum']['baseurl'] = "http://packages.elastic.co/elasticsearch/#{repo_version}/centos"
+  node.default['elasticsearch']['apt']['uri'] = "http://packages.elastic.co/elasticsearch/#{repo_version}/debian"
+end

@@ -20,3 +20,11 @@ suites:
       elasticsearch:
         config:
           cluster.name: "foo"
+  - name: version5
+    run_list:
+      - recipe[elasticsearch-cluster::default]
+    attributes:
+      elasticsearch:
+        config:
+          cluster.name: "foo"
+        version: 5.1.2
