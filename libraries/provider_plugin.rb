@@ -119,9 +119,11 @@ class Chef
         end
 
         if run_it
+          install_as_root = node['elasticsearch']['version'].to_i >= 5 && node['elasticsearch']['install_method'] == 'package'
+
           t = Chef::Resource::Execute.new("#{new_resource.action} plugin #{new_resource.name} #{new_resource.version}", run_context)
-          t.user node['elasticsearch']['user']
-          t.group node['elasticsearch']['group']
+          t.user install_as_root ? 'root' : node['elasticsearch']['user']
+          t.group install_as_root ? 'root' : node['elasticsearch']['group']
           t.umask node['elasticsearch']['umask']
           t.command plugin_command
           t.only_if { run_it }
