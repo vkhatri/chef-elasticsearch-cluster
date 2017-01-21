@@ -26,3 +26,8 @@ if node['elasticsearch']['install_java']
 
   include_recipe 'java::default'
 end
+
+execute 'update-ca-certificates' do
+  command 'update-ca-certificates -f'
+  only_if { node['platform_family'] == 'debian' }
+end
