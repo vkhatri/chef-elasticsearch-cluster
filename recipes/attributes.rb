@@ -24,7 +24,6 @@ node.default['elasticsearch']['source_dir'] = ::File.join(node['elasticsearch'][
 node.default['elasticsearch']['home_dir'] = node['elasticsearch']['install_method'] == 'package' ? '/usr/share/elasticsearch' : node['elasticsearch']['install_dir']
 node.default['elasticsearch']['bin_dir'] = ::File.join(node['elasticsearch']['home_dir'], 'bin')
 node.default['elasticsearch']['plugins_dir'] = node['elasticsearch']['install_method'] == 'package' ? '/usr/share/elasticsearch/plugins' : ::File.join(node['elasticsearch']['install_dir'], 'plugins')
-node.default['elasticsearch']['plugins_binary'] = ::File.join(node['elasticsearch']['bin_dir'], 'plugin')
 
 #################################### Paths ####################################
 node.default['elasticsearch']['config']['path.conf'] = node['elasticsearch']['conf_dir']
@@ -49,10 +48,12 @@ node.default['elasticsearch']['yum']['description'] = "ElasticSearch #{repo_vers
 node.default['elasticsearch']['apt']['description'] = "ElasticSearch #{repo_version} repository"
 
 if node['elasticsearch']['version'] >= '5.0'
+  node.default['elasticsearch']['plugins_binary'] = ::File.join(node['elasticsearch']['bin_dir'], 'elasticsearch-plugin')
   node.default['elasticsearch']['yum']['baseurl'] = "https://artifacts.elastic.co/packages/#{repo_version}/yum"
   node.default['elasticsearch']['yum']['gpgkey'] = 'https://artifacts.elastic.co/GPG-KEY-elasticsearch'
   node.default['elasticsearch']['apt']['uri'] = "https://artifacts.elastic.co/packages/#{repo_version}/apt"
 else
+  node.default['elasticsearch']['plugins_binary'] = ::File.join(node['elasticsearch']['bin_dir'], 'plugin')
   node.default['elasticsearch']['yum']['baseurl'] = "http://packages.elastic.co/elasticsearch/#{repo_version}/centos"
   node.default['elasticsearch']['apt']['uri'] = "http://packages.elastic.co/elasticsearch/#{repo_version}/debian"
 end
