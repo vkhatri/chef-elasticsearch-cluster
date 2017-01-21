@@ -55,3 +55,8 @@ default['elasticsearch']['sysconfig']['ES_RESTART_ON_UPGRADE']  = true
 default['elasticsearch']['databag_configs'] = nil
 default['elasticsearch']['scripts'] = {}
 default['elasticsearch']['jvm_options_file'] = '/etc/elasticsearch/jvm.options'
+
+# set this attribute to an entirely different key attribute under
+# node['elasticsearch']['XYZ']. this allows users to ignore default
+# config attributes completely
+default['elasticsearch']['config_attribute'] = nil

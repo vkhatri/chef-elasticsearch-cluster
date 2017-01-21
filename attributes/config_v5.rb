@@ -117,3 +117,6 @@ default['elasticsearch']['config_v5']['node.max_local_storage_nodes'] = 1
 # default['elasticsearch']['config']['action.auto_create_index'] = true
 default['elasticsearch']['config_v5']['action.destructive_requires_name'] = true
 default['elasticsearch']['config_v5']['action.auto_create_index'] = true
+default['elasticsearch']['config_v5']['script.inline'] = false
+default['elasticsearch']['config_v5']['script.stored'] = false
+default['elasticsearch']['config_v5']['script.file'] = true

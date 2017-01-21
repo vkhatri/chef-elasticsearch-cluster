@@ -1,7 +1,3 @@
-# set this attribute to an entirely different key attribute under
-# node['elasticsearch']['XYZ']. this allows users to ignore default
-# config attributes completely
-default['elasticsearch']['config_attribute'] = 'config'
 
 ################################### Cluster ###################################
 default['elasticsearch']['config']['cluster.name'] = nil
