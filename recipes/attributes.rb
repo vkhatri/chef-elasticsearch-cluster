@@ -25,7 +25,7 @@ node.default['elasticsearch']['home_dir'] = node['elasticsearch']['install_metho
 node.default['elasticsearch']['bin_dir'] = ::File.join(node['elasticsearch']['home_dir'], 'bin')
 node.default['elasticsearch']['plugins_dir'] = node['elasticsearch']['install_method'] == 'package' ? '/usr/share/elasticsearch/plugins' : ::File.join(node['elasticsearch']['install_dir'], 'plugins')
 
-#################################### Paths ####################################
+#################################### ES v1.x, 2.x configuration path parameters ####################################
 node.default['elasticsearch']['config']['path.conf'] = node['elasticsearch']['conf_dir']
 node.default['elasticsearch']['config']['path.data'] = node['elasticsearch']['data_dir']
 node.default['elasticsearch']['config']['path.work'] = node['elasticsearch']['work_dir']

@@ -212,6 +212,8 @@ Check out HWRP `elasticsearch_script` or recipe `scripts` for more info on attri
 
 * `default['elasticsearch']['config']['cluster.name']` (default: `nil`): elasticsearch cluster name, required to setup elasticsearch cluster
 
+* `default['elasticsearch']['config_v5']['cluster.name']` (default: `nil`): elasticsearch cluster name, required to setup elasticsearch cluster
+
 * `default['elasticsearch']['install_method']` (default: `package`): elasticsearch install method, options: package tarball
 
 * `default['elasticsearch']['install_java']` (default: `true`): whether to install java using cookbook `java`
@@ -247,7 +249,7 @@ to elasticsearch nodes run list
 
 ## Cookbook Core Attributes
 
-* `default['elasticsearch']['version']` (default: `2.2.0`): elasticsearch version to install
+* `default['elasticsearch']['version']` (default: `5.1.2`): elasticsearch version to install
 
 * `default['elasticsearch']['sha256sum']` (default: `nil`): allow users to provide sha256sum for unsupported elasticsearch version tarball file
 
@@ -298,7 +300,7 @@ to elasticsearch nodes run list
 
 * `default['elasticsearch']['sysconfig']['ES_JAVA_OPTS']` (default: `nil`): elasticsearch service config file parameter
 
-* `default['elasticsearch']['sysconfig']['MAX_OPEN_FILES']` (default: `65_535`): elasticsearch service config file parameter
+* `default['elasticsearch']['sysconfig']['MAX_OPEN_FILES']` (default: `65_536`): elasticsearch service config file parameter
 
 * `default['elasticsearch']['sysconfig']['MAX_LOCKED_MEMORY']` (default: `unlimited`): elasticsearch service config file parameter
 
@@ -309,7 +311,7 @@ to elasticsearch nodes run list
 * `default['elasticsearch']['sysconfig']['ES_HEAP_SIZE']` (default: `calculated`): elasticsearch service config file parameter
 
 
-# ElasticSearch Configuration File Attributes
+# ElasticSearch v1.x, 2.x Configuration File Attributes
 
 
 * `default['elasticsearch']['config']['cluster.name']` (default: `nil`): elasticsearch configuration parameter
@@ -361,6 +363,65 @@ to elasticsearch nodes run list
 * `default['elasticsearch']['config']['action.disable_delete_all_indices']` (default: `true`): elasticsearch configuration parameter
 
 * `default['elasticsearch']['config']['script.disable_dynamic']` (default: `true`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config']['script.inline']` (default: `script.inline`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config']['script.indexed']` (default: `script.indexed`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config']['script.file']` (default: `on`): elasticsearch configuration parameter
+
+
+
+# ElasticSearch v5.x Configuration File Attributes
+
+* `default['elasticsearch']['config_v5']['cluster.name']` (default: `nil`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['node.name']` (default: `node.name`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['node.master']` (default: `true`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['node.data']` (default: `true`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['node.ingest']` (default: `true`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['node.attr.rack']` (default: `nil`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['node.attr.dc']` (default: `nil`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['node.attr.size']` (default: `nil`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['path.data']` (default: `nil`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['path.logs']` (default: `/var/log/elasticsearch`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['bootstrap.memory_lock']` (default: `true`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['network.host']` (default: `node['ipaddress']`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['transport.tcp.port']` (default: `9300`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['transport.tcp.compress']` (default: `true`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['http.port']` (default: `9200`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['discovery.zen.ping.unicast.hosts']` (default: `[]`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['discovery.zen.minimum_master_nodes']` (default: `1`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['discovery.zen.fd.ping_timeout']` (default: `3s`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['node.max_local_storage_nodes']` (default: `1`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['action.destructive_requires_name']` (default: `true`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['action.auto_create_index']` (default: `true`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['script.inline']` (default: `false`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['script.stored']` (default: `false`): elasticsearch configuration parameter
+
+* `default['elasticsearch']['config_v5']['script.file']` (default: `true`): elasticsearch configuration parameter
+
 
 
 # ElasticSearch Configuration From Data Bag Item
