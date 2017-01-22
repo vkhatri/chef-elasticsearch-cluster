@@ -112,6 +112,10 @@ This file is used to list changes made in each version of the elasticsearch-clus
 0.5.0
 -----
 
+## Breaking Changes
+
+- resource `elasticsearch_plugin` attribute `install_name` has been renamed to `install_source`
+
 ### Changes
 
 - Virender Khatri - #49, fix for plugin syntax changed in es 2.x
