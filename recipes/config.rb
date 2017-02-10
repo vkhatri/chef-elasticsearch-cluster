@@ -90,7 +90,7 @@ notify_service_start = if (node['elasticsearch']['service_action'].is_a?(Array) 
 
 template node['elasticsearch']['jvm_options_file'] do
   cookbook node['elasticsearch']['cookbook']
-  source 'jvm.options.erb'
+  source "jvm.options.#{node['elasticsearch']['version'].split('.')[0]}.x.erb"
   owner node['elasticsearch']['user']
   group node['elasticsearch']['group']
   mode 0600

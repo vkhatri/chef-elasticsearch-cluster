@@ -28,7 +28,6 @@ describe 'elasticsearch-cluster::config' do
       it 'create template elasticsearch jvm configuration file /etc/elasticsearch/jvm.options' do
         expect(chef_run).to create_template('/etc/elasticsearch/jvm.options').with(
           cookbook: 'elasticsearch-cluster',
-          source: 'jvm.options.erb',
           owner: 'elasticsearch',
           group: 'elasticsearch',
           mode: 0600
