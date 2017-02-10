@@ -76,6 +76,12 @@ link node['elasticsearch']['install_dir'] do
   action :create
 end
 
+# delete default jvm.options file
+file ::File.join(node['elasticsearch']['install_dir'], 'config', 'jvm.options') do
+  action :delete
+  notifies :restart, 'service[elasticsearch]'
+end
+
 # sysv init file
 cookbook_file '/etc/init.d/elasticsearch' do
   cookbook node['elasticsearch']['cookbook']
