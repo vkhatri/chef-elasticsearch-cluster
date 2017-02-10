@@ -97,6 +97,15 @@ template node['elasticsearch']['jvm_options_file'] do
   notifies :restart, 'service[elasticsearch]' if node['elasticsearch']['notify_restart']
 end
 
+if node['elasticsearch']['setup_user_limits'] # ~FC023
+  user_ulimit node['elasticsearch']['user'] do
+    filehandle_limit node['elasticsearch']['limits']['nofile']
+    process_limit node['elasticsearch']['limits']['nproc']
+    memory_limit node['elasticsearch']['limits']['memlock']
+    notifies :restart, 'service[elasticsearch]', :delayed if node['elasticsearch']['notify_restart']
+  end
+end
+
 ruby_block 'delay elasticsearch service start' do
   block do
   end
