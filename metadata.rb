@@ -9,7 +9,7 @@ version '0.5.6'
 source_url 'https://github.com/vkhatri/chef-elasticsearch-cluster' if respond_to?(:source_url)
 issues_url 'https://github.com/vkhatri/chef-elasticsearch-cluster/issues' if respond_to?(:issues_url)
 
-%w(java yum apt).each do |d|
+%w(java yum apt ulimit).each do |d|
   depends d
 end
 
