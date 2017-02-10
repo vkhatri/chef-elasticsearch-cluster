@@ -7,6 +7,15 @@ driver:
 
 provisioner:
   name: chef_zero
+  attributes:
+    elasticsearch:
+      tarball_purge: true
+      notify_restart: true
+      config:
+        cluster.name: foo
+      config_v5:
+        cluster.name: foo
+
   <% if chef_omnibus_url %>
   chef_omnibus_url: '<%= chef_omnibus_url %>'
   <% end %>
@@ -21,41 +30,82 @@ platforms:
   - name: debian-8.5
 
 suites:
-  - name: version1
+  - name: version1package
     run_list:
       - recipe[elasticsearch-cluster::default]
       - recipe[elasticsearch-cluster::plugins]
     attributes:
       elasticsearch:
-        config:
-          cluster.name: "foo"
         plugins:
           head:
             install_source: mobz/elasticsearch-head
         version: 1.7.3
 
-  - name: version2
+  - name: version1tarball
     run_list:
       - recipe[elasticsearch-cluster::default]
       - recipe[elasticsearch-cluster::plugins]
     attributes:
       elasticsearch:
-        config:
-          cluster.name: "foo"
+        install_method: tarball
+        plugins:
+          head:
+            install_source: mobz/elasticsearch-head
+        version: 1.7.3
+
+  - name: version2package
+    run_list:
+      - recipe[elasticsearch-cluster::default]
+      - recipe[elasticsearch-cluster::plugins]
+    attributes:
+      elasticsearch:
         plugins:
           head:
             install_source: mobz/elasticsearch-head
         version: 2.4.3
 
-  - name: version5
+  - name: version2tarball
+    run_list:
+      - recipe[elasticsearch-cluster::default]
+      - recipe[elasticsearch-cluster::plugins]
+    attributes:
+      elasticsearch:
+        install_method: tarball
+        plugins:
+          head:
+            install_source: mobz/elasticsearch-head
+        version: 2.4.3
+
+  - name: version5package
+    driver:
+      customize:
+        memory: 1280
     run_list:
       - recipe[elasticsearch-cluster::default]
       - recipe[elasticsearch-cluster::plugins]
     attributes:
       elasticsearch:
         config_v5:
-          cluster.name: "foo"
+          bootstrap.system_call_filter: false
         plugins:
           x-pack:
             install_source: x-pack -b
-        version: 5.1.2
+        version: 5.2.0
+
+  - name: version5tarball
+    driver:
+      customize:
+        memory: 1280
+    run_list:
+      - recipe[elasticsearch-cluster::default]
+      - recipe[elasticsearch-cluster::plugins]
+    attributes:
+      elasticsearch:
+        auto_java_memory: true
+        install_method: tarball
+        config_v5:
+          bootstrap.system_call_filter: false
+        plugins:
+          x-pack:
+            install_source: x-pack -b
+        version: 5.2.0
