@@ -23,10 +23,10 @@ services: docker
 
 env:
   matrix:
-    - INSTANCE=default-centos-68
-    - INSTANCE=default-centos-7
-    - INSTANCE=default-ubuntu-1404
-    - INSTANCE=default-ubuntu-1604
+    - INSTANCE=version5tarball-centos-68
+    - INSTANCE=version5package-centos-7
+    - INSTANCE=version5package-centos-68
+    - INSTANCE=version5package-ubuntu-1404
 
 script:
   - KITCHEN_LOCAL_YAML=.kitchen.dokken.yml /opt/chefdk/embedded/bin/kitchen verify ${INSTANCE}
@@ -42,10 +42,10 @@ before_script:
 
 matrix:
   allow_failures:
-    - env: INSTANCE=default-centos-68
-    - env: INSTANCE=default-centos-7
-    - env: INSTANCE=default-ubuntu-1404
-    - env: INSTANCE=default-ubuntu-1604
+    - env: INSTANCE=version5tarball-centos-68
+    - env: INSTANCE=version5package-centos-7
+    - env: INSTANCE=version5package-centos-68
+    - env: INSTANCE=version5package-ubuntu-1404
   include:
     - script:
       - /opt/chefdk/bin/chef exec rake
