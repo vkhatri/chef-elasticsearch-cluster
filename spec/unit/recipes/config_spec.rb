@@ -35,15 +35,14 @@ describe 'elasticsearch-cluster::config' do
         expect(chef_run.template('/etc/elasticsearch/jvm.options')).to notify('service[elasticsearch]').to(:restart).delayed
       end
 
-      it 'create template elasticsearch log configuration file /etc/elasticsearch/jvm.options' do
-        expect(chef_run).to create_template('/etc/elasticsearch/logging.yml').with(
+      it 'create template elasticsearch log configuration file' do
+        expect(chef_run).to create_template('logging_conf_file').with(
           cookbook: 'elasticsearch-cluster',
-          source: 'logging.yml.erb',
           owner: 'elasticsearch',
           group: 'elasticsearch',
           mode: 0600
         )
-        expect(chef_run.template('/etc/elasticsearch/logging.yml')).to notify('service[elasticsearch]').to(:restart).delayed
+        expect(chef_run.template('logging_conf_file')).to notify('service[elasticsearch]').to(:restart).delayed
       end
 
       it 'start elasticsearch service' do
@@ -60,7 +59,6 @@ describe 'elasticsearch-cluster::config' do
         node.default['elasticsearch']['dir_mode'] = '0755'
         node.default['elasticsearch']['install_method'] = 'package'
         node.default['elasticsearch']['conf_file'] = '/etc/elasticsearch/elasticsearch.yml'
-        node.default['elasticsearch']['logging_conf_file'] = '/etc/elasticsearch/logging.yml'
         node.default['elasticsearch']['plugins_dir'] = '/usr/share/elasticsearch/plugins'
         node.override['elasticsearch']['notify_restart'] = true
       end.converge(described_recipe)
@@ -89,7 +87,6 @@ describe 'elasticsearch-cluster::config' do
         node.default['elasticsearch']['dir_mode'] = '0755'
         node.default['elasticsearch']['install_method'] = 'package'
         node.default['elasticsearch']['conf_file'] = '/etc/elasticsearch/elasticsearch.yml'
-        node.default['elasticsearch']['logging_conf_file'] = '/etc/elasticsearch/logging.yml'
         node.default['elasticsearch']['plugins_dir'] = '/usr/share/elasticsearch/plugins'
         node.override['elasticsearch']['notify_restart'] = true
       end.converge(described_recipe)

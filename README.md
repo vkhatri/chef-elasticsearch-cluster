@@ -469,6 +469,134 @@ to elasticsearch nodes run list
 * `default['elasticsearch']['apt']['action']` (default: `:add`): elasticsearch apt reporitory attribute
 
 
+# ElasticSearch v5.x Configuration File Attributes
+
+* `default['elasticsearch']['logging']['status']` (default: `error`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['logger.action.name']` (default: `org.elasticsearch.action`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['logger.action.level']` (default: `debug`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.console.type']` (default: `Console`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.console.name']` (default: `console`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.console.layout.type']` (default: `PatternLayout`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.console.layout.pattern']` (default: `[%d{ISO8601}][%-5p][%-25c{1.}] %marker%m%n`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.rolling.type']` (default: `RollingFile`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.rolling.name']` (default: `rolling`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.rolling.fileName']` (default: `${sys:es.logs}.log`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.rolling.layout.type']` (default: `PatternLayout`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.rolling.layout.pattern']` (default: `[%d{ISO8601}][%-5p][%-25c{1.}] %marker%.-10000m%n`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.rolling.filePattern']` (default: `${sys:es.logs}-%d{yyyy-MM-dd}.log`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.rolling.policies.type']` (default: `Policies`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.rolling.policies.time.type']` (default: `TimeBasedTriggeringPolicy`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.rolling.policies.time.interval']` (default: `1`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.rolling.policies.time.modulate']` (default: `true`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['rootLogger.level']` (default: `info`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['rootLogger.appenderRef.console.ref']` (default: `console`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['rootLogger.appenderRef.rolling.ref']` (default: `rolling`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.deprecation_rolling.type']` (default: `RollingFile`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.deprecation_rolling.name']` (default: `deprecation_rolling`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.deprecation_rolling.fileName']` (default: `${sys:es.logs}_deprecation.log`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.deprecation_rolling.layout.type']` (default: `PatternLayout`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.deprecation_rolling.layout.pattern']` (default: `[%d{ISO8601}][%-5p][%-25c{1.}] %marker%.-10000m%n`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.deprecation_rolling.filePattern']` (default: `${sys:es.logs}_deprecation-%i.log.gz`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.deprecation_rolling.policies.type']` (default: `Policies`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.deprecation_rolling.policies.size.type']` (default: `SizeBasedTriggeringPolicy`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.deprecation_rolling.policies.size.size']` (default: `1GB`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.deprecation_rolling.strategy.type']` (default: `DefaultRolloverStrategy`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.deprecation_rolling.strategy.max']` (default: `1`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['logger.deprecation.name']` (default: `org.elasticsearch.deprecation`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['logger.deprecation.level']` (default: `warn`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['logger.deprecation.appenderRef.deprecation_rolling.ref']` (default: `deprecation_rolling`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['logger.deprecation.additivity']` (default: `false`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_search_slowlog_rolling.type']` (default: `RollingFile`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_search_slowlog_rolling.name']` (default: `index_search_slowlog_rolling`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_search_slowlog_rolling.fileName']` (default: `${sys:es.logs}_index_search_slowlog.log`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_search_slowlog_rolling.layout.type']` (default: `PatternLayout`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_search_slowlog_rolling.layout.pattern']` (default: `[%d{ISO8601}][%-5p][%-25c] %marker%.-10000m%n`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_search_slowlog_rolling.filePattern']` (default: `${sys:es.logs}_index_search_slowlog-%d{yyyy-MM-dd}.log`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_search_slowlog_rolling.policies.type']` (default: `Policies`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_search_slowlog_rolling.policies.time.type']` (default: `TimeBasedTriggeringPolicy`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_search_slowlog_rolling.policies.time.interval']` (default: `1`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_search_slowlog_rolling.policies.time.modulate']` (default: `true`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['logger.index_search_slowlog_rolling.name']` (default: `index.search.slowlog`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['logger.index_search_slowlog_rolling.level']` (default: `trace`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['logger.index_search_slowlog_rolling.appenderRef.index_search_slowlog_rolling.ref']` (default: `index_search_slowlog_rolling`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['logger.index_search_slowlog_rolling.additivity']` (default: `false`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_indexing_slowlog_rolling.type']` (default: `RollingFile`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_indexing_slowlog_rolling.name']` (default: `index_indexing_slowlog_rolling`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_indexing_slowlog_rolling.fileName']` (default: `${sys:es.logs}_index_indexing_slowlog.log`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_indexing_slowlog_rolling.layout.type']` (default: `PatternLayout`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_indexing_slowlog_rolling.layout.pattern']` (default: `[%d{ISO8601}][%-5p][%-25c] %marker%.-10000m%n`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_indexing_slowlog_rolling.filePattern']` (default: `${sys:es.logs}_index_indexing_slowlog-%d{yyyy-MM-dd}.log`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_indexing_slowlog_rolling.policies.type']` (default: `Policies`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_indexing_slowlog_rolling.policies.time.type']` (default: `TimeBasedTriggeringPolicy`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_indexing_slowlog_rolling.policies.time.interval']` (default: `1`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['appender.index_indexing_slowlog_rolling.policies.time.modulate']` (default: `true`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['logger.index_indexing_slowlog.name']` (default: `index.indexing.slowlog.index`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['logger.index_indexing_slowlog.level']` (default: `trace`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['logger.index_indexing_slowlog.appenderRef.index_indexing_slowlog_rolling.ref']` (default: `index_indexing_slowlog_rolling`): elasticsearch 5.x log4j configuration parameter
+
+* `default['elasticsearch']['logging']['logger.index_indexing_slowlog.additivity']` (default: `false`): elasticsearch 5.x log4j configuration parameter
+
 
 ## Contributing
 

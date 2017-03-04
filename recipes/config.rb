@@ -75,9 +75,15 @@ template node['elasticsearch']['conf_file'] do
   notifies :restart, 'service[elasticsearch]' if node['elasticsearch']['notify_restart']
 end
 
-template node['elasticsearch']['logging_conf_file'] do
+template 'logging_conf_file' do
   cookbook node['elasticsearch']['cookbook']
-  source 'logging.yml.erb'
+  path node['elasticsearch']['logging_conf_file']
+  if node['elasticsearch']['version'] >= '5.0'
+    source 'log4j2.properties.erb'
+    variables(config: node['elasticsearch']['logging'])
+  else
+    source 'logging.yml.erb'
+  end
   owner node['elasticsearch']['user']
   group node['elasticsearch']['group']
   mode 0600
