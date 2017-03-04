@@ -25,6 +25,8 @@ config_attribute = if node['elasticsearch']['config_attribute']
 
 raise "require value for node['elasticsearch']['#{config_attribute}']['cluster.name']" unless node['elasticsearch'][config_attribute]['cluster.name']
 
+jvm_options_file_source = node['elasticsearch']['version'] >= '5.0' ? "jvm.options.#{node['elasticsearch']['version'].split('.')[0]}.x.erb" : 'jvm.options.2.x.erb'
+
 directory node['elasticsearch']['conf_dir'] do
   mode node['elasticsearch']['dir_mode']
 end
@@ -90,7 +92,7 @@ notify_service_start = if (node['elasticsearch']['service_action'].is_a?(Array) 
 
 template node['elasticsearch']['jvm_options_file'] do
   cookbook node['elasticsearch']['cookbook']
-  source "jvm.options.#{node['elasticsearch']['version'].split('.')[0]}.x.erb"
+  source jvm_options_file_source
   owner node['elasticsearch']['user']
   group node['elasticsearch']['group']
   mode 0600
