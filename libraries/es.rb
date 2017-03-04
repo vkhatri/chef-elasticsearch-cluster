@@ -58,7 +58,9 @@ def tarball_sha256sum(version)
     '5.0.2' => 'bbe761788570d344801cb91a8ba700465deb10601751007da791743e9308cb83',
     '5.1.1' => 'cd45bafb1f74a7df9bad12c77b7bf3080069266bcbe0b256b0959ef2536e31e8',
     '5.1.2' => '74d752f9a8b46898d306ad169b72f328e17215c0909149e156a576089ef11c42',
-    '5.2.0' => '6beec13bc64291020df8532d991b673b94119c5c365e3ddbc154ee35c6032953'
+    '5.2.0' => '6beec13bc64291020df8532d991b673b94119c5c365e3ddbc154ee35c6032953',
+    '5.2.1' => 'f28bfecbb8896bbcf8c6063a474a2ddee29a262c216f56ff6d524fc898094475',
+    '5.2.2' => 'cf88930695794a8949342d386f028548bd10b26ecc8c4b422a94ea674faf8ac9'
   }
   sha256sum = sha256sums[version] || node['elasticsearch']['sha256sum']
   raise "sha256sum is missing for elasticsearch tarball version #{version}" unless sha256sum
