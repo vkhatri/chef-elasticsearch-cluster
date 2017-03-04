@@ -1,12 +1,13 @@
----
-<%
-  chef_omnibus_url = ENV['KITCHEN_CHEF_OMNIBUS_URL'] || nil
-%>
 driver:
-  name: vagrant
+  name: dokken
+  privileged: true
+  chef_version: current
+
+transport:
+  name: dokken
 
 provisioner:
-  name: chef_zero
+  name: dokken
   attributes:
     elasticsearch:
       tarball_purge: true
@@ -16,18 +17,35 @@ provisioner:
       config_v5:
         cluster.name: foo
 
-  <% if chef_omnibus_url %>
-  chef_omnibus_url: '<%= chef_omnibus_url %>'
-  <% end %>
-
 platforms:
-  - name: ubuntu-12.04
-  - name: ubuntu-14.04
-  - name: ubuntu-16.04
-  - name: centos-6.8
-  - name: centos-7.2
-  - name: debian-7.11
-  - name: debian-8.5
+- name: ubuntu-14.04
+  driver:
+    image: ubuntu:14.04
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+      - RUN /usr/bin/apt-get install -y net-tools apt-transport-https initscripts procps lsb-release
+
+- name: ubuntu-16.04
+  driver:
+    image: ubuntu:16.04
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+      - RUN /usr/bin/apt-get install -y net-tools apt-transport-https initscripts procps lsb-release
+
+- name: centos-6.8
+  driver:
+    image: centos:6.8
+    platform: rhel
+    intermediate_instructions:
+      - RUN yum install -y net-tools initscripts which
+
+- name: centos-7
+  driver:
+    image: centos:7
+    pid_one_command: /usr/lib/systemd/systemd
+    platform: rhel
+    intermediate_instructions:
+      - RUN yum install -y net-tools initscripts systemd-sysv which lsof
 
 suites:
   - name: version1package

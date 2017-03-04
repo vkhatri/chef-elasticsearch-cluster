@@ -1,10 +1,52 @@
-language: ruby
-bundler_args: --without integration
-rvm:
-  - 2.3.1
+sudo: required
+dist: trusty
+
+addons:
+  apt:
+    sources:
+      - chef-current-trusty
+    packages:
+      - chefdk
+
+# Don't run bundle install
+install: echo "skip bundle install"
+
 branches:
   only:
     - master
+    - /^(?i:travis).*$/
+    - /^(?i:fix).*$/
+    - /^(?i:feature).*$/
+    - /^(?i:issue).*$/
+
+services: docker
+
+env:
+  matrix:
+    - INSTANCE=version5tarball-centos-68
+    - INSTANCE=version5package-centos-7
+    - INSTANCE=version5package-centos-68
+    - INSTANCE=version5package-ubuntu-1404
 
 script:
-  - bundle exec rake lint
+  - KITCHEN_LOCAL_YAML=.kitchen.dokken.yml /opt/chefdk/embedded/bin/kitchen verify ${INSTANCE}
+  - cat .kitchen/logs/kitchen.log
+
+before_script:
+  - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
+  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+  - /opt/chefdk/embedded/bin/chef --version
+  - /opt/chefdk/embedded/bin/cookstyle --version
+  - /opt/chefdk/embedded/bin/foodcritic --version
+
+
+matrix:
+  allow_failures:
+    - env: INSTANCE=version5tarball-centos-68
+    - env: INSTANCE=version5package-centos-7
+    - env: INSTANCE=version5package-centos-68
+    - env: INSTANCE=version5package-ubuntu-1404
+  include:
+    - script:
+      - /opt/chefdk/bin/chef exec rake
+      env: UNIT_AND_LINT=1

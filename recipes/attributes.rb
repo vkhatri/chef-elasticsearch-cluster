@@ -18,7 +18,6 @@
 #
 
 node.default['elasticsearch']['conf_file'] = ::File.join(node['elasticsearch']['conf_dir'], 'elasticsearch.yml')
-node.default['elasticsearch']['logging_conf_file'] = ::File.join(node['elasticsearch']['conf_dir'], 'logging.yml')
 node.default['elasticsearch']['install_dir'] = ::File.join(node['elasticsearch']['parent_dir'], 'elasticsearch')
 node.default['elasticsearch']['source_dir'] = ::File.join(node['elasticsearch']['parent_dir'], "elasticsearch-#{node['elasticsearch']['version']}")
 node.default['elasticsearch']['home_dir'] = node['elasticsearch']['install_method'] == 'package' ? '/usr/share/elasticsearch' : node['elasticsearch']['install_dir']
@@ -52,8 +51,10 @@ if node['elasticsearch']['version'] >= '5.0'
   node.default['elasticsearch']['yum']['baseurl'] = "https://artifacts.elastic.co/packages/#{repo_version}/yum"
   node.default['elasticsearch']['yum']['gpgkey'] = 'https://artifacts.elastic.co/GPG-KEY-elasticsearch'
   node.default['elasticsearch']['apt']['uri'] = "https://artifacts.elastic.co/packages/#{repo_version}/apt"
+  node.default['elasticsearch']['logging_conf_file'] = ::File.join(node['elasticsearch']['conf_dir'], 'log4j2.properties')
 else
   node.default['elasticsearch']['plugins_binary'] = ::File.join(node['elasticsearch']['bin_dir'], 'plugin')
   node.default['elasticsearch']['yum']['baseurl'] = "http://packages.elastic.co/elasticsearch/#{repo_version}/centos"
   node.default['elasticsearch']['apt']['uri'] = "http://packages.elastic.co/elasticsearch/#{repo_version}/debian"
+  node.default['elasticsearch']['logging_conf_file'] = ::File.join(node['elasticsearch']['conf_dir'], 'logging.yml')
 end

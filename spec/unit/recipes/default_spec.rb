@@ -23,8 +23,8 @@ describe 'elasticsearch-cluster::default' do
         expect(chef_run).to create_template('/etc/elasticsearch/elasticsearch.yml')
       end
 
-      it 'create template elasticsearch configuration file /etc/elasticsearch/logging.yml' do
-        expect(chef_run).to create_template('/etc/elasticsearch/logging.yml')
+      it 'create template elasticsearch logging configuration file' do
+        expect(chef_run).to create_template('logging_conf_file')
       end
 
       it 'enable elasticsearch-cluster service' do

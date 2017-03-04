@@ -18,7 +18,7 @@
 #
 
 tarball_url = if node['elasticsearch']['tarball_url'] == 'auto'
-                node['elasticsearch']['version'].split('.')[0] >= '2' ? "https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/#{node['elasticsearch']['version']}/elasticsearch-#{node['elasticsearch']['version']}.tar.gz" : "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-#{node['elasticsearch']['version']}.tar.gz"
+                node['elasticsearch']['version'].split('.')[0] >= '2' ? "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-#{node['elasticsearch']['version']}.tar.gz" : "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-#{node['elasticsearch']['version']}.tar.gz"
               else
                 node['elasticsearch']['tarball_url']
               end
@@ -74,6 +74,12 @@ link node['elasticsearch']['install_dir'] do
   to node['elasticsearch']['source_dir']
   notifies :restart, 'service[elasticsearch]'
   action :create
+end
+
+# delete default jvm.options file
+file ::File.join(node['elasticsearch']['install_dir'], 'config', 'jvm.options') do
+  action :delete
+  notifies :restart, 'service[elasticsearch]'
 end
 
 # sysv init file

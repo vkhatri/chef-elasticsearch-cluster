@@ -1,4 +1,4 @@
-default['elasticsearch']['version'] = '5.1.2'
+default['elasticsearch']['version'] = '5.2.2'
 default['elasticsearch']['sha256sum'] = nil
 default['elasticsearch']['version_suffix'] = value_for_platform_family(
   'debian' => '',
@@ -60,3 +60,9 @@ default['elasticsearch']['jvm_options_file'] = '/etc/elasticsearch/jvm.options'
 # node['elasticsearch']['XYZ']. this allows users to ignore default
 # config attributes completely
 default['elasticsearch']['config_attribute'] = nil
+
+# set user ulimit
+default['elasticsearch']['setup_user_limits'] = true
+default['elasticsearch']['limits']['memlock'] = 'unlimited'
+default['elasticsearch']['limits']['nofile'] = 65_536
+default['elasticsearch']['limits']['nproc'] = 'unlimited'

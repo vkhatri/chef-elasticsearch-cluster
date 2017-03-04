@@ -25,6 +25,8 @@ config_attribute = if node['elasticsearch']['config_attribute']
 
 raise "require value for node['elasticsearch']['#{config_attribute}']['cluster.name']" unless node['elasticsearch'][config_attribute]['cluster.name']
 
+jvm_options_file_source = node['elasticsearch']['version'] >= '5.0' ? "jvm.options.#{node['elasticsearch']['version'].split('.')[0]}.x.erb" : 'jvm.options.2.x.erb'
+
 directory node['elasticsearch']['conf_dir'] do
   mode node['elasticsearch']['dir_mode']
 end
@@ -73,9 +75,15 @@ template node['elasticsearch']['conf_file'] do
   notifies :restart, 'service[elasticsearch]' if node['elasticsearch']['notify_restart']
 end
 
-template node['elasticsearch']['logging_conf_file'] do
+template 'logging_conf_file' do
   cookbook node['elasticsearch']['cookbook']
-  source 'logging.yml.erb'
+  path node['elasticsearch']['logging_conf_file']
+  if node['elasticsearch']['version'] >= '5.0'
+    source 'log4j2.properties.erb'
+    variables(config: node['elasticsearch']['logging'])
+  else
+    source 'logging.yml.erb'
+  end
   owner node['elasticsearch']['user']
   group node['elasticsearch']['group']
   mode 0600
@@ -90,11 +98,20 @@ notify_service_start = if (node['elasticsearch']['service_action'].is_a?(Array) 
 
 template node['elasticsearch']['jvm_options_file'] do
   cookbook node['elasticsearch']['cookbook']
-  source 'jvm.options.erb'
+  source jvm_options_file_source
   owner node['elasticsearch']['user']
   group node['elasticsearch']['group']
   mode 0600
   notifies :restart, 'service[elasticsearch]' if node['elasticsearch']['notify_restart']
+end
+
+if node['elasticsearch']['setup_user_limits'] # ~FC023
+  user_ulimit node['elasticsearch']['user'] do
+    filehandle_limit node['elasticsearch']['limits']['nofile']
+    process_limit node['elasticsearch']['limits']['nproc']
+    memory_limit node['elasticsearch']['limits']['memlock']
+    notifies :restart, 'service[elasticsearch]', :delayed if node['elasticsearch']['notify_restart']
+  end
 end
 
 ruby_block 'delay elasticsearch service start' do
