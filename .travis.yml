@@ -60,6 +60,9 @@ before_script:
   - /opt/chefdk/embedded/bin/foodcritic --version
 
 matrix:
+  allow_failures:
+    - env: INSTANCE=version5tarball-ubuntu-1404
+    - env: INSTANCE=version5tarball-ubuntu-1604
   include:
     - script:
       - /opt/chefdk/bin/chef exec rake
