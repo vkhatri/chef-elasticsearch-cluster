@@ -1,13 +1,14 @@
 name 'elasticsearch-cluster'
 maintainer 'Virender Khatri'
 maintainer_email 'vir.khatri@gmail.com'
-license 'Apache 2.0'
+license 'Apache-2.0'
 description 'Installs/Configures ElasticSearch Cluster'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '0.5.6'
 
 source_url 'https://github.com/vkhatri/chef-elasticsearch-cluster' if respond_to?(:source_url)
 issues_url 'https://github.com/vkhatri/chef-elasticsearch-cluster/issues' if respond_to?(:issues_url)
+chef_version '>= 12.1'
 
 %w(java yum apt ulimit).each do |d|
   depends d

@@ -15,7 +15,12 @@ desc 'Run Foodcritic Lint Task'
 task :foodcritic do
   puts 'Running Foodcritic Lint..'
   FoodCritic::Rake::LintTask.new do |fc|
-    fc.options = { :fail_tags => ['any'] }
+    fc.options = {
+      :fail_tags => ['any'],
+      :tags => %w(
+        ~FC085
+      )
+    }
   end
 end
 

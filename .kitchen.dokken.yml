@@ -32,9 +32,9 @@ platforms:
       - RUN /usr/bin/apt-get update
       - RUN /usr/bin/apt-get install -y net-tools apt-transport-https initscripts procps lsb-release
 
-- name: centos-6.8
+- name: centos-6
   driver:
-    image: centos:6.8
+    image: centos:6
     platform: rhel
     intermediate_instructions:
       - RUN yum install -y net-tools initscripts which

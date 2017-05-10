@@ -23,10 +23,30 @@ services: docker
 
 env:
   matrix:
-    - INSTANCE=version5tarball-centos-68
+    - INSTANCE=version1package-centos-6
+    - INSTANCE=version1package-centos-7
+    - INSTANCE=version1package-ubuntu-1404
+    - INSTANCE=version1package-ubuntu-1604
+    - INSTANCE=version1tarball-centos-6
+    - INSTANCE=version1tarball-centos-7
+    - INSTANCE=version1tarball-ubuntu-1404
+    - INSTANCE=version1tarball-ubuntu-1604
+    - INSTANCE=version2package-centos-6
+    - INSTANCE=version2package-centos-7
+    - INSTANCE=version2package-ubuntu-1404
+    - INSTANCE=version2package-ubuntu-1604
+    - INSTANCE=version2tarball-centos-6
+    - INSTANCE=version2tarball-centos-7
+    - INSTANCE=version2tarball-ubuntu-1404
+    - INSTANCE=version2tarball-ubuntu-1604
+    - INSTANCE=version5package-centos-6
     - INSTANCE=version5package-centos-7
-    - INSTANCE=version5package-centos-68
     - INSTANCE=version5package-ubuntu-1404
+    - INSTANCE=version5package-ubuntu-1604
+    - INSTANCE=version5tarball-centos-6
+    - INSTANCE=version5tarball-centos-7
+    - INSTANCE=version5tarball-ubuntu-1404
+    - INSTANCE=version5tarball-ubuntu-1604
 
 script:
   - KITCHEN_LOCAL_YAML=.kitchen.dokken.yml /opt/chefdk/embedded/bin/kitchen verify ${INSTANCE}
@@ -39,13 +59,10 @@ before_script:
   - /opt/chefdk/embedded/bin/cookstyle --version
   - /opt/chefdk/embedded/bin/foodcritic --version
 
-
 matrix:
   allow_failures:
-    - env: INSTANCE=version5tarball-centos-68
-    - env: INSTANCE=version5package-centos-7
-    - env: INSTANCE=version5package-centos-68
-    - env: INSTANCE=version5package-ubuntu-1404
+    - env: INSTANCE=version5tarball-ubuntu-1404
+    - env: INSTANCE=version5tarball-ubuntu-1604
   include:
     - script:
       - /opt/chefdk/bin/chef exec rake
