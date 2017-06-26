@@ -244,7 +244,7 @@ to elasticsearch nodes run list
 
 ## Cookbook Core Attributes
 
-* `default['elasticsearch']['version']` (default: `5.1.2`): elasticsearch version to install
+* `default['elasticsearch']['version']` (default: `5.4.2`): elasticsearch version to install
 
 * `default['elasticsearch']['sha256sum']` (default: `nil`): allow users to provide sha256sum for unsupported elasticsearch version tarball file
 
